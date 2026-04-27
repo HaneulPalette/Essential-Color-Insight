@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Essential Color Insight</title>
 
-  <!-- jsPDF library -->
+  <!-- jsPDF Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
@@ -61,6 +61,7 @@
       border-radius: 8px;
       display: none;
       text-align: left;
+      white-space: pre-line;
     }
   </style>
 </head>
@@ -69,8 +70,8 @@
 
 <div class="container">
 
-  <!-- LOGO -->
-  <img src="logo.png" class="logo" alt="Logo">
+  <!-- LOGO ON ANALYSIS PAGE -->
+  <img src="logo.png" class="logo" alt="Haneul Palette Logo">
 
   <h1>🆓 Essential Color Insight</h1>
   <p>Upload your photo to discover your basic color identity</p>
@@ -100,8 +101,9 @@ function analyzeImage() {
     return;
   }
 
-  // 🔴 Demo analysis (replace later with Hugging Face API)
+  // 🔴 Demo result (replace later with Hugging Face API)
   reportData = `
+HANEUL PALETTE
 ESSENTIAL COLOR INSIGHT REPORT
 
 Estimated Season: Soft Autumn
@@ -131,13 +133,30 @@ function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  doc.setFont("helvetica");
-  doc.setFontSize(12);
+  // 🖼️ Add Logo in PDF
+  const img = new Image();
+  img.src = "logo.png";
 
-  const lines = doc.splitTextToSize(reportData, 180);
-  doc.text(lines, 10, 20);
+  img.onload = function () {
 
-  doc.save("Essential_Color_Insight_Report.pdf");
+    // Logo (top center)
+    doc.addImage(img, "PNG", 85, 10, 40, 40);
+
+    // Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("Essential Color Insight Report", 50, 60);
+
+    // Content
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+
+    const lines = doc.splitTextToSize(reportData, 180);
+    doc.text(lines, 10, 75);
+
+    // Save as REAL PDF
+    doc.save("Essential_Color_Insight_Report.pdf");
+  };
 }
 </script>
 
