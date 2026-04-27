@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Essential Color Insight</title>
+
+  <!-- jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,6 +22,14 @@
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 50%;
     }
 
     h1 {
@@ -50,17 +62,15 @@
       display: none;
       text-align: left;
     }
-
-    .download {
-      margin-top: 10px;
-      display: none;
-    }
   </style>
 </head>
 
 <body>
 
 <div class="container">
+
+  <!-- LOGO -->
+  <img src="logo.png" class="logo" alt="Logo">
 
   <h1>🆓 Essential Color Insight</h1>
   <p>Upload your photo to discover your basic color identity</p>
@@ -73,13 +83,15 @@
 
   <div class="result" id="resultBox"></div>
 
-  <button class="download" id="downloadBtn" onclick="downloadReport()">
-    Download Report
+  <button id="pdfBtn" style="display:none;" onclick="generatePDF()">
+    Download PDF Report
   </button>
 
 </div>
 
 <script>
+let reportData = "";
+
 function analyzeImage() {
   const file = document.getElementById("imageInput").files[0];
 
@@ -89,28 +101,43 @@ function analyzeImage() {
   }
 
   // 🔴 Demo analysis (replace later with Hugging Face API)
-  const fakeResult = `
-    <h3>📊 Your Essential Color Insight</h3>
-    <p><b>Estimated Season:</b> Soft Autumn</p>
-    <p><b>Suitable Colors:</b> Beige, Olive Green, Warm Brown, Cream</p>
-    <p><b>Unsuitable Colors:</b> Neon shades, Cool Blue, Pure White</p>
-    <p><b>Harmony Feedback:</b> Your natural tones align with warm muted colors, giving a soft and balanced appearance.</p>
-  `;
+  reportData = `
+ESSENTIAL COLOR INSIGHT REPORT
 
-  document.getElementById("resultBox").innerHTML = fakeResult;
+Estimated Season: Soft Autumn
+
+Suitable Colors:
+- Beige
+- Olive Green
+- Warm Brown
+- Cream
+
+Unsuitable Colors:
+- Neon shades
+- Cool Blue
+- Pure White
+
+Harmony Feedback:
+Your natural tones align best with warm muted colors,
+creating a soft and balanced appearance.
+`;
+
+  document.getElementById("resultBox").innerText = reportData;
   document.getElementById("resultBox").style.display = "block";
-  document.getElementById("downloadBtn").style.display = "inline-block";
+  document.getElementById("pdfBtn").style.display = "inline-block";
 }
 
-// 📄 Download simple report
-function downloadReport() {
-  const content = document.getElementById("resultBox").innerText;
-  const blob = new Blob([content], { type: "text/plain" });
+function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "Essential_Color_Insight_Report.txt";
-  link.click();
+  doc.setFont("helvetica");
+  doc.setFontSize(12);
+
+  const lines = doc.splitTextToSize(reportData, 180);
+  doc.text(lines, 10, 20);
+
+  doc.save("Essential_Color_Insight_Report.pdf");
 }
 </script>
 
