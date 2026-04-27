@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Essential Color Insight</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input {
+      margin: 15px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: none;
+      text-align: left;
+    }
+
+    .download {
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🆓 Essential Color Insight</h1>
+  <p>Upload your photo to discover your basic color identity</p>
+
+  <input type="file" id="imageInput" accept="image/*">
+
+  <br>
+
+  <button onclick="analyzeImage()">Start Analysis</button>
+
+  <div class="result" id="resultBox"></div>
+
+  <button class="download" id="downloadBtn" onclick="downloadReport()">
+    Download Report
+  </button>
+
+</div>
+
+<script>
+function analyzeImage() {
+  const file = document.getElementById("imageInput").files[0];
+
+  if (!file) {
+    alert("Please upload an image first.");
+    return;
+  }
+
+  // 🔴 Demo analysis (replace later with Hugging Face API)
+  const fakeResult = `
+    <h3>📊 Your Essential Color Insight</h3>
+    <p><b>Estimated Season:</b> Soft Autumn</p>
+    <p><b>Suitable Colors:</b> Beige, Olive Green, Warm Brown, Cream</p>
+    <p><b>Unsuitable Colors:</b> Neon shades, Cool Blue, Pure White</p>
+    <p><b>Harmony Feedback:</b> Your natural tones align with warm muted colors, giving a soft and balanced appearance.</p>
+  `;
+
+  document.getElementById("resultBox").innerHTML = fakeResult;
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("downloadBtn").style.display = "inline-block";
+}
+
+// 📄 Download simple report
+function downloadReport() {
+  const content = document.getElementById("resultBox").innerText;
+  const blob = new Blob([content], { type: "text/plain" });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "Essential_Color_Insight_Report.txt";
+  link.click();
+}
+</script>
+
+</body>
+</html>
