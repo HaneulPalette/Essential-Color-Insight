@@ -1,163 +1,2110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Essential Color Insight</title>
+<meta charset="UTF-8">
 
-  <!-- jsPDF Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      text-align: center;
-      padding: 30px;
-    }
+<title>Haneul Palette | Essential Color Insight</title>
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    }
+<!-- PDF Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-    .logo {
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      margin-bottom: 10px;
-      border-radius: 50%;
-    }
+<style>
 
-    h1 {
-      color: #333;
-    }
+/* =========================
+   MAIN PAGE
+========================= */
 
-    input {
-      margin: 15px 0;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    button {
-      padding: 10px 20px;
-      border: none;
-      background: black;
-      color: white;
-      cursor: pointer;
-      border-radius: 6px;
-      margin-top: 10px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #fff7fa 0%,
+    #f8f3ff 50%,
+    #eef8ff 100%
+  );
+  color: #403b40;
+  text-align: center;
+  padding: 30px 15px 50px;
+}
 
-    button:hover {
-      background: #444;
-    }
+.container {
+  max-width: 720px;
+  margin: auto;
+  background: rgba(255,255,255,0.94);
+  padding: 35px 25px;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(90,70,90,0.10);
+}
 
-    .result {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f5f5f5;
-      border-radius: 8px;
-      display: none;
-      text-align: left;
-      white-space: pre-line;
-    }
-  </style>
+/* Logo */
+
+.logo {
+  width: 95px;
+  height: 95px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: 50%;
+}
+
+/* Headings */
+
+h1 {
+  margin: 5px 0 8px;
+  color: #40383f;
+  font-size: 30px;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: #756b73;
+  margin-bottom: 12px;
+}
+
+.intro {
+  max-width: 600px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
+  color: #665e65;
+}
+
+/* Sections */
+
+.section {
+  text-align: left;
+  margin: 30px 0;
+  padding: 24px;
+  background: #fffafd;
+  border: 1px solid #f0e4ec;
+  border-radius: 18px;
+}
+
+.section h2 {
+  margin-top: 0;
+  color: #4b4149;
+  font-size: 21px;
+}
+
+.section p {
+  line-height: 1.65;
+}
+
+.feature {
+  margin: 15px 0;
+}
+
+.feature strong {
+  display: block;
+  color: #4b4149;
+  margin-bottom: 4px;
+}
+
+.feature span {
+  color: #70666d;
+  line-height: 1.55;
+}
+
+/* Lists */
+
+ul {
+  padding-left: 22px;
+}
+
+li {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* Pricing */
+
+.price-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.price {
+  min-width: 180px;
+  padding: 18px;
+  border-radius: 15px;
+  background: #fff;
+  border: 1px solid #eee0e8;
+}
+
+.price strong {
+  display: block;
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+/* Upload */
+
+.upload-area {
+  margin-top: 30px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px dashed #d9c6d2;
+}
+
+input[type="file"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd0d8;
+  background: #fff;
+}
+
+/* Buttons */
+
+button {
+  border: none;
+  padding: 13px 25px;
+  border-radius: 30px;
+  background: #40383f;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: #665866;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Result */
+
+.result-wrapper {
+  display: none;
+  margin-top: 35px;
+}
+
+.result-card {
+  text-align: left;
+  background: #fff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 8px 28px rgba(80,60,80,0.08);
+  border: 1px solid #eee3ea;
+}
+
+.result-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.result-title h2 {
+  margin: 0;
+  color: #453b43;
+}
+
+.result-title p {
+  color: #776c74;
+}
+
+.identity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.identity-box {
+  background: #fbf7fa;
+  border-radius: 14px;
+  padding: 15px;
+  text-align: center;
+}
+
+.identity-box span {
+  display: block;
+  font-size: 12px;
+  color: #82767f;
+  margin-bottom: 5px;
+}
+
+.identity-box strong {
+  color: #453b43;
+  font-size: 16px;
+}
+
+.result-section {
+  margin-top: 25px;
+}
+
+.result-section h3 {
+  color: #4c424a;
+  margin-bottom: 10px;
+}
+
+.result-section p {
+  line-height: 1.65;
+  color: #665e65;
+}
+
+/* Color swatches */
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.swatch {
+  width: 78px;
+  height: 58px;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 5px;
+  font-size: 10px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Disclaimer */
+
+.disclaimer {
+  margin-top: 25px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #faf7f9;
+  color: #756b73;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* PDF button */
+
+.pdf-area {
+  text-align: center;
+  margin-top: 28px;
+}
+
+#pdfStatus {
+  margin-top: 10px;
+  color: #756b73;
+  font-size: 14px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 15px 10px 35px;
+  }
+
+  .container {
+    padding: 25px 16px;
+    border-radius: 18px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .identity-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .swatch {
+    width: 68px;
+  }
+}
+
+
+/* =========================
+   HIDDEN PDF PAGES
+========================= */
+
+#pdfContainer {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 794px;
+}
+
+.pdf-page {
+  width: 794px;
+  height: 1123px;
+  padding: 55px;
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #fff4f8 0%,
+    #f8f1ff 48%,
+    #eef8ff 100%
+  );
+}
+
+.pdf-overlay {
+  position: absolute;
+  inset: 25px;
+  border: 1px solid rgba(255,255,255,0.75);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.10);
+  pointer-events: none;
+}
+
+.pdf-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+.pdf-signature {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.pdf-signature img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.pdf-brand {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #4a4048;
+}
+
+.pdf-small {
+  font-size: 10px;
+  color: #776d75;
+  margin-top: 3px;
+}
+
+.pdf-title {
+  text-align: center;
+  margin: 10px 0 22px;
+}
+
+.pdf-title h1 {
+  font-size: 27px;
+  margin: 0 0 7px;
+  color: #40383f;
+}
+
+.pdf-title p {
+  font-size: 12px;
+  color: #716770;
+}
+
+.pdf-section {
+  background: rgba(255,255,255,0.58);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.pdf-section h2 {
+  font-size: 16px;
+  color: #473e45;
+  margin: 0 0 12px;
+}
+
+.pdf-identity {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.pdf-identity-box {
+  background: rgba(255,255,255,0.65);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.pdf-identity-box span {
+  display: block;
+  font-size: 9px;
+  color: #7c7179;
+  margin-bottom: 4px;
+}
+
+.pdf-identity-box strong {
+  font-size: 13px;
+  color: #453c43;
+}
+
+.pdf-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.pdf-swatch {
+  width: 68px;
+  height: 50px;
+  border-radius: 9px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  font-size: 8px;
+  color: #333;
+}
+
+.pdf-list {
+  font-size: 11px;
+  line-height: 1.55;
+  margin: 0;
+  padding-left: 17px;
+}
+
+.pdf-list li {
+  margin: 4px 0;
+}
+
+.pdf-text {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #5f565d;
+}
+
+.pdf-footer {
+  position: absolute;
+  bottom: 38px;
+  left: 55px;
+  right: 55px;
+  text-align: center;
+  font-size: 9px;
+  color: #81767e;
+}
+
+.pdf-page-2 {
+  padding-top: 55px;
+}
+
+.pdf-note {
+  font-size: 9px;
+  line-height: 1.55;
+  color: #756a72;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <!-- LOGO ON ANALYSIS PAGE -->
+  <!-- LOGO -->
   <img src="logo.png" class="logo" alt="Haneul Palette Logo">
 
   <h1>🆓 Essential Color Insight</h1>
-  <p>Upload your photo to discover your basic color identity</p>
 
-  <input type="file" id="imageInput" accept="image/*">
+  <div class="subtitle">
+    A gentle introduction to your personal color identity.
+  </div>
 
-  <br>
+  <p class="intro">
+    Discover the colors that may naturally harmonize with your features
+    through a simple, photo-based color analysis.
+    This free experience gives you an estimated seasonal color direction,
+    a basic color guide, and a simple starting point for understanding
+    which colors may complement your overall appearance.
+  </p>
 
-  <button onclick="analyzeImage()">Start Analysis</button>
 
-  <div class="result" id="resultBox"></div>
+  <!-- WHAT YOU GET -->
 
-  <button id="pdfBtn" style="display:none;" onclick="generatePDF()">
-    Download PDF Report
-  </button>
+  <div class="section">
+
+    <h2>✨ What You Get</h2>
+
+    <div class="feature">
+      <strong>📷 Photo-Based Color Evaluation</strong>
+      <span>
+        A basic evaluation of the visible color characteristics
+        in your uploaded photo.
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>🎨 Estimated Seasonal Color Category</strong>
+      <span>
+        Discover your estimated color family:
+        Spring · Summer · Autumn · Winter
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>🌡️ Basic Color Direction</strong>
+      <span>
+        Understand your general color direction:
+        Warm · Cool · Neutral
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>💡 Basic Color Characteristics</strong>
+      <span>
+        A simple indication of whether your coloring appears
+        Light · Medium · Deep and Bright · Balanced · Soft.
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>👔 Suitable Color Guide</strong>
+      <span>
+        Explore a small selection of colors that may naturally
+        complement your overall coloring.
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>⚠️ Colors to Use Carefully</strong>
+      <span>
+        See a few color directions that may be less harmonious
+        with your estimated coloring.
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>✨ Basic Visual Harmony Feedback</strong>
+      <span>
+        Receive a short explanation of how your estimated color
+        direction may interact with your overall appearance.
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>📄 Personalized Result Preview</strong>
+      <span>
+        See your own Essential Color Insight result immediately
+        after analysis.
+      </span>
+    </div>
+
+    <div class="feature">
+      <strong>⬇️ Downloadable Basic Report</strong>
+      <span>
+        Save your personalized Essential Color Insight as a PDF
+        for future reference.
+      </span>
+    </div>
+
+  </div>
+
+
+  <!-- WHAT THIS HELPS -->
+
+  <div class="section">
+
+    <h2>💡 What This Helps You Understand</h2>
+
+    <ul>
+      <li>Your natural color direction</li>
+      <li>Your estimated seasonal color family</li>
+      <li>Whether warmer, cooler, or more neutral colors may suit you</li>
+      <li>Whether lighter or deeper colors may be more harmonious</li>
+      <li>Whether clearer or softer colors may work better for you</li>
+      <li>A few everyday colors you can explore in clothing</li>
+      <li>A simple starting point for discovering your personal style direction</li>
+    </ul>
+
+    <p>
+      This is an introductory analysis, designed to give you
+      a simple first look at your color identity.
+    </p>
+
+  </div>
+
+
+  <!-- PRICING -->
+
+  <div class="section">
+
+    <h2>💰 Pricing</h2>
+
+    <div class="price-box">
+
+      <div class="price">
+        🇮🇳 India
+        <strong>₹0</strong>
+        Completely Free
+      </div>
+
+      <div class="price">
+        🌍 International
+        <strong>$0</strong>
+        Completely Free
+      </div>
+
+    </div>
+
+    <p style="text-align:center;">
+      No payment required.
+    </p>
+
+  </div>
+
+
+  <!-- ANALYSIS -->
+
+  <div class="section">
+
+    <h2 style="text-align:center;">
+      🚀 Start Your Free Analysis
+    </h2>
+
+    <p style="text-align:center;">
+      <strong>Discover Your Color Direction</strong>
+    </p>
+
+    <p style="text-align:center;">
+      Upload a clear, front-facing photo to receive your
+      <strong>Essential Color Insight instantly.</strong>
+    </p>
+
+    <div class="upload-area">
+
+      <p>
+        For a better result, use a photo with:
+      </p>
+
+      <ul style="text-align:left;">
+        <li>Clear visibility of your face</li>
+        <li>Natural or balanced lighting</li>
+        <li>Minimal filters</li>
+        <li>Minimal color cast from the surroundings</li>
+      </ul>
+
+      <input
+        type="file"
+        id="imageInput"
+        accept="image/*"
+      >
+
+      <br>
+
+      <button id="analyzeBtn" onclick="analyzeImage()">
+        Analyze My Colors
+      </button>
+
+      <div id="loadingText"
+           style="display:none;margin-top:15px;color:#756b73;">
+        Analyzing your photo...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- RESULT -->
+
+  <div class="result-wrapper" id="resultWrapper">
+
+    <div class="result-card">
+
+      <div class="result-title">
+
+        <h2>✨ Your Essential Color Identity</h2>
+
+        <p>
+          Your personalized introductory result
+        </p>
+
+      </div>
+
+
+      <div class="identity-grid">
+
+        <div class="identity-box">
+          <span>Estimated Season</span>
+          <strong id="seasonResult">—</strong>
+        </div>
+
+        <div class="identity-box">
+          <span>Color Direction</span>
+          <strong id="directionResult">—</strong>
+        </div>
+
+        <div class="identity-box">
+          <span>Depth</span>
+          <strong id="depthResult">—</strong>
+        </div>
+
+        <div class="identity-box">
+          <span>Color Quality</span>
+          <strong id="qualityResult">—</strong>
+        </div>
+
+      </div>
+
+
+      <div class="result-section">
+
+        <h3>🎨 Your Starter Color Palette</h3>
+
+        <p>
+          A small selection of colors based on your estimated
+          color direction.
+        </p>
+
+        <div class="swatches" id="paletteResult"></div>
+
+      </div>
+
+
+      <div class="result-section">
+
+        <h3>👔 Colors to Explore</h3>
+
+        <div id="suitableResult"></div>
+
+      </div>
+
+
+      <div class="result-section">
+
+        <h3>⚠️ Colors to Use Carefully</h3>
+
+        <div id="unsuitableResult"></div>
+
+      </div>
+
+
+      <div class="result-section">
+
+        <h3>✨ Basic Style Direction</h3>
+
+        <p id="styleResult"></p>
+
+      </div>
+
+
+      <div class="result-section">
+
+        <h3>💬 Harmony Feedback</h3>
+
+        <p id="harmonyResult"></p>
+
+      </div>
+
+
+      <div class="disclaimer">
+
+        <strong>📷 About Your Result</strong>
+        <br><br>
+
+        Your Essential Color Insight is based on the visible
+        color characteristics in your uploaded image.
+
+        Different photos may produce different results because
+        lighting, exposure, camera settings, filters, makeup,
+        clothing, and background colors can affect the visible
+        appearance of colors.
+
+        <br><br>
+
+        This free analysis is intended as a basic introductory
+        color guide, not a definitive professional color diagnosis.
+
+      </div>
+
+
+      <div class="pdf-area">
+
+        <button id="pdfBtn" onclick="generatePDF()">
+          Download My Color Insight PDF
+        </button>
+
+        <div id="pdfStatus"></div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
+
+<!-- =========================
+     HIDDEN PDF
+========================= -->
+
+<div id="pdfContainer">
+
+  <!-- PAGE 1 -->
+
+  <div class="pdf-page" id="pdfPage1">
+
+    <div class="pdf-overlay"></div>
+
+    <div class="pdf-content">
+
+      <!-- LOGO AS SIGNATURE AT TOP -->
+
+      <div class="pdf-signature">
+
+        <img src="logo.png" alt="Haneul Palette">
+
+        <div class="pdf-brand">
+          HANEUL PALETTE
+        </div>
+
+        <div class="pdf-small">
+          Korean-Inspired Personal Color Analysis
+        </div>
+
+      </div>
+
+
+      <div class="pdf-title">
+
+        <h1>
+          Essential Color Insight
+        </h1>
+
+        <p>
+          Free Personalized Color Result
+        </p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          Your Essential Color Identity
+        </h2>
+
+        <div class="pdf-identity">
+
+          <div class="pdf-identity-box">
+            <span>Estimated Season</span>
+            <strong id="pdfSeason">—</strong>
+          </div>
+
+          <div class="pdf-identity-box">
+            <span>Color Direction</span>
+            <strong id="pdfDirection">—</strong>
+          </div>
+
+          <div class="pdf-identity-box">
+            <span>Depth</span>
+            <strong id="pdfDepth">—</strong>
+          </div>
+
+          <div class="pdf-identity-box">
+            <span>Color Quality</span>
+            <strong id="pdfQuality">—</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          🎨 Your Starter Color Palette
+        </h2>
+
+        <div
+          class="pdf-swatches"
+          id="pdfPalette">
+        </div>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          👔 Colors to Explore
+        </h2>
+
+        <ul
+          class="pdf-list"
+          id="pdfSuitable">
+        </ul>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          ⚠️ Colors to Use Carefully
+        </h2>
+
+        <ul
+          class="pdf-list"
+          id="pdfUnsuitable">
+        </ul>
+
+      </div>
+
+
+      <div class="pdf-footer">
+        Haneul Palette · Essential Color Insight
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- PAGE 2 -->
+
+  <div class="pdf-page pdf-page-2" id="pdfPage2">
+
+    <div class="pdf-overlay"></div>
+
+    <div class="pdf-content">
+
+      <div class="pdf-title">
+
+        <h1>
+          Your Color Direction
+        </h1>
+
+        <p>
+          A simple guide based on your uploaded image
+        </p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          ✨ Basic Style Direction
+        </h2>
+
+        <p
+          class="pdf-text"
+          id="pdfStyle">
+        </p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          💬 Harmony Feedback
+        </h2>
+
+        <p
+          class="pdf-text"
+          id="pdfHarmony">
+        </p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          📷 About Your Result
+        </h2>
+
+        <p class="pdf-note">
+
+          Your Essential Color Insight is based on the visible
+          color characteristics in your uploaded image.
+
+          Different photos may produce different results because
+          lighting, exposure, camera settings, filters, makeup,
+          clothing, and background colors can affect the visible
+          appearance of colors.
+
+          <br><br>
+
+          This free analysis is intended as a basic introductory
+          color guide, not a definitive professional color diagnosis.
+
+        </p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h2>
+          🌸 Explore Your Colors
+        </h2>
+
+        <p class="pdf-text">
+
+          Use these colors as a simple starting point when
+          exploring everyday clothing and personal style.
+
+          Your color identity can be explored further through
+          more detailed personal color analysis.
+
+        </p>
+
+      </div>
+
+
+      <div class="pdf-footer">
+        Haneul Palette · Essential Color Insight · Free Analysis
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
-let reportData = "";
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let report = null;
+
+
+/*
+  Seasonal palettes.
+
+  These are intentionally limited because this is the
+  FREE Essential Color Insight, not the paid detailed analysis.
+*/
+
+const seasonData = {
+
+  Spring: {
+
+    direction: "Warm",
+
+    colors: [
+      ["Warm Ivory", "#FFF1D6"],
+      ["Peach", "#F7B58B"],
+      ["Coral", "#E9826A"],
+      ["Warm Aqua", "#71C9C0"],
+      ["Fresh Green", "#8DBB63"],
+      ["Camel", "#C49A6C"],
+      ["Warm Sky", "#8FC7D8"],
+      ["Golden Beige", "#D8B37A"]
+    ],
+
+    suitable: [
+      "Warm Ivory",
+      "Peach",
+      "Coral",
+      "Fresh Green",
+      "Camel"
+    ],
+
+    unsuitable: [
+      "Very cool grey",
+      "Icy blue",
+      "Harsh black",
+      "Neon cool tones"
+    ],
+
+    style:
+      "Warm, fresh and lively colors can create a naturally balanced direction. Medium-light shades and warm neutrals may work especially well for everyday clothing.",
+
+    harmony:
+      "Your visible color characteristics show a warmer direction with a fresher, clearer quality. Warm and lively shades may help create a harmonious connection with your natural appearance."
+  },
+
+
+  Summer: {
+
+    direction: "Cool",
+
+    colors: [
+      ["Soft White", "#F4F1EA"],
+      ["Dusty Blue", "#829DB5"],
+      ["Soft Lavender", "#A99BC5"],
+      ["Rose", "#C98F9D"],
+      ["Cool Sage", "#91A99B"],
+      ["Mauve", "#9C7488"],
+      ["Blue Grey", "#7E92A5"],
+      ["Soft Navy", "#4F6178"]
+    ],
+
+    suitable: [
+      "Dusty Blue",
+      "Soft Lavender",
+      "Rose",
+      "Cool Sage",
+      "Soft Navy"
+    ],
+
+    unsuitable: [
+      "Orange",
+      "Strong yellow",
+      "Neon green",
+      "Very warm brown"
+    ],
+
+    style:
+      "Cool, softer and balanced colors can create a refined everyday direction. Muted blues, soft neutrals and gentle cool shades may work particularly well.",
+
+    harmony:
+      "Your visible color characteristics show a cooler direction with a softer quality. Muted and balanced cool colors may blend naturally with your overall appearance."
+  },
+
+
+  Autumn: {
+
+    direction: "Warm",
+
+    colors: [
+      ["Cream", "#F1DFC0"],
+      ["Camel", "#B98A5A"],
+      ["Olive", "#78804D"],
+      ["Terracotta", "#B8664E"],
+      ["Rust", "#9C513E"],
+      ["Warm Brown", "#76533D"],
+      ["Mustard", "#C19A3A"],
+      ["Deep Teal", "#3E706A"]
+    ],
+
+    suitable: [
+      "Camel",
+      "Olive",
+      "Terracotta",
+      "Rust",
+      "Warm Brown"
+    ],
+
+    unsuitable: [
+      "Icy blue",
+      "Cool lavender",
+      "Neon pink",
+      "Pure white"
+    ],
+
+    style:
+      "Warm, earthy and softly rich colors can create a grounded style direction. Warm neutrals and natural shades may be especially easy to incorporate into everyday outfits.",
+
+    harmony:
+      "Your visible color characteristics show a warmer direction with a softer, deeper quality. Earthy and muted colors may create a balanced relationship with your natural coloring."
+  },
+
+
+  Winter: {
+
+    direction: "Cool",
+
+    colors: [
+      ["Pure White", "#FFFFFF"],
+      ["Black", "#151515"],
+      ["Cobalt Blue", "#3159B7"],
+      ["Cool Red", "#B52D48"],
+      ["Emerald", "#16765C"],
+      ["Deep Navy", "#253A69"],
+      ["Berry", "#873D65"],
+      ["Cool Pink", "#D46C91"]
+    ],
+
+    suitable: [
+      "Cobalt Blue",
+      "Emerald",
+      "Deep Navy",
+      "Berry",
+      "Cool Red"
+    ],
+
+    unsuitable: [
+      "Dusty beige",
+      "Orange",
+      "Yellow-brown",
+      "Very muted olive"
+    ],
+
+    style:
+      "Clearer, stronger and cooler colors can create a crisp style direction. Deep neutrals and defined cool shades may work well for everyday and formal clothing.",
+
+    harmony:
+      "Your visible color characteristics show a cooler direction with clearer or deeper qualities. Defined cool shades may create stronger visual harmony with your overall appearance."
+  }
+
+};
+
+
+/* =========================================================
+   COLOR UTILITIES
+========================================================= */
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+
+/*
+  Convert RGB to HSL.
+*/
+
+function rgbToHsl(r, g, b) {
+
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+
+  let h = 0;
+  let s = 0;
+
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+
+    const d = max - min;
+
+    s = l > 0.5
+      ? d / (2 - max - min)
+      : d / (max + min);
+
+    switch (max) {
+
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+
+      case g:
+        h = (b - r) / d + 2;
+        break;
+
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+
+    h /= 6;
+  }
+
+  return {
+    h: h * 360,
+    s: s * 100,
+    l: l * 100
+  };
+}
+
+
+/*
+  Check whether a pixel is likely to contain skin-like
+  visible information.
+
+  This is deliberately broad because photographs can
+  contain different skin tones and lighting conditions.
+*/
+
+function isSkinLike(r, g, b) {
+
+  const hsl = rgbToHsl(r, g, b);
+
+  const warmSkin =
+    r > g &&
+    g >= b &&
+    r - b > 12;
+
+  const lightEnough =
+    hsl.l > 15 &&
+    hsl.l < 88;
+
+  const reasonableSaturation =
+    hsl.s > 8 &&
+    hsl.s < 90;
+
+  return warmSkin &&
+         lightEnough &&
+         reasonableSaturation;
+}
+
+
+/* =========================================================
+   IMAGE ANALYSIS
+========================================================= */
 
 function analyzeImage() {
-  const file = document.getElementById("imageInput").files[0];
+
+  const file =
+    document.getElementById("imageInput").files[0];
 
   if (!file) {
+
     alert("Please upload an image first.");
+
     return;
   }
 
-  // 🔴 Demo result (replace later with Hugging Face API)
-  reportData = `
-HANEUL PALETTE
-ESSENTIAL COLOR INSIGHT REPORT
+  const analyzeBtn =
+    document.getElementById("analyzeBtn");
 
-Estimated Season: Soft Autumn
+  const loadingText =
+    document.getElementById("loadingText");
 
-Suitable Colors:
-- Beige
-- Olive Green
-- Warm Brown
-- Cream
+  analyzeBtn.disabled = true;
 
-Unsuitable Colors:
-- Neon shades
-- Cool Blue
-- Pure White
+  loadingText.style.display = "block";
 
-Harmony Feedback:
-Your natural tones align best with warm muted colors,
-creating a soft and balanced appearance.
-`;
-
-  document.getElementById("resultBox").innerText = reportData;
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("pdfBtn").style.display = "inline-block";
-}
-
-function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  // 🖼️ Add Logo in PDF
   const img = new Image();
-  img.src = "logo.png";
 
-  img.onload = function () {
+  img.onload = function() {
 
-    // Logo (top center)
-    doc.addImage(img, "PNG", 85, 10, 40, 40);
+    try {
 
-    // Title
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(14);
-    doc.text("Essential Color Insight Report", 50, 60);
+      const canvas = document.createElement("canvas");
 
-    // Content
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
+      /*
+        Keep analysis lightweight.
+      */
 
-    const lines = doc.splitTextToSize(reportData, 180);
-    doc.text(lines, 10, 75);
+      const maxSize = 500;
 
-    // Save as REAL PDF
-    doc.save("Essential_Color_Insight_Report.pdf");
+      let width = img.naturalWidth;
+      let height = img.naturalHeight;
+
+      if (width > height) {
+
+        if (width > maxSize) {
+          height *= maxSize / width;
+          width = maxSize;
+        }
+
+      } else {
+
+        if (height > maxSize) {
+          width *= maxSize / height;
+          height = maxSize;
+        }
+      }
+
+      canvas.width = Math.round(width);
+      canvas.height = Math.round(height);
+
+      const ctx = canvas.getContext("2d", {
+        willReadFrequently: true
+      });
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      const imageData =
+        ctx.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+      const pixels = imageData.data;
+
+      let totalR = 0;
+      let totalG = 0;
+      let totalB = 0;
+
+      let skinR = 0;
+      let skinG = 0;
+      let skinB = 0;
+
+      let totalCount = 0;
+      let skinCount = 0;
+
+      let saturationTotal = 0;
+      let brightnessTotal = 0;
+
+      /*
+        Sample every few pixels rather than every pixel.
+      */
+
+      for (
+        let i = 0;
+        i < pixels.length;
+        i += 16
+      ) {
+
+        const r = pixels[i];
+        const g = pixels[i + 1];
+        const b = pixels[i + 2];
+        const a = pixels[i + 3];
+
+        if (a < 180) continue;
+
+        totalR += r;
+        totalG += g;
+        totalB += b;
+
+        const hsl =
+          rgbToHsl(r, g, b);
+
+        saturationTotal += hsl.s;
+        brightnessTotal += hsl.l;
+
+        totalCount++;
+
+        if (isSkinLike(r, g, b)) {
+
+          skinR += r;
+          skinG += g;
+          skinB += b;
+
+          skinCount++;
+        }
+      }
+
+
+      if (totalCount === 0) {
+
+        throw new Error("No usable image data.");
+      }
+
+
+      /*
+        Prefer skin-like pixels when enough are available.
+      */
+
+      let avgR;
+      let avgG;
+      let avgB;
+
+      if (skinCount >= 20) {
+
+        avgR = skinR / skinCount;
+        avgG = skinG / skinCount;
+        avgB = skinB / skinCount;
+
+      } else {
+
+        avgR = totalR / totalCount;
+        avgG = totalG / totalCount;
+        avgB = totalB / totalCount;
+      }
+
+
+      const hsl =
+        rgbToHsl(
+          avgR,
+          avgG,
+          avgB
+        );
+
+
+      /*
+        Warmth score.
+
+        Positive = warmer
+        Negative = cooler
+      */
+
+      const warmth =
+        ((avgR - avgB) * 0.7) +
+        ((avgG - avgB) * 0.3);
+
+
+      /*
+        Estimate overall visible saturation/brightness.
+      */
+
+      const averageSaturation =
+        saturationTotal / totalCount;
+
+      const averageLightness =
+        brightnessTotal / totalCount;
+
+
+      /*
+        Estimate color quality.
+      */
+
+      let quality;
+
+      if (averageSaturation >= 34) {
+
+        quality = "Bright";
+
+      } else if (averageSaturation <= 22) {
+
+        quality = "Soft";
+
+      } else {
+
+        quality = "Balanced";
+      }
+
+
+      /*
+        Estimate depth.
+
+        This is based on visible tonal depth rather than
+        claiming an exact skin-depth measurement.
+      */
+
+      let depth;
+
+      if (hsl.l >= 67) {
+
+        depth = "Light";
+
+      } else if (hsl.l <= 38) {
+
+        depth = "Deep";
+
+      } else {
+
+        depth = "Medium";
+      }
+
+
+      /*
+        Estimate season.
+
+        Warm + bright/light → Spring
+        Warm + softer/deeper → Autumn
+        Cool + softer/light → Summer
+        Cool + clearer/deeper → Winter
+      */
+
+      let season;
+
+      if (warmth >= 18) {
+
+        if (
+          quality === "Bright" ||
+          depth === "Light"
+        ) {
+
+          season = "Spring";
+
+        } else {
+
+          season = "Autumn";
+        }
+
+      } else if (warmth <= 5) {
+
+        if (
+          quality === "Soft" ||
+          depth === "Light"
+        ) {
+
+          season = "Summer";
+
+        } else {
+
+          season = "Winter";
+        }
+
+      } else {
+
+        /*
+          Neutral zone.
+
+          Use depth and saturation to make the result
+          deterministic rather than random.
+        */
+
+        if (depth === "Light") {
+
+          season =
+            quality === "Bright"
+              ? "Spring"
+              : "Summer";
+
+        } else if (depth === "Deep") {
+
+          season =
+            quality === "Soft"
+              ? "Autumn"
+              : "Winter";
+
+        } else {
+
+          if (quality === "Bright") {
+
+            season =
+              warmth >= 11
+                ? "Spring"
+                : "Winter";
+
+          } else {
+
+            season =
+              warmth >= 11
+                ? "Autumn"
+                : "Summer";
+          }
+        }
+      }
+
+
+      /*
+        Color direction.
+      */
+
+      let direction;
+
+      if (warmth >= 12) {
+
+        direction = "Warm";
+
+      } else if (warmth <= 5) {
+
+        direction = "Cool";
+
+      } else {
+
+        direction = "Neutral";
+      }
+
+
+      /*
+        Build report.
+      */
+
+      const data = seasonData[season];
+
+      report = {
+
+        season: season,
+
+        direction: direction,
+
+        depth: depth,
+
+        quality: quality,
+
+        colors: data.colors,
+
+        suitable: data.suitable,
+
+        unsuitable: data.unsuitable,
+
+        style: data.style,
+
+        harmony: data.harmony,
+
+        /*
+          Keep these internally for deterministic variation.
+        */
+
+        imageWarmth: Math.round(warmth),
+
+        imageLightness: Math.round(hsl.l),
+
+        imageSaturation: Math.round(hsl.s)
+      };
+
+
+      displayResult(report);
+
+      loadingText.style.display = "none";
+
+      analyzeBtn.disabled = false;
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      loadingText.style.display = "none";
+
+      analyzeBtn.disabled = false;
+
+      alert(
+        "We couldn't analyze this image. Please try a clear JPG or PNG photo."
+      );
+    }
+
   };
+
+
+  img.onerror = function() {
+
+    loadingText.style.display = "none";
+
+    analyzeBtn.disabled = false;
+
+    alert(
+      "The uploaded image could not be read. Please try another photo."
+    );
+  };
+
+
+  img.src =
+    URL.createObjectURL(file);
 }
+
+
+/* =========================================================
+   DISPLAY RESULT
+========================================================= */
+
+function displayResult(data) {
+
+  document.getElementById("seasonResult").innerText =
+    data.season;
+
+  document.getElementById("directionResult").innerText =
+    data.direction;
+
+  document.getElementById("depthResult").innerText =
+    data.depth;
+
+  document.getElementById("qualityResult").innerText =
+    data.quality;
+
+
+  /* Palette */
+
+  const palette =
+    document.getElementById("paletteResult");
+
+  palette.innerHTML = "";
+
+
+  data.colors.forEach(function(color) {
+
+    const swatch =
+      document.createElement("div");
+
+    swatch.className = "swatch";
+
+    swatch.style.background =
+      color[1];
+
+    swatch.innerText =
+      color[0];
+
+    palette.appendChild(swatch);
+
+  });
+
+
+  /* Suitable colors */
+
+  document.getElementById("suitableResult").innerHTML =
+    createList(data.suitable);
+
+
+  /* Unsuitable colors */
+
+  document.getElementById("unsuitableResult").innerHTML =
+    createList(data.unsuitable);
+
+
+  /* Style */
+
+  document.getElementById("styleResult").innerText =
+    data.style;
+
+
+  /* Harmony */
+
+  document.getElementById("harmonyResult").innerText =
+    data.harmony;
+
+
+  /*
+    Show result.
+  */
+
+  document.getElementById("resultWrapper").style.display =
+    "block";
+
+
+  /*
+    Scroll gently to result.
+  */
+
+  setTimeout(function() {
+
+    document.getElementById("resultWrapper")
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+  }, 150);
+
+}
+
+
+function createList(items) {
+
+  let html = "<ul>";
+
+  items.forEach(function(item) {
+
+    html += "<li>" + item + "</li>";
+
+  });
+
+  html += "</ul>";
+
+  return html;
+}
+
+
+/* =========================================================
+   PDF
+========================================================= */
+
+function preparePDF() {
+
+  if (!report) return;
+
+
+  /*
+    Basic information
+  */
+
+  document.getElementById("pdfSeason").innerText =
+    report.season;
+
+  document.getElementById("pdfDirection").innerText =
+    report.direction;
+
+  document.getElementById("pdfDepth").innerText =
+    report.depth;
+
+  document.getElementById("pdfQuality").innerText =
+    report.quality;
+
+
+  /*
+    Palette
+  */
+
+  const pdfPalette =
+    document.getElementById("pdfPalette");
+
+  pdfPalette.innerHTML = "";
+
+
+  report.colors.forEach(function(color) {
+
+    const swatch =
+      document.createElement("div");
+
+    swatch.className =
+      "pdf-swatch";
+
+    swatch.style.background =
+      color[1];
+
+    swatch.innerText =
+      color[0];
+
+    pdfPalette.appendChild(swatch);
+
+  });
+
+
+  /*
+    Suitable list
+  */
+
+  document.getElementById("pdfSuitable").innerHTML =
+    report.suitable
+      .map(function(item) {
+        return "<li>" + item + "</li>";
+      })
+      .join("");
+
+
+  /*
+    Unsuitable list
+  */
+
+  document.getElementById("pdfUnsuitable").innerHTML =
+    report.unsuitable
+      .map(function(item) {
+        return "<li>" + item + "</li>";
+      })
+      .join("");
+
+
+  /*
+    Page 2
+  */
+
+  document.getElementById("pdfStyle").innerText =
+    report.style;
+
+  document.getElementById("pdfHarmony").innerText =
+    report.harmony;
+}
+
+
+/* =========================================================
+   GENERATE PDF
+========================================================= */
+
+async function generatePDF() {
+
+  if (!report) {
+
+    alert(
+      "Please complete your color analysis first."
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById("pdfBtn");
+
+  const status =
+    document.getElementById("pdfStatus");
+
+
+  button.disabled = true;
+
+  status.innerText =
+    "Preparing your personalized PDF...";
+
+
+  try {
+
+    preparePDF();
+
+
+    /*
+      Give the browser a moment to render the PDF pages.
+    */
+
+    await new Promise(function(resolve) {
+
+      setTimeout(resolve, 300);
+
+    });
+
+
+    const {
+      jsPDF
+    } = window.jspdf;
+
+
+    const doc =
+      new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+
+
+    const pages = [
+      document.getElementById("pdfPage1"),
+      document.getElementById("pdfPage2")
+    ];
+
+
+    for (
+      let i = 0;
+      i < pages.length;
+      i++
+    ) {
+
+      const canvas =
+        await html2canvas(
+          pages[i],
+          {
+            scale: 1.5,
+            useCORS: false,
+            allowTaint: false,
+            backgroundColor: null,
+            logging: false
+          }
+        );
+
+
+      const imgData =
+        canvas.toDataURL(
+          "image/jpeg",
+          0.92
+        );
+
+
+      if (i > 0) {
+
+        doc.addPage();
+
+      }
+
+
+      doc.addImage(
+        imgData,
+        "JPEG",
+        0,
+        0,
+        210,
+        297
+      );
+
+    }
+
+
+    doc.save(
+      "Haneul-Palette-Men-Essential-Color-Insight-Results.pdf"
+    );
+
+
+    status.innerText =
+      "Your PDF is ready.";
+
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    status.innerText = "";
+
+    alert(
+      "There was a problem creating the PDF. Please try again."
+    );
+
+  }
+
+
+  button.disabled = false;
+}
+
 </script>
 
 </body>
