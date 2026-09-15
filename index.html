@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,545 +13,13 @@
 
 <style>
 
-/* =========================
+/* =========================================================
    MAIN PAGE
-========================= */
+========================================================= */
 
 * {
   box-sizing: border-box;
 }
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(
-    135deg,
-    #fff7fa 0%,
-    #f8f3ff 50%,
-    #eef8ff 100%
-  );
-  color: #403b40;
-  text-align: center;
-  padding: 30px 15px 50px;
-}
-
-.container {
-  max-width: 720px;
-  margin: auto;
-  background: rgba(255,255,255,0.94);
-  padding: 35px 25px;
-  border-radius: 24px;
-  box-shadow: 0 10px 35px rgba(90,70,90,0.10);
-}
-
-/* Logo */
-
-.logo {
-  width: 95px;
-  height: 95px;
-  object-fit: cover;
-  margin-bottom: 12px;
-  border-radius: 50%;
-}
-
-/* Headings */
-
-h1 {
-  margin: 5px 0 8px;
-  color: #40383f;
-  font-size: 30px;
-}
-
-.subtitle {
-  font-size: 17px;
-  color: #756b73;
-  margin-bottom: 12px;
-}
-
-.intro {
-  max-width: 600px;
-  margin: 0 auto 28px;
-  line-height: 1.7;
-  color: #665e65;
-}
-
-/* Sections */
-
-.section {
-  text-align: left;
-  margin: 30px 0;
-  padding: 24px;
-  background: #fffafd;
-  border: 1px solid #f0e4ec;
-  border-radius: 18px;
-}
-
-.section h2 {
-  margin-top: 0;
-  color: #4b4149;
-  font-size: 21px;
-}
-
-.section p {
-  line-height: 1.65;
-}
-
-.feature {
-  margin: 15px 0;
-}
-
-.feature strong {
-  display: block;
-  color: #4b4149;
-  margin-bottom: 4px;
-}
-
-.feature span {
-  color: #70666d;
-  line-height: 1.55;
-}
-
-/* Lists */
-
-ul {
-  padding-left: 22px;
-}
-
-li {
-  margin: 10px 0;
-  line-height: 1.5;
-}
-
-/* Pricing */
-
-.price-box {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.price {
-  min-width: 180px;
-  padding: 18px;
-  border-radius: 15px;
-  background: #fff;
-  border: 1px solid #eee0e8;
-}
-
-.price strong {
-  display: block;
-  font-size: 22px;
-  margin-top: 5px;
-}
-
-/* Upload */
-
-.upload-area {
-  margin-top: 30px;
-  padding: 25px;
-  background: #fff;
-  border-radius: 18px;
-  border: 1px dashed #d9c6d2;
-}
-
-input[type="file"] {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px;
-  margin: 12px 0;
-  border-radius: 10px;
-  border: 1px solid #ddd0d8;
-  background: #fff;
-}
-
-/* Buttons */
-
-button {
-  border: none;
-  padding: 13px 25px;
-  border-radius: 30px;
-  background: #40383f;
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 12px;
-  transition: 0.2s ease;
-}
-
-button:hover {
-  transform: translateY(-1px);
-  background: #665866;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Result */
-
-.result-wrapper {
-  display: none;
-  margin-top: 35px;
-}
-
-.result-card {
-  text-align: left;
-  background: #fff;
-  border-radius: 22px;
-  padding: 28px;
-  box-shadow: 0 8px 28px rgba(80,60,80,0.08);
-  border: 1px solid #eee3ea;
-}
-
-.result-title {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.result-title h2 {
-  margin: 0;
-  color: #453b43;
-}
-
-.result-title p {
-  color: #776c74;
-}
-
-.identity-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 25px;
-}
-
-.identity-box {
-  background: #fbf7fa;
-  border-radius: 14px;
-  padding: 15px;
-  text-align: center;
-}
-
-.identity-box span {
-  display: block;
-  font-size: 12px;
-  color: #82767f;
-  margin-bottom: 5px;
-}
-
-.identity-box strong {
-  color: #453b43;
-  font-size: 16px;
-}
-
-.result-section {
-  margin-top: 25px;
-}
-
-.result-section h3 {
-  color: #4c424a;
-  margin-bottom: 10px;
-}
-
-.result-section p {
-  line-height: 1.65;
-  color: #665e65;
-}
-
-/* Color swatches */
-
-.swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.swatch {
-  width: 78px;
-  height: 58px;
-  border-radius: 12px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 5px;
-  font-size: 10px;
-  color: #333;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-/* Disclaimer */
-
-.disclaimer {
-  margin-top: 25px;
-  padding: 16px;
-  border-radius: 14px;
-  background: #faf7f9;
-  color: #756b73;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-/* PDF button */
-
-.pdf-area {
-  text-align: center;
-  margin-top: 28px;
-}
-
-#pdfStatus {
-  margin-top: 10px;
-  color: #756b73;
-  font-size: 14px;
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-
-  body {
-    padding: 15px 10px 35px;
-  }
-
-  .container {
-    padding: 25px 16px;
-    border-radius: 18px;
-  }
-
-  h1 {
-    font-size: 25px;
-  }
-
-  .identity-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .swatch {
-    width: 68px;
-  }
-}
-
-
-/* =========================
-   HIDDEN PDF PAGES
-========================= */
-
-#pdfContainer {
-  display: none;
-  position: fixed;
-  left: -10000px;
-  top: 0;
-  width: 794px;
-  background: white;
-}
-
-.pdf-page {
-  width: 794px;
-  height: 1123px;
-  padding: 55px;
-  position: relative;
-  overflow: hidden;
-
-  background: linear-gradient(
-    135deg,
-    #fff4f8 0%,
-    #f8f1ff 48%,
-    #eef8ff 100%
-  );
-
-  font-family: Arial, Helvetica, sans-serif;
-  color: #40383f;
-}
-
-.pdf-overlay {
-  position: absolute;
-  inset: 25px;
-  border: 1px solid rgba(255,255,255,0.75);
-  border-radius: 24px;
-  background: rgba(255,255,255,0.10);
-  pointer-events: none;
-}
-
-.pdf-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-}
-
-/* PDF SIGNATURE */
-
-.pdf-signature {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.pdf-signature img {
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-  margin: 0 auto 8px;
-}
-
-.pdf-brand {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #4a4048;
-}
-
-.pdf-small {
-  font-size: 10px;
-  color: #776d75;
-  margin-top: 3px;
-}
-
-.pdf-title {
-  text-align: center;
-  margin: 10px 0 22px;
-}
-
-.pdf-title h1 {
-  font-size: 27px;
-  margin: 0 0 7px;
-  color: #40383f;
-}
-
-.pdf-title p {
-  font-size: 12px;
-  color: #716770;
-}
-
-/* PDF SECTIONS */
-
-.pdf-section {
-  background: rgba(255,255,255,0.58);
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 16px;
-
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.pdf-section h2 {
-  font-size: 16px;
-  color: #473e45;
-  margin: 0 0 12px;
-  font-weight: 700;
-}
-
-.pdf-section h3 {
-  font-size: 16px;
-  color: #473e45;
-  margin: 0 0 12px;
-  font-weight: 700;
-}
-
-/* PDF BODY TEXT */
-
-.pdf-text {
-  font-size: 11px;
-  line-height: 1.6;
-  color: #514950;
-  font-weight: 500;
-}
-
-/* IMPORTANT:
-   Keep bullet marker and text aligned together.
-*/
-
-.pdf-section ul,
-#pdfSuitable,
-#pdfUnsuitable {
-  margin: 6px 0 0;
-  padding-left: 22px;
-  text-align: left;
-  list-style-position: outside;
-}
-
-.pdf-section li,
-#pdfSuitable li,
-#pdfUnsuitable li {
-  margin: 5px 0;
-  padding-left: 2px;
-  font-size: 11px;
-  line-height: 1.55;
-  text-align: left;
-  color: #514950;
-  font-weight: 500;
-}
-
-/* PDF paragraphs */
-
-.pdf-section p {
-  font-size: 11px;
-  line-height: 1.55;
-  color: #514950;
-  font-weight: 500;
-  margin: 7px 0;
-}
-
-/* PDF identity */
-
-.pdf-identity {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.pdf-identity-box {
-  background: rgba(255,255,255,0.65);
-  padding: 12px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.pdf-identity-box span {
-  display: block;
-  font-size: 9px;
-  color: #7c7179;
-  margin-bottom: 4px;
-}
-
-.pdf-identity-box strong {
-  font-size: 13px;
-  color: #453c43;
-}
-
-/* PDF SWATCHES */
-
-.pdf-swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-}
-
-.pdf-swatch {
-  width: 68px;
-  height: 50px;
-  border-radius: 9px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 4px;
-  font-size: 8px;
-  color: #333;
-}
-
-/* PDF NOTE */
-
-.pdf-note {
-  font-size: 9px;
-  line-height: 1.55;
-  color: #756a72;
-  font-weight: 500;
-}
-
-/* =========================
-   MINIMAL ANALYSIS PAGE
-========================= */
 
 body {
   margin: 0;
@@ -567,6 +36,10 @@ body {
   color: #4d4145;
 }
 
+/* =========================================================
+   ANALYSIS PAGE
+========================================================= */
+
 .analysis-page {
   width: 100%;
   min-height: 100vh;
@@ -576,7 +49,6 @@ body {
   align-items: flex-start;
 
   padding: 90px 20px 60px;
-  box-sizing: border-box;
 }
 
 .analysis-card {
@@ -588,8 +60,6 @@ body {
   border-radius: 0;
 
   padding: 30px 35px 45px;
-
-  box-sizing: border-box;
 
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.18);
@@ -640,8 +110,6 @@ body {
 
   padding: 28px 22px 30px;
 
-  box-sizing: border-box;
-
   box-shadow:
     0 8px 25px rgba(190, 145, 155, 0.10);
 }
@@ -681,8 +149,6 @@ body {
   padding: 28px 18px 30px;
 
   text-align: center;
-
-  box-sizing: border-box;
 }
 
 .upload-title {
@@ -765,7 +231,9 @@ body {
   color: #a45e68;
 }
 
-/* RESULTS */
+/* =========================================================
+   RESULTS
+========================================================= */
 
 #resultWrapper {
   display: none;
@@ -807,56 +275,39 @@ body {
   color: #8f5c67;
 }
 
-/* =========================
-   RECTANGULAR COLOR SWATCHES
-========================= */
+/* =========================================================
+   MAIN PAGE PALETTE
+========================================================= */
 
-#paletteResult,
-#pdfPalette {
+#paletteResult {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 12px;
+
   margin-top: 12px;
 }
 
 .swatch {
-  width: 78px;
+  width: 75px;
+
   text-align: center;
+
   font-size: 9px;
+
   color: #5d5054;
 }
 
 .swatch-color {
-  width: 68px;
-  height: 42px;
-  border-radius: 8px;
+  width: 55px;
+
+  height: 55px;
+
+  border-radius: 50%;
+
   margin: 0 auto 6px;
-  border: 1px solid rgba(0,0,0,0.08);
-  box-sizing: border-box;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
 
-/* PDF palette */
-
-#pdfPalette {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-#pdfPalette .swatch {
-  width: 72px;
-  text-align: center;
-  font-size: 8px;
-  color: #514950;
-}
-
-#pdfPalette .swatch-color {
-  width: 68px !important;
-  height: 42px !important;
-  border-radius: 8px !important;
-  margin: 0 auto 5px !important;
   border: 1px solid rgba(0,0,0,0.08);
 }
 
@@ -912,7 +363,381 @@ body {
   color: #92777d;
 }
 
-/* Mobile */
+/* =========================================================
+   HIDDEN PDF
+========================================================= */
+
+#pdfContainer {
+  display: none;
+
+  position: fixed;
+
+  left: -10000px;
+
+  top: 0;
+
+  width: 794px;
+
+  background: white;
+}
+
+.pdf-page {
+  width: 794px;
+
+  height: 1123px;
+
+  padding: 55px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #fff4f8 0%,
+    #f8f1ff 48%,
+    #eef8ff 100%
+  );
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #40383f;
+
+  -webkit-font-smoothing: antialiased;
+
+  text-rendering: geometricPrecision;
+}
+
+.pdf-overlay {
+  position: absolute;
+
+  inset: 25px;
+
+  border: 1px solid rgba(255,255,255,0.75);
+
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.10);
+
+  pointer-events: none;
+}
+
+.pdf-content {
+  position: relative;
+
+  z-index: 2;
+
+  height: 100%;
+}
+
+/* =========================================================
+   PDF SIGNATURE
+========================================================= */
+
+.pdf-signature {
+  text-align: center;
+
+  margin-bottom: 25px;
+}
+
+.pdf-signature img {
+  width: 72px;
+
+  height: 72px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  display: block;
+
+  margin: 0 auto 8px;
+}
+
+.pdf-brand {
+  display: block;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: #40383f;
+
+  line-height: 1.25;
+}
+
+.pdf-small {
+  display: block;
+
+  font-size: 10px;
+
+  color: #625960;
+
+  margin-top: 3px;
+
+  line-height: 1.4;
+}
+
+/* =========================================================
+   PDF TITLE
+========================================================= */
+
+.pdf-title {
+  text-align: center;
+
+  margin: 10px 0 22px;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pdf-title h1 {
+  font-size: 27px;
+
+  line-height: 1.2;
+
+  margin: 0;
+
+  color: #40383f;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   PDF SECTIONS
+========================================================= */
+
+.pdf-section {
+  background: rgba(255,255,255,0.70);
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  margin-bottom: 16px;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #40383f;
+}
+
+/* ALL PDF SECTION HEADINGS SAME SIZE */
+
+.pdf-section h2,
+.pdf-section h3 {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 16px;
+
+  line-height: 1.25;
+
+  color: #40383f;
+
+  margin: 0 0 12px;
+
+  font-weight: 700;
+
+  text-align: center;
+}
+
+/* ALL NORMAL PDF BODY TEXT SAME SIZE */
+
+.pdf-section p,
+.pdf-section li,
+.pdf-text {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+
+  color: #403c40;
+
+  font-weight: 400;
+}
+
+/* PDF paragraphs */
+
+.pdf-section p {
+  margin: 7px 0;
+
+  text-align: center;
+}
+
+/* Strong text */
+
+.pdf-section strong {
+  font-weight: 700;
+
+  color: #353135;
+}
+
+/* =========================================================
+   PDF BULLET ALIGNMENT
+========================================================= */
+
+.pdf-section ul,
+#pdfSuitable,
+#pdfUnsuitable {
+  margin: 7px 0 0;
+
+  padding-left: 20px;
+
+  text-align: left;
+
+  list-style-position: outside;
+}
+
+.pdf-section li,
+#pdfSuitable li,
+#pdfUnsuitable li {
+  margin: 5px 0;
+
+  padding-left: 3px;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+
+  text-align: left;
+
+  color: #403c40;
+
+  font-weight: 400;
+}
+
+/* =========================================================
+   PDF IDENTITY
+========================================================= */
+
+.pdf-identity {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 10px;
+}
+
+.pdf-identity-box {
+  background: rgba(255,255,255,0.65);
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.pdf-identity-box span {
+  display: block;
+
+  font-size: 9px;
+
+  color: #625960;
+
+  margin-bottom: 4px;
+}
+
+.pdf-identity-box strong {
+  font-size: 13px;
+
+  color: #40383f;
+}
+
+/* =========================================================
+   PDF STARTER PALETTE
+   RECTANGLES ONLY
+========================================================= */
+
+#pdfPalette {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 12px;
+
+  width: 100%;
+}
+
+.pdf-swatch {
+  width: 78px;
+
+  flex: 0 0 78px;
+
+  text-align: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #403c40;
+}
+
+/* RECTANGULAR COLOR BLOCK */
+
+.pdf-swatch-color {
+  width: 78px;
+
+  height: 48px;
+
+  border-radius: 6px;
+
+  border: 1px solid rgba(0,0,0,0.10);
+
+  margin: 0 auto 6px;
+
+  display: block;
+
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* COLOR NAME UNDER RECTANGLE */
+
+.pdf-swatch-name {
+  width: 78px;
+
+  min-height: 15px;
+
+  font-size: 11px;
+
+  line-height: 1.2;
+
+  color: #403c40;
+
+  font-weight: 400;
+
+  text-align: center;
+
+  display: block;
+
+  word-wrap: break-word;
+}
+
+/* =========================================================
+   PDF NOTE
+========================================================= */
+
+.pdf-note {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+
+  color: #403c40;
+
+  font-weight: 400;
+
+  text-align: center;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 600px) {
 
@@ -954,6 +779,7 @@ body {
 }
 
 </style>
+
 </head>
 
 <body>
@@ -1172,9 +998,11 @@ body {
 
       </div>
 
-      <h1 class="pdf-title">
-        Your Essential Color Insight
-      </h1>
+      <div class="pdf-title">
+        <h1>
+          Your Essential Color Insight
+        </h1>
+      </div>
 
       <div class="pdf-section">
 
@@ -1293,7 +1121,7 @@ body {
           Note
         </h3>
 
-        <p>
+        <p class="pdf-note">
           This digital analysis provides estimated colour guidance based on the uploaded photograph. Results can vary depending on lighting, camera processing, makeup, filters and image quality.
         </p>
 
@@ -1309,19 +1137,20 @@ body {
 <script>
 
 /* =========================================================
-   HANEUL PALETTE — PERSONALIZED IMAGE ANALYSIS
-   ========================================================= */
+   HANEUL PALETTE — ANALYSIS LOGIC
+========================================================= */
 
 let report = null;
 
 
 /* =========================================================
    SEASON DATA
-   ========================================================= */
+========================================================= */
 
 const seasonData = {
 
   Spring: {
+
     direction: "Warm",
 
     colors: [
@@ -1332,15 +1161,7 @@ const seasonData = {
       ["Fresh Green", "#8DBB63"],
       ["Camel", "#C49A6C"],
       ["Warm Sky", "#8FC7D8"],
-      ["Golden Beige", "#D8B37A"],
-      ["Apricot", "#F2A56F"],
-      ["Soft Coral", "#E88F7B"],
-      ["Honey", "#D6A34A"],
-      ["Mint Aqua", "#82C8B6"],
-      ["Warm Rose", "#D98582"],
-      ["Light Camel", "#D0A978"],
-      ["Fresh Teal", "#5FB7AA"],
-      ["Butter Cream", "#F4D99B"]
+      ["Golden Beige", "#D8B37A"]
     ],
 
     suitable: [
@@ -1367,6 +1188,7 @@ const seasonData = {
 
 
   Summer: {
+
     direction: "Cool",
 
     colors: [
@@ -1377,15 +1199,7 @@ const seasonData = {
       ["Cool Sage", "#91A99B"],
       ["Mauve", "#9C7488"],
       ["Blue Grey", "#7E92A5"],
-      ["Soft Navy", "#4F6178"],
-      ["Cool Rose", "#C58D9C"],
-      ["Periwinkle", "#929CC8"],
-      ["Soft Lilac", "#B3A4C9"],
-      ["Muted Berry", "#A66D82"],
-      ["Cloud Blue", "#9BAFC0"],
-      ["Cool Taupe", "#9C8F91"],
-      ["Soft Plum", "#806477"],
-      ["Pale Blue", "#B4C9D7"]
+      ["Soft Navy", "#4F6178"]
     ],
 
     suitable: [
@@ -1412,6 +1226,7 @@ const seasonData = {
 
 
   Autumn: {
+
     direction: "Warm",
 
     colors: [
@@ -1422,15 +1237,7 @@ const seasonData = {
       ["Rust", "#9C513E"],
       ["Warm Brown", "#76533D"],
       ["Mustard", "#C19A3A"],
-      ["Deep Teal", "#3E706A"],
-      ["Copper", "#B66A48"],
-      ["Warm Khaki", "#85805A"],
-      ["Burnt Orange", "#B85E38"],
-      ["Cinnamon", "#9A654A"],
-      ["Deep Olive", "#60663D"],
-      ["Warm Taupe", "#866D59"],
-      ["Bronze", "#9D7947"],
-      ["Brick", "#9F5145"]
+      ["Deep Teal", "#3E706A"]
     ],
 
     suitable: [
@@ -1457,6 +1264,7 @@ const seasonData = {
 
 
   Winter: {
+
     direction: "Cool",
 
     colors: [
@@ -1467,15 +1275,7 @@ const seasonData = {
       ["Emerald", "#16765C"],
       ["Deep Navy", "#253A69"],
       ["Berry", "#873D65"],
-      ["Cool Pink", "#D46C91"],
-      ["Royal Blue", "#405CC4"],
-      ["Deep Berry", "#703957"],
-      ["Jewel Green", "#16816A"],
-      ["Cranberry", "#A82F50"],
-      ["Cool Magenta", "#A33E78"],
-      ["Icy Pink", "#DFA0B7"],
-      ["Sapphire", "#315F9F"],
-      ["Deep Teal", "#216B70"]
+      ["Cool Pink", "#D46C91"]
     ],
 
     suitable: [
@@ -1504,8 +1304,8 @@ const seasonData = {
 
 
 /* =========================================================
-   RGB → HSL
-   ========================================================= */
+   IMAGE UTILITIES
+========================================================= */
 
 function rgbToHsl(r, g, b) {
 
@@ -1525,22 +1325,27 @@ function rgbToHsl(r, g, b) {
 
     const d = max - min;
 
-    s = l > 0.5
-      ? d / (2 - max - min)
-      : d / (max + min);
+    s =
+      l > 0.5
+        ? d / (2 - max - min)
+        : d / (max + min);
 
     switch (max) {
 
       case r:
-        h = ((g - b) / d + (g < b ? 6 : 0));
+        h =
+          ((g - b) / d +
+            (g < b ? 6 : 0));
         break;
 
       case g:
-        h = ((b - r) / d + 2);
+        h =
+          ((b - r) / d + 2);
         break;
 
       case b:
-        h = ((r - g) / d + 4);
+        h =
+          ((r - g) / d + 4);
         break;
     }
 
@@ -1557,7 +1362,7 @@ function rgbToHsl(r, g, b) {
 
 /* =========================================================
    IMPROVED SKIN DETECTION
-   ========================================================= */
+========================================================= */
 
 function isSkinLike(r, g, b) {
 
@@ -1576,77 +1381,69 @@ function isSkinLike(r, g, b) {
 
   const chroma = max - min;
 
-  /*
-     Broad skin detection designed to work
-     across lighter, medium and deeper skin tones.
+  const warmth =
+    (r - b) * 0.65 +
+    (g - b) * 0.35;
 
-     It intentionally does not require
-     r > g > b in every case.
+  /*
+     Broad skin range.
+     This intentionally allows a wider variety
+     of natural skin tones.
   */
 
-  const cb =
-    128 -
-    (0.168736 * r) -
-    (0.331264 * g) +
-    (0.5 * b);
+  const ratioRG =
+    r / Math.max(g, 1);
 
-  const cr =
-    128 +
-    (0.5 * r) -
-    (0.418688 * g) -
-    (0.081312 * b);
+  const ratioGB =
+    g / Math.max(b, 1);
 
-  const warmBalance =
-    (r - b) * 0.65 +
-    (r - g) * 0.35;
+  return (
 
-  const skinRange =
-    cb >= 75 &&
-    cb <= 145 &&
-    cr >= 125 &&
-    cr <= 190;
+    ratioRG >= 0.90 &&
 
-  const broadSkinRange =
-    warmBalance > 2 &&
-    chroma >= 5 &&
+    ratioRG <= 2.10 &&
+
+    ratioGB >= 0.88 &&
+
+    ratioGB <= 2.20 &&
+
+    warmth > 1 &&
+
+    chroma >= 6 &&
+
     hsl.l >= 10 &&
-    hsl.l <= 93 &&
-    hsl.s >= 5 &&
-    hsl.s <= 95;
 
-  return skinRange || broadSkinRange;
+    hsl.l <= 94 &&
+
+    hsl.s >= 4 &&
+
+    hsl.s <= 92
+  );
 }
 
 
 /* =========================================================
-   CLAMP
-   ========================================================= */
+   IMAGE SIGNATURE
+   Makes palette selection photo-specific
+========================================================= */
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
-}
-
-
-/* =========================================================
-   SIMPLE DETERMINISTIC IMAGE SIGNATURE
-   ========================================================= */
-
-function createImageSignature(samples) {
+function createImageSignature(values) {
 
   let hash = 2166136261;
 
-  for (let i = 0; i < samples.length; i++) {
+  for (
+    let i = 0;
+    i < values.length;
+    i += 3
+  ) {
 
-    hash ^= samples[i];
+    hash ^= values[i] || 0;
 
-    hash +=
-      (hash << 1) +
-      (hash << 4) +
-      (hash << 7) +
-      (hash << 8) +
-      (hash << 24);
-
-    hash >>>= 0;
+    hash =
+      Math.imul(
+        hash,
+        16777619
+      );
   }
 
   return hash >>> 0;
@@ -1654,149 +1451,24 @@ function createImageSignature(samples) {
 
 
 /* =========================================================
-   PERSONALIZED PALETTE SELECTION
-   ========================================================= */
-
-function createPersonalizedPalette(
-  season,
-  warmth,
-  skinLightness,
-  chroma,
-  signature
-) {
-
-  const source =
-    seasonData[season].colors;
-
-  /*
-     Different photos can therefore receive
-     different colour selections even when
-     they belong to the same seasonal family.
-  */
-
-  const normalizedWarmth =
-    clamp(
-      (warmth + 20) / 45,
-      0,
-      1
-    );
-
-  const normalizedDepth =
-    clamp(
-      skinLightness / 100,
-      0,
-      1
-    );
-
-  const normalizedChroma =
-    clamp(
-      chroma / 60,
-      0,
-      1
-    );
-
-  const baseIndex =
-    Math.floor(
-      (
-        signature +
-        Math.round(normalizedWarmth * 1000) +
-        Math.round(normalizedDepth * 700) +
-        Math.round(normalizedChroma * 500)
-      ) % source.length
-    );
-
-
-  const selected = [];
-
-  /*
-     Use a changing step so different images
-     don't always pick the same eight colours.
-  */
-
-  let step =
-    3 +
-    (
-      Math.floor(
-        normalizedChroma * 4
-      ) % 4
-    );
-
-  if (step >= source.length) {
-    step = 3;
-  }
-
-
-  for (
-    let i = 0;
-    i < source.length &&
-    selected.length < 8;
-    i++
-  ) {
-
-    const index =
-      (
-        baseIndex +
-        i * step
-      ) % source.length;
-
-    const color =
-      source[index];
-
-    if (
-      !selected.some(
-        item => item[0] === color[0]
-      )
-    ) {
-      selected.push(color);
-    }
-  }
-
-
-  /*
-     Safety fallback.
-  */
-
-  if (selected.length < 8) {
-
-    source.forEach(color => {
-
-      if (
-        selected.length < 8 &&
-        !selected.some(
-          item => item[0] === color[0]
-        )
-      ) {
-        selected.push(color);
-      }
-    });
-  }
-
-
-  return selected;
-}
-
-
-/* =========================================================
-   IMAGE ANALYSIS
-   ========================================================= */
+   PHOTO ANALYSIS
+========================================================= */
 
 function analyzeImage(file) {
 
   return new Promise((resolve, reject) => {
 
-    const reader =
-      new FileReader();
+    const reader = new FileReader();
 
     reader.onload = function(event) {
 
-      const img =
-        new Image();
+      const img = new Image();
 
       img.onload = function() {
 
         try {
 
-          const maxSize = 700;
+          const maxSize = 600;
 
           let width = img.width;
           let height = img.height;
@@ -1807,7 +1479,9 @@ function analyzeImage(file) {
 
               height =
                 Math.round(
-                  height * maxSize / width
+                  height *
+                  maxSize /
+                  width
                 );
 
               width = maxSize;
@@ -1819,7 +1493,9 @@ function analyzeImage(file) {
 
               width =
                 Math.round(
-                  width * maxSize / height
+                  width *
+                  maxSize /
+                  height
                 );
 
               height = maxSize;
@@ -1861,84 +1537,102 @@ function analyzeImage(file) {
             ).data;
 
 
-          let totalR = 0;
-          let totalG = 0;
-          let totalB = 0;
-          let totalCount = 0;
-
-
-          let skinR = 0;
-          let skinG = 0;
-          let skinB = 0;
-          let skinCount = 0;
-
-
-          let skinLightnessTotal = 0;
-          let skinSaturationTotal = 0;
-          let skinChromaTotal = 0;
-
-
-          const signatureSamples = [];
-
-
           /*
-             Analyze primarily the central image area.
-             This reduces the influence of clothing
-             and background.
+             Analyse the central/face-oriented
+             area first so background colour has
+             less influence.
           */
 
-          const centerX = width * 0.5;
-          const centerY = height * 0.47;
+          const centerX =
+            width * 0.5;
 
-          const regionWidth = width * 0.62;
-          const regionHeight = height * 0.68;
+          const centerY =
+            height * 0.46;
+
+          const regionWidth =
+            width * 0.62;
+
+          const regionHeight =
+            height * 0.65;
 
 
           const left =
             Math.max(
               0,
-              centerX - regionWidth / 2
+              Math.floor(
+                centerX -
+                regionWidth / 2
+              )
             );
 
           const right =
             Math.min(
               width,
-              centerX + regionWidth / 2
+              Math.ceil(
+                centerX +
+                regionWidth / 2
+              )
             );
 
           const top =
             Math.max(
               0,
-              centerY - regionHeight / 2
+              Math.floor(
+                centerY -
+                regionHeight / 2
+              )
             );
 
           const bottom =
             Math.min(
               height,
-              centerY + regionHeight / 2
+              Math.ceil(
+                centerY +
+                regionHeight / 2
+              )
             );
+
+
+          let skinR = 0;
+          let skinG = 0;
+          let skinB = 0;
+
+          let skinCount = 0;
+
+          let selectedSaturation = 0;
+          let selectedLightness = 0;
+
+          let selectedChroma = 0;
+
+
+          let fallbackR = 0;
+          let fallbackG = 0;
+          let fallbackB = 0;
+
+          let fallbackCount = 0;
+
+
+          const signatureValues = [];
 
 
           /*
              Consistent sampling.
-             Same photo = same result.
           */
 
           for (
-            let y = 0;
-            y < height;
-            y += 7
+            let y = top;
+            y < bottom;
+            y += 5
           ) {
 
             for (
-              let x = 0;
-              x < width;
-              x += 7
+              let x = left;
+              x < right;
+              x += 5
             ) {
 
               const index =
                 (y * width + x) * 4;
-
 
               const r =
                 imageData[index];
@@ -1959,52 +1653,32 @@ function analyzeImage(file) {
               }
 
 
-              totalR += r;
-              totalG += g;
-              totalB += b;
+              fallbackR += r;
+              fallbackG += g;
+              fallbackB += b;
 
-              totalCount++;
+              fallbackCount++;
 
 
               /*
-                 Signature samples are taken
-                 at fixed intervals.
+                 Signature captures actual
+                 image differences.
               */
 
-              if (
-                signatureSamples.length < 500
-              ) {
+              signatureValues.push(
+                r,
+                g,
+                b
+              );
 
-                signatureSamples.push(
+
+              if (
+                isSkinLike(
                   r,
                   g,
                   b
-                );
-              }
-
-
-              /*
-                 Only use the central region
-                 for primary skin analysis.
-              */
-
-              if (
-                x >= left &&
-                x <= right &&
-                y >= top &&
-                y <= bottom &&
-                isSkinLike(r, g, b)
+                )
               ) {
-
-                const hsl =
-                  rgbToHsl(r, g, b);
-
-                const chroma =
-                  (
-                    Math.max(r, g, b) -
-                    Math.min(r, g, b)
-                  ) / 255 * 100;
-
 
                 skinR += r;
                 skinG += g;
@@ -2012,17 +1686,39 @@ function analyzeImage(file) {
 
                 skinCount++;
 
-                skinLightnessTotal += hsl.l;
 
-                skinSaturationTotal += hsl.s;
+                const hsl =
+                  rgbToHsl(
+                    r,
+                    g,
+                    b
+                  );
 
-                skinChromaTotal += chroma;
+                selectedSaturation +=
+                  hsl.s;
+
+                selectedLightness +=
+                  hsl.l;
+
+                selectedChroma +=
+                  Math.max(
+                    r,
+                    g,
+                    b
+                  ) -
+                  Math.min(
+                    r,
+                    g,
+                    b
+                  );
               }
             }
           }
 
 
-          if (totalCount === 0) {
+          if (
+            fallbackCount === 0
+          ) {
 
             reject(
               new Error(
@@ -2038,140 +1734,57 @@ function analyzeImage(file) {
           let avgG;
           let avgB;
 
+          let averageSaturation;
+          let averageLightness;
+          let averageChroma;
+
 
           /*
-             Prefer central skin pixels.
-
-             If not enough skin pixels are
-             available, use a central-region
-             average rather than the whole image.
+             Skin pixels are preferred.
+             If insufficient, use the central
+             photo region.
           */
 
-          if (skinCount >= 30) {
+          if (skinCount >= 25) {
 
             avgR =
-              skinR / skinCount;
+              skinR /
+              skinCount;
 
             avgG =
-              skinG / skinCount;
+              skinG /
+              skinCount;
 
             avgB =
-              skinB / skinCount;
-
-          } else {
-
-            let centerR = 0;
-            let centerG = 0;
-            let centerB = 0;
-            let centerCount = 0;
-
-
-            for (
-              let y = Math.floor(top);
-              y < Math.floor(bottom);
-              y += 10
-            ) {
-
-              for (
-                let x = Math.floor(left);
-                x < Math.floor(right);
-                x += 10
-              ) {
-
-                const index =
-                  (y * width + x) * 4;
-
-
-                const r =
-                  imageData[index];
-
-                const g =
-                  imageData[index + 1];
-
-                const b =
-                  imageData[index + 2];
-
-
-                if (
-                  r === undefined ||
-                  g === undefined ||
-                  b === undefined
-                ) {
-                  continue;
-                }
-
-
-                centerR += r;
-                centerG += g;
-                centerB += b;
-
-                centerCount++;
-              }
-            }
-
-
-            if (centerCount > 0) {
-
-              avgR =
-                centerR / centerCount;
-
-              avgG =
-                centerG / centerCount;
-
-              avgB =
-                centerB / centerCount;
-
-            } else {
-
-              avgR =
-                totalR / totalCount;
-
-              avgG =
-                totalG / totalCount;
-
-              avgB =
-                totalB / totalCount;
-            }
-          }
-
-
-          /* =================================================
-             WARMTH
-          ================================================= */
-
-          const warmth =
-            (
-              (avgR - avgB) * 0.7
-            ) +
-            (
-              (avgG - avgB) * 0.3
-            );
-
-
-          /* =================================================
-             SKIN CHARACTERISTICS
-          ================================================= */
-
-          let skinLightness;
-          let skinSaturation;
-          let skinChroma;
-
-
-          if (skinCount >= 30) {
-
-            skinLightness =
-              skinLightnessTotal /
+              skinB /
               skinCount;
 
-            skinSaturation =
-              skinSaturationTotal /
+            averageSaturation =
+              selectedSaturation /
               skinCount;
 
-            skinChroma =
-              skinChromaTotal /
+            averageLightness =
+              selectedLightness /
+              skinCount;
+
+            averageChroma =
+              selectedChroma /
               skinCount;
 
           } else {
+
+            avgR =
+              fallbackR /
+              fallbackCount;
+
+            avgG =
+              fallbackG /
+              fallbackCount;
+
+            avgB =
+              fallbackB /
+              fallbackCount;
+
 
             const fallbackHsl =
               rgbToHsl(
@@ -2181,54 +1794,69 @@ function analyzeImage(file) {
               );
 
 
-            skinLightness =
-              fallbackHsl.l;
-
-            skinSaturation =
+            averageSaturation =
               fallbackHsl.s;
 
-            skinChroma =
-              (
-                Math.max(
-                  avgR,
-                  avgG,
-                  avgB
-                ) -
-                Math.min(
-                  avgR,
-                  avgG,
-                  avgB
-                )
-              ) / 255 * 100;
+            averageLightness =
+              fallbackHsl.l;
+
+            averageChroma =
+              Math.max(
+                avgR,
+                avgG,
+                avgB
+              ) -
+              Math.min(
+                avgR,
+                avgG,
+                avgB
+              );
           }
 
 
-          /* =================================================
-             COLOR QUALITY
-          ================================================= */
-
-          let quality;
-
           /*
-             Use both chroma and saturation
-             so quality is less affected by
-             background colours.
+             Warmth.
+             Uses both red-blue and
+             green-blue relationships.
           */
 
-          const qualityScore =
-            (
-              skinChroma * 0.65
+          const warmth =
+            ((avgR - avgB) * 0.70) +
+            ((avgG - avgB) * 0.30);
+
+
+          /*
+             Photo-specific contrast/chroma.
+          */
+
+          const contrast =
+            Math.abs(
+              avgR - avgB
             ) +
-            (
-              skinSaturation * 0.35
+            Math.abs(
+              avgG - avgB
             );
 
 
-          if (qualityScore >= 27) {
+          /*
+             COLOR QUALITY
+          */
+
+          let quality;
+
+
+          if (
+            averageSaturation >= 38 ||
+            averageChroma >= 62 ||
+            contrast >= 75
+          ) {
 
             quality = "Bright";
 
-          } else if (qualityScore <= 17) {
+          } else if (
+            averageSaturation <= 20 ||
+            averageChroma <= 30
+          ) {
 
             quality = "Soft";
 
@@ -2238,17 +1866,22 @@ function analyzeImage(file) {
           }
 
 
-          /* =================================================
+          /*
              DEPTH
-          ================================================= */
+          */
 
           let depth;
 
-          if (skinLightness >= 68) {
+
+          if (
+            averageLightness >= 68
+          ) {
 
             depth = "Light";
 
-          } else if (skinLightness <= 37) {
+          } else if (
+            averageLightness <= 37
+          ) {
 
             depth = "Deep";
 
@@ -2258,41 +1891,18 @@ function analyzeImage(file) {
           }
 
 
-          /* =================================================
-             COLOR DIRECTION
-          ================================================= */
-
-          let direction;
-
-          if (warmth >= 13) {
-
-            direction = "Warm";
-
-          } else if (warmth <= 5) {
-
-            direction = "Cool";
-
-          } else {
-
-            direction = "Neutral";
-          }
-
-
-          /* =================================================
+          /*
              SEASON
-          ================================================= */
+          */
 
           let season;
 
 
-          if (warmth >= 16) {
+          if (warmth >= 18) {
 
             if (
               quality === "Bright" ||
-              (
-                quality === "Balanced" &&
-                skinLightness >= 56
-              )
+              depth === "Light"
             ) {
 
               season = "Spring";
@@ -2302,11 +1912,13 @@ function analyzeImage(file) {
               season = "Autumn";
             }
 
-          } else if (warmth <= 4) {
+          } else if (
+            warmth <= 5
+          ) {
 
             if (
               quality === "Soft" ||
-              skinLightness >= 58
+              depth === "Light"
             ) {
 
               season = "Summer";
@@ -2318,77 +1930,159 @@ function analyzeImage(file) {
 
           } else {
 
-            /*
-               Neutral/warm-cool transition.
-
-               Depth and quality determine
-               the closest seasonal family.
-            */
-
-            if (skinLightness >= 67) {
+            if (
+              depth === "Light"
+            ) {
 
               season =
                 quality === "Bright"
                   ? "Spring"
                   : "Summer";
 
-            } else if (skinLightness <= 38) {
+            } else if (
+              depth === "Deep"
+            ) {
 
               season =
                 quality === "Bright"
                   ? "Winter"
                   : "Autumn";
 
-            } else if (quality === "Bright") {
-
-              season =
-                warmth >= 9
-                  ? "Spring"
-                  : "Winter";
-
-            } else if (quality === "Soft") {
-
-              season =
-                warmth >= 9
-                  ? "Autumn"
-                  : "Summer";
-
             } else {
 
-              season =
-                warmth >= 9
-                  ? "Autumn"
-                  : "Summer";
+              if (
+                quality === "Bright"
+              ) {
+
+                season =
+                  warmth >= 11
+                    ? "Spring"
+                    : "Winter";
+
+              } else if (
+                quality === "Soft"
+              ) {
+
+                season =
+                  warmth >= 11
+                    ? "Autumn"
+                    : "Summer";
+
+              } else {
+
+                season =
+                  warmth >= 11
+                    ? "Autumn"
+                    : "Summer";
+              }
             }
           }
 
 
-          /* =================================================
-             IMAGE SIGNATURE
-          ================================================= */
+          /*
+             COLOR DIRECTION
+          */
 
-          const signature =
+          let direction;
+
+
+          if (
+            warmth >= 12
+          ) {
+
+            direction = "Warm";
+
+          } else if (
+            warmth <= 5
+          ) {
+
+            direction = "Cool";
+
+          } else {
+
+            direction = "Neutral";
+          }
+
+
+          /*
+             Photo signature.
+             Used to create a deterministic
+             image-specific palette order.
+          */
+
+          const imageSignature =
             createImageSignature(
-              signatureSamples
+              signatureValues
             );
 
 
-          /* =================================================
-             PERSONALIZED PALETTE
-          ================================================= */
+          const baseData =
+            seasonData[season];
+
+
+          /*
+             Rotate the palette according to
+             the actual uploaded image.
+
+             Same image = same palette.
+             Different image = potentially
+             different palette ordering.
+          */
+
+          const rotation =
+            imageSignature %
+            baseData.colors.length;
+
 
           const personalizedColors =
-            createPersonalizedPalette(
-              season,
-              warmth,
-              skinLightness,
-              skinChroma,
-              signature
+            baseData.colors.map(
+              function(color, index) {
+
+                return {
+                  item: color,
+
+                  score:
+                    (
+                      imageSignature +
+                      index * 2654435761
+                    ) >>> 0
+                };
+              }
+            )
+            .sort(
+              function(a, b) {
+
+                return a.score - b.score;
+              }
+            )
+            .slice(0, 8)
+            .map(
+              function(entry) {
+                return entry.item;
+              }
             );
 
 
-          const data =
-            seasonData[season];
+          /*
+             Ensure rotation influences
+             ordering as well.
+          */
+
+          const finalColors = [];
+
+          for (
+            let i = 0;
+            i < personalizedColors.length;
+            i++
+          ) {
+
+            finalColors.push(
+              personalizedColors[
+                (i + rotation) %
+                personalizedColors.length
+              ]
+            );
+          }
 
 
           report = {
@@ -2401,39 +2095,22 @@ function analyzeImage(file) {
 
             quality: quality,
 
-            colors: personalizedColors,
+            colors: finalColors,
 
-            suitable: data.suitable,
+            suitable: baseData.suitable,
 
-            unsuitable: data.unsuitable,
+            unsuitable: baseData.unsuitable,
 
-            style: data.style,
+            style: baseData.style,
 
-            harmony: data.harmony,
+            harmony: baseData.harmony,
 
-            /*
-               Stored internally so the same
-               uploaded photo stays deterministic.
-            */
-
-            signature: signature,
-
-            warmthScore: Math.round(warmth * 10) / 10,
-
-            skinToneScore:
-              Math.round(
-                skinLightness * 10
-              ) / 10,
-
-            chromaScore:
-              Math.round(
-                skinChroma * 10
-              ) / 10
+            imageSignature:
+              imageSignature
           };
 
 
           resolve(report);
-
 
         } catch (error) {
 
@@ -2474,7 +2151,7 @@ function analyzeImage(file) {
 
 /* =========================================================
    DISPLAY RESULTS
-   ========================================================= */
+========================================================= */
 
 function displayResult(data) {
 
@@ -2511,35 +2188,35 @@ function displayResult(data) {
   palette.innerHTML = "";
 
 
-  data.colors.forEach(color => {
+  data.colors.forEach(
+    function(color) {
 
-    const swatch =
-      document.createElement("div");
+      const swatch =
+        document.createElement(
+          "div"
+        );
 
-
-    swatch.className =
-      "swatch";
-
-
-    swatch.innerHTML = `
-      <div
-        class="swatch-color"
-        style="
-          background:${color[1]};
-          border-radius:8px;
-        "
-      ></div>
-
-      <div>
-        ${color[0]}
-      </div>
-    `;
+      swatch.className =
+        "swatch";
 
 
-    palette.appendChild(
-      swatch
-    );
-  });
+      swatch.innerHTML = `
+        <div
+          class="swatch-color"
+          style="background:${color[1]}"
+        ></div>
+
+        <div>
+          ${color[0]}
+        </div>
+      `;
+
+
+      palette.appendChild(
+        swatch
+      );
+    }
+  );
 
 
   createList(
@@ -2583,9 +2260,12 @@ function displayResult(data) {
 
 /* =========================================================
    LIST CREATOR
-   ========================================================= */
+========================================================= */
 
-function createList(id, items) {
+function createList(
+  id,
+  items
+) {
 
   const element =
     document.getElementById(id);
@@ -2594,24 +2274,30 @@ function createList(id, items) {
   element.innerHTML = "";
 
 
-  items.forEach(item => {
+  items.forEach(
+    function(item) {
 
-    const li =
-      document.createElement("li");
+      const li =
+        document.createElement(
+          "li"
+        );
 
 
-    li.textContent =
-      item;
+      li.textContent =
+        item;
 
 
-    element.appendChild(li);
-  });
+      element.appendChild(
+        li
+      );
+    }
+  );
 }
 
 
 /* =========================================================
    PDF PREPARATION
-   ========================================================= */
+========================================================= */
 
 function preparePDF() {
 
@@ -2653,50 +2339,42 @@ function preparePDF() {
   pdfPalette.innerHTML = "";
 
 
-  report.colors.forEach(color => {
+  /*
+     RECTANGULAR PDF SWATCHES
+  */
 
-    const swatch =
-      document.createElement("div");
+  report.colors.forEach(
+    function(color) {
 
-
-    swatch.className =
-      "swatch";
-
-
-    swatch.style.width =
-      "72px";
-
-
-    swatch.innerHTML = `
-      <div
-        class="swatch-color"
-        style="
-          background:${color[1]};
-          width:68px;
-          height:42px;
-          border-radius:8px;
-          margin:0 auto 5px;
-          border:1px solid rgba(0,0,0,0.08);
-          box-shadow:0 2px 6px rgba(0,0,0,0.08);
-        "
-      ></div>
-
-      <div style="
-        font-size:8px;
-        line-height:1.2;
-        text-align:center;
-        color:#514950;
-        font-weight:500;
-      ">
-        ${color[0]}
-      </div>
-    `;
+      const swatch =
+        document.createElement(
+          "div"
+        );
 
 
-    pdfPalette.appendChild(
-      swatch
-    );
-  });
+      swatch.className =
+        "pdf-swatch";
+
+
+      swatch.innerHTML = `
+
+        <div
+          class="pdf-swatch-color"
+          style="background:${color[1]}"
+        ></div>
+
+        <div class="pdf-swatch-name">
+          ${color[0]}
+        </div>
+
+      `;
+
+
+      pdfPalette.appendChild(
+        swatch
+      );
+    }
+  );
 
 
   createList(
@@ -2726,7 +2404,7 @@ function preparePDF() {
 
 /* =========================================================
    WAIT FOR PDF LOGOS
-   ========================================================= */
+========================================================= */
 
 function waitForPDFImages() {
 
@@ -2737,39 +2415,44 @@ function waitForPDFImages() {
 
 
   return Promise.all(
-    Array.from(images).map(img => {
 
-      if (
-        img.complete &&
-        img.naturalWidth > 0
-      ) {
+    Array.from(images).map(
+      function(img) {
 
-        return Promise.resolve();
-      }
+        if (
+          img.complete &&
+          img.naturalWidth > 0
+        ) {
 
-
-      return new Promise(resolve => {
-
-        img.onload =
-          resolve;
-
-        img.onerror =
-          resolve;
+          return Promise.resolve();
+        }
 
 
-        setTimeout(
-          resolve,
-          5000
+        return new Promise(
+          function(resolve) {
+
+            img.onload =
+              resolve;
+
+            img.onerror =
+              resolve;
+
+
+            setTimeout(
+              resolve,
+              5000
+            );
+          }
         );
-      });
-    })
+      }
+    )
   );
 }
 
 
 /* =========================================================
-   HIGH-RESOLUTION PDF
-   ========================================================= */
+   HIGH-RESOLUTION PDF GENERATION
+========================================================= */
 
 async function generatePDF() {
 
@@ -2818,19 +2501,29 @@ async function generatePDF() {
 
     const {
       jsPDF
-    } = window.jspdf;
+    } =
+      window.jspdf;
 
 
     const pdf =
       new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-        compress: false
+
+        orientation:
+          "portrait",
+
+        unit:
+          "mm",
+
+        format:
+          "a4",
+
+        compress:
+          false
       });
 
 
     const pages = [
+
       document.getElementById(
         "pdfPage1"
       ),
@@ -2851,16 +2544,17 @@ async function generatePDF() {
         `Creating page ${i + 1} of ${pages.length}...`;
 
 
+      /*
+         4× rendering improves the
+         apparent resolution of text.
+      */
+
       const canvas =
         await html2canvas(
           pages[i],
           {
-            /*
-               Higher rendering scale
-               keeps text sharper.
-            */
 
-            scale: 3,
+            scale: 4,
 
             useCORS: true,
 
@@ -2872,10 +2566,16 @@ async function generatePDF() {
 
             imageTimeout: 15000,
 
-            removeContainer: true
+            removeContainer: true,
+
+            foreignObjectRendering: false
           }
         );
 
+
+      /*
+         PNG avoids JPEG compression.
+      */
 
       const imageData =
         canvas.toDataURL(
@@ -2890,13 +2590,21 @@ async function generatePDF() {
 
 
       pdf.addImage(
+
         imageData,
+
         "PNG",
+
         0,
+
         0,
+
         210,
+
         297,
+
         undefined,
+
         "NONE"
       );
     }
@@ -2925,10 +2633,8 @@ async function generatePDF() {
 
     pdfStatus.textContent =
       "There was a problem creating the PDF. Please try again.";
-  }
 
-
-  finally {
+  } finally {
 
     container.style.display =
       "none";
@@ -2942,7 +2648,7 @@ async function generatePDF() {
 
 /* =========================================================
    ANALYZE BUTTON
-   ========================================================= */
+========================================================= */
 
 document
   .getElementById(
@@ -3037,7 +2743,7 @@ document
 
 /* =========================================================
    PDF BUTTON
-   ========================================================= */
+========================================================= */
 
 document
   .getElementById(
@@ -3049,6 +2755,6 @@ document
   );
 
 </script>
-   
+
 </body>
 </html>
