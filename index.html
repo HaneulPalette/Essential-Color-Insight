@@ -515,381 +515,900 @@ button:disabled {
 
 <body>
 
-<div class="container">
+<style>
+/* =========================================================
+   HANEUL PALETTE — MINIMAL FREE ANALYSIS PAGE
+   ========================================================= */
 
-  <!-- LOGO -->
-  <img src="logo.png" class="logo" alt="Haneul Palette Logo">
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", Arial, sans-serif;
 
-  <h1>🆓 Essential Color Insight</h1>
+  background:
+    linear-gradient(
+      rgba(20, 20, 20, 0.58),
+      rgba(20, 20, 20, 0.58)
+    ),
+    url("background.jpg") center center / cover fixed no-repeat;
 
-  <div class="subtitle">
-    A gentle introduction to your personal color identity.
-  </div>
-
-  <p class="intro">
-    Discover the colors that may naturally harmonize with your features
-    through a simple, photo-based color analysis.
-    This free experience gives you an estimated seasonal color direction,
-    a basic color guide, and a simple starting point for understanding
-    which colors may complement your overall appearance.
-  </p>
+  color: #4d4145;
+}
 
 
-  <!-- WHAT YOU GET -->
+/* Main page wrapper */
 
-  <div class="section">
+.analysis-page {
+  width: 100%;
+  min-height: 100vh;
 
-    <h2>✨ What You Get</h2>
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 
-    <div class="feature">
-      <strong>📷 Photo-Based Color Evaluation</strong>
-      <span>
-        A basic evaluation of the visible color characteristics
-        in your uploaded photo.
-      </span>
+  padding: 90px 20px 60px;
+  box-sizing: border-box;
+}
+
+
+/* Main white/pastel card */
+
+.analysis-card {
+  width: 100%;
+  max-width: 570px;
+
+  background: #fff8f8;
+
+  border-radius: 0;
+
+  padding: 30px 35px 45px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Logo */
+
+.logo {
+  display: block;
+
+  width: 150px;
+  max-width: 70%;
+
+  height: auto;
+
+  margin: 0 auto 8px;
+}
+
+
+/* If your logo is actually the Haneul Palette image,
+   this keeps it centered. */
+
+
+/* Brand text */
+
+.brand-name {
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #a45e68;
+
+  margin: 0 0 5px;
+}
+
+.brand-subtitle {
+  text-align: center;
+
+  font-size: 11px;
+
+  color: #9b7b82;
+
+  margin-bottom: 25px;
+}
+
+
+/* Inner white section */
+
+.analysis-box {
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 28px 22px 30px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 8px 25px rgba(190, 145, 155, 0.10);
+}
+
+
+/* Heading */
+
+.analysis-title {
+  margin: 0 0 18px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #925865;
+}
+
+
+/* One-line description */
+
+.analysis-description {
+  margin: 0 0 28px;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: #5d5054;
+}
+
+
+/* Upload area */
+
+.upload-area {
+
+  border: 1px dashed #dfaab5;
+
+  border-radius: 15px;
+
+  background: #fffafb;
+
+  padding: 28px 18px 30px;
+
+  text-align: center;
+
+  box-sizing: border-box;
+}
+
+
+/* Upload title */
+
+.upload-title {
+
+  margin: 0 0 7px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #4d4145;
+}
+
+
+/* Upload subtitle */
+
+.upload-subtitle {
+
+  margin: 0 0 15px;
+
+  font-size: 10px;
+
+  color: #92777d;
+}
+
+
+/* File input */
+
+#imageInput {
+
+  display: block;
+
+  width: 100%;
+
+  max-width: 280px;
+
+  margin: 0 auto 16px;
+
+  font-size: 11px;
+
+  color: #555;
+}
+
+
+/* Analyze button */
+
+#analyzeBtn {
+
+  border: none;
+
+  background: #d8adb7;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  padding: 11px 25px;
+
+  border-radius: 25px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+#analyzeBtn:hover {
+
+  background: #c994a1;
+
+  transform: translateY(-1px);
+}
+
+#analyzeBtn:disabled {
+
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* Loading text */
+
+#loadingText {
+
+  display: none;
+
+  margin-top: 15px;
+
+  font-size: 11px;
+
+  color: #a45e68;
+}
+
+
+/* =========================================================
+   RESULT AREA
+   ========================================================= */
+
+#resultWrapper {
+
+  display: none;
+
+  margin-top: 25px;
+}
+
+
+/* Result cards */
+
+.result-card {
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  margin-bottom: 15px;
+
+  box-shadow:
+    0 6px 20px rgba(190, 145, 155, 0.10);
+}
+
+
+/* Result heading */
+
+.result-card h3 {
+
+  margin: 0 0 12px;
+
+  color: #925865;
+
+  font-size: 16px;
+}
+
+
+/* Result text */
+
+.result-card p {
+
+  margin: 5px 0;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* Result labels */
+
+.result-label {
+
+  font-weight: 700;
+
+  color: #8f5c67;
+}
+
+
+/* Palette */
+
+#paletteResult,
+#pdfPalette {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 12px;
+}
+
+
+.swatch {
+
+  width: 75px;
+
+  text-align: center;
+
+  font-size: 9px;
+
+  color: #5d5054;
+}
+
+
+.swatch-color {
+
+  width: 55px;
+
+  height: 55px;
+
+  border-radius: 50%;
+
+  margin: 0 auto 6px;
+
+  border: 1px solid rgba(0,0,0,0.08);
+
+  box-sizing: border-box;
+}
+
+
+/* Lists */
+
+.result-card ul {
+
+  margin: 8px 0 0;
+
+  padding-left: 18px;
+}
+
+.result-card li {
+
+  font-size: 11px;
+
+  margin-bottom: 5px;
+}
+
+
+/* PDF button */
+
+#pdfBtn {
+
+  border: none;
+
+  background: #a45e68;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  padding: 12px 24px;
+
+  border-radius: 25px;
+
+  cursor: pointer;
+
+  margin-top: 5px;
+}
+
+#pdfBtn:hover {
+
+  background: #8e4e59;
+}
+
+#pdfBtn:disabled {
+
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* PDF status */
+
+#pdfStatus {
+
+  margin-top: 10px;
+
+  font-size: 10px;
+
+  color: #92777d;
+}
+
+
+/* =========================================================
+   HIDDEN PDF CONTAINER
+   ========================================================= */
+
+#pdfContainer {
+
+  display: none;
+
+  position: fixed;
+
+  left: -10000px;
+
+  top: 0;
+
+  width: 210mm;
+
+  background: white;
+}
+
+
+.pdf-page {
+
+  width: 210mm;
+
+  height: 297mm;
+
+  box-sizing: border-box;
+
+  padding: 16mm;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff4f8 0%,
+      #f8f1ff 48%,
+      #eef8ff 100%
+    );
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+
+.pdf-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(255,255,255,0.10);
+
+  pointer-events: none;
+}
+
+
+.pdf-content {
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+.pdf-signature {
+
+  text-align: center;
+
+  margin-bottom: 15px;
+}
+
+
+.pdf-signature img {
+
+  width: 85px;
+
+  height: auto;
+
+  display: block;
+
+  margin: 0 auto 5px;
+}
+
+
+.pdf-signature strong {
+
+  display: block;
+
+  font-size: 17px;
+
+  color: #a45e68;
+}
+
+
+.pdf-signature span {
+
+  display: block;
+
+  font-size: 8px;
+
+  color: #92777d;
+}
+
+
+.pdf-title {
+
+  font-size: 20px;
+
+  color: #925865;
+
+  margin: 15px 0 15px;
+}
+
+
+.pdf-section {
+
+  background: rgba(255,255,255,0.72);
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  margin-bottom: 10px;
+}
+
+
+.pdf-section h3 {
+
+  margin: 0 0 7px;
+
+  font-size: 12px;
+
+  color: #925865;
+}
+
+
+.pdf-section p,
+.pdf-section li {
+
+  font-size: 9px;
+
+  line-height: 1.45;
+}
+
+
+.pdf-section ul {
+
+  margin: 5px 0;
+
+  padding-left: 16px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .analysis-page {
+
+    padding:
+      35px
+      12px
+      40px;
+  }
+
+  .analysis-card {
+
+    padding:
+      25px
+      15px
+      35px;
+  }
+
+  .analysis-box {
+
+    padding:
+      23px
+      15px
+      25px;
+  }
+
+  .analysis-title {
+
+    font-size: 18px;
+  }
+
+  .analysis-description {
+
+    font-size: 12px;
+  }
+
+  .upload-area {
+
+    padding:
+      25px
+      12px
+      27px;
+  }
+}
+</style>
+
+
+<div class="analysis-page">
+
+  <main class="analysis-card">
+
+
+    <!-- BRAND -->
+
+    <img
+      src="logo.png"
+      class="logo"
+      alt="Haneul Palette Logo"
+    >
+
+    <div class="brand-name">
+      Haneul Palette
     </div>
 
-    <div class="feature">
-      <strong>🎨 Estimated Seasonal Color Category</strong>
-      <span>
-        Discover your estimated color family:
-        Spring · Summer · Autumn · Winter
-      </span>
+    <div class="brand-subtitle">
+      Korean-Inspired Personal Color Analysis
     </div>
 
-    <div class="feature">
-      <strong>🌡️ Basic Color Direction</strong>
-      <span>
-        Understand your general color direction:
-        Warm · Cool · Neutral
-      </span>
-    </div>
 
-    <div class="feature">
-      <strong>💡 Basic Color Characteristics</strong>
-      <span>
-        A simple indication of whether your coloring appears
-        Light · Medium · Deep and Bright · Balanced · Soft.
-      </span>
-    </div>
+    <!-- ANALYSIS BOX -->
 
-    <div class="feature">
-      <strong>👔 Suitable Color Guide</strong>
-      <span>
-        Explore a small selection of colors that may naturally
-        complement your overall coloring.
-      </span>
-    </div>
+    <section class="analysis-box">
 
-    <div class="feature">
-      <strong>⚠️ Colors to Use Carefully</strong>
-      <span>
-        See a few color directions that may be less harmonious
-        with your estimated coloring.
-      </span>
-    </div>
+      <h1 class="analysis-title">
+        Free Analysis
+      </h1>
 
-    <div class="feature">
-      <strong>✨ Basic Visual Harmony Feedback</strong>
-      <span>
-        Receive a short explanation of how your estimated color
-        direction may interact with your overall appearance.
-      </span>
-    </div>
-
-    <div class="feature">
-      <strong>📄 Personalized Result Preview</strong>
-      <span>
-        See your own Essential Color Insight result immediately
-        after analysis.
-      </span>
-    </div>
-
-    <div class="feature">
-      <strong>⬇️ Downloadable Basic Report</strong>
-      <span>
-        Save your personalized Essential Color Insight as a PDF
-        for future reference.
-      </span>
-    </div>
-
-  </div>
-
-
-  <!-- WHAT THIS HELPS -->
-
-  <div class="section">
-
-    <h2>💡 What This Helps You Understand</h2>
-
-    <ul>
-      <li>Your natural color direction</li>
-      <li>Your estimated seasonal color family</li>
-      <li>Whether warmer, cooler, or more neutral colors may suit you</li>
-      <li>Whether lighter or deeper colors may be more harmonious</li>
-      <li>Whether clearer or softer colors may work better for you</li>
-      <li>A few everyday colors you can explore in clothing</li>
-      <li>A simple starting point for discovering your personal style direction</li>
-    </ul>
-
-    <p>
-      This is an introductory analysis, designed to give you
-      a simple first look at your color identity.
-    </p>
-
-  </div>
-
-
-  <!-- PRICING -->
-
-  <div class="section">
-
-    <h2>💰 Pricing</h2>
-
-    <div class="price-box">
-
-      <div class="price">
-        🇮🇳 India
-        <strong>₹0</strong>
-        Completely Free
-      </div>
-
-      <div class="price">
-        🌍 International
-        <strong>$0</strong>
-        Completely Free
-      </div>
-
-    </div>
-
-    <p style="text-align:center;">
-      No payment required.
-    </p>
-
-  </div>
-
-
-  <!-- ANALYSIS -->
-
-  <div class="section">
-
-    <h2 style="text-align:center;">
-      🚀 Start Your Free Analysis
-    </h2>
-
-    <p style="text-align:center;">
-      <strong>Discover Your Color Direction</strong>
-    </p>
-
-    <p style="text-align:center;">
-      Upload a clear, front-facing photo to receive your
-      <strong>Essential Color Insight instantly.</strong>
-    </p>
-
-    <div class="upload-area">
-
-      <p>
-        For a better result, use a photo with:
+      <p class="analysis-description">
+        Discover your natural color direction through an image-based personal color analysis.
       </p>
 
-      <ul style="text-align:left;">
-        <li>Clear visibility of your face</li>
-        <li>Natural or balanced lighting</li>
-        <li>Minimal filters</li>
-        <li>Minimal color cast from the surroundings</li>
-      </ul>
 
-      <input
-        type="file"
-        id="imageInput"
-        accept="image/*"
-      >
+      <!-- UPLOAD -->
 
-      <br>
+      <div class="upload-area">
 
-      <button id="analyzeBtn" onclick="analyzeImage()">
-        Analyze My Colors
-      </button>
+        <h2 class="upload-title">
+          Upload a clear photo
+        </h2>
 
-      <div id="loadingText"
-           style="display:none;margin-top:15px;color:#756b73;">
-        Analyzing your photo...
+        <p class="upload-subtitle">
+          For best results, use a front-facing photo in natural light.
+        </p>
+
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+        >
+
+        <button
+          id="analyzeBtn"
+          type="button"
+        >
+          Analyze My Colors
+        </button>
+
+        <div id="loadingText">
+          Analyzing your photo...
+        </div>
+
       </div>
 
-    </div>
-
-  </div>
+    </section>
 
 
-  <!-- RESULT -->
+    <!-- =================================================
+         RESULTS
+         Initially hidden.
+         ================================================= -->
 
-  <div class="result-wrapper" id="resultWrapper">
+    <section
+      id="resultWrapper"
+      style="display:none;"
+    >
 
-    <div class="result-card">
+      <div class="result-card">
 
-      <div class="result-title">
-
-        <h2>✨ Your Essential Color Identity</h2>
+        <h3>
+          Your Color Direction
+        </h3>
 
         <p>
-          Your personalized introductory result
+          <span class="result-label">
+            Seasonal Direction:
+          </span>
+
+          <span id="seasonResult"></span>
+        </p>
+
+        <p>
+          <span class="result-label">
+            Color Direction:
+          </span>
+
+          <span id="directionResult"></span>
+        </p>
+
+        <p>
+          <span class="result-label">
+            Depth:
+          </span>
+
+          <span id="depthResult"></span>
+        </p>
+
+        <p>
+          <span class="result-label">
+            Color Quality:
+          </span>
+
+          <span id="qualityResult"></span>
         </p>
 
       </div>
 
 
-      <div class="identity-grid">
+      <div class="result-card">
 
-        <div class="identity-box">
-          <span>Estimated Season</span>
-          <strong id="seasonResult">—</strong>
-        </div>
+        <h3>
+          Your Starter Palette
+        </h3>
 
-        <div class="identity-box">
-          <span>Color Direction</span>
-          <strong id="directionResult">—</strong>
-        </div>
-
-        <div class="identity-box">
-          <span>Depth</span>
-          <strong id="depthResult">—</strong>
-        </div>
-
-        <div class="identity-box">
-          <span>Color Quality</span>
-          <strong id="qualityResult">—</strong>
-        </div>
+        <div id="paletteResult"></div>
 
       </div>
 
 
-      <div class="result-section">
+      <div class="result-card">
 
-        <h3>🎨 Your Starter Color Palette</h3>
+        <h3>
+          Suitable Colors
+        </h3>
 
-        <p>
-          A small selection of colors based on your estimated
-          color direction.
-        </p>
-
-        <div class="swatches" id="paletteResult"></div>
+        <ul id="suitableResult"></ul>
 
       </div>
 
 
-      <div class="result-section">
+      <div class="result-card">
 
-        <h3>👔 Colors to Explore</h3>
+        <h3>
+          Colors to Use Carefully
+        </h3>
 
-        <div id="suitableResult"></div>
-
-      </div>
-
-
-      <div class="result-section">
-
-        <h3>⚠️ Colors to Use Carefully</h3>
-
-        <div id="unsuitableResult"></div>
+        <ul id="unsuitableResult"></ul>
 
       </div>
 
 
-      <div class="result-section">
+      <div class="result-card">
 
-        <h3>✨ Basic Style Direction</h3>
+        <h3>
+          Style Direction
+        </h3>
 
         <p id="styleResult"></p>
 
       </div>
 
 
-      <div class="result-section">
+      <div class="result-card">
 
-        <h3>💬 Harmony Feedback</h3>
+        <h3>
+          Visual Harmony
+        </h3>
 
         <p id="harmonyResult"></p>
 
       </div>
 
 
-      <div class="disclaimer">
+      <div style="text-align:center;">
 
-        <strong>📷 About Your Result</strong>
-        <br><br>
-
-        Your Essential Color Insight is based on the visible
-        color characteristics in your uploaded image.
-
-        Different photos may produce different results because
-        lighting, exposure, camera settings, filters, makeup,
-        clothing, and background colors can affect the visible
-        appearance of colors.
-
-        <br><br>
-
-        This free analysis is intended as a basic introductory
-        color guide, not a definitive professional color diagnosis.
-
-      </div>
-
-
-      <div class="pdf-area">
-
-        <button id="pdfBtn" onclick="generatePDF()">
-          Download My Color Insight PDF
+        <button
+          id="pdfBtn"
+          type="button"
+        >
+          Download Your PDF
         </button>
 
         <div id="pdfStatus"></div>
 
       </div>
 
-    </div>
+    </section>
 
-  </div>
+  </main>
 
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      HIDDEN PDF
-========================= -->
+     ===================================================== -->
 
 <div id="pdfContainer">
 
   <!-- PAGE 1 -->
 
-  <div class="pdf-page" id="pdfPage1">
+  <div
+    id="pdfPage1"
+    class="pdf-page"
+  >
 
     <div class="pdf-overlay"></div>
 
     <div class="pdf-content">
 
-      <!-- LOGO AS SIGNATURE AT TOP -->
-
       <div class="pdf-signature">
 
-        <img src="logo.png" alt="Haneul Palette">
+        <img
+          src="logo.png"
+          alt="Haneul Palette"
+        >
 
-        <div class="pdf-brand">
+        <strong>
           HANEUL PALETTE
-        </div>
+        </strong>
 
-        <div class="pdf-small">
+        <span>
           Korean-Inspired Personal Color Analysis
-        </div>
+        </span>
 
       </div>
 
 
-      <div class="pdf-title">
+      <h1 class="pdf-title">
+        Your Essential Color Insight
+      </h1>
 
-        <h1>
-          Essential Color Insight
-        </h1>
+
+      <div class="pdf-section">
+
+        <h3>
+          Color Direction
+        </h3>
 
         <p>
-          Free Personalized Color Result
+          Seasonal Direction:
+          <strong id="pdfSeason"></strong>
+        </p>
+
+        <p>
+          Color Direction:
+          <strong id="pdfDirection"></strong>
+        </p>
+
+        <p>
+          Depth:
+          <strong id="pdfDepth"></strong>
+        </p>
+
+        <p>
+          Color Quality:
+          <strong id="pdfQuality"></strong>
         </p>
 
       </div>
@@ -897,81 +1416,23 @@ button:disabled {
 
       <div class="pdf-section">
 
-        <h2>
-          Your Essential Color Identity
-        </h2>
+        <h3>
+          Your Starter Palette
+        </h3>
 
-        <div class="pdf-identity">
-
-          <div class="pdf-identity-box">
-            <span>Estimated Season</span>
-            <strong id="pdfSeason">—</strong>
-          </div>
-
-          <div class="pdf-identity-box">
-            <span>Color Direction</span>
-            <strong id="pdfDirection">—</strong>
-          </div>
-
-          <div class="pdf-identity-box">
-            <span>Depth</span>
-            <strong id="pdfDepth">—</strong>
-          </div>
-
-          <div class="pdf-identity-box">
-            <span>Color Quality</span>
-            <strong id="pdfQuality">—</strong>
-          </div>
-
-        </div>
+        <div id="pdfPalette"></div>
 
       </div>
 
 
       <div class="pdf-section">
 
-        <h2>
-          🎨 Your Starter Color Palette
-        </h2>
+        <h3>
+          Suitable Colors
+        </h3>
 
-        <div
-          class="pdf-swatches"
-          id="pdfPalette">
-        </div>
+        <ul id="pdfSuitable"></ul>
 
-      </div>
-
-
-      <div class="pdf-section">
-
-        <h2>
-          👔 Colors to Explore
-        </h2>
-
-        <ul
-          class="pdf-list"
-          id="pdfSuitable">
-        </ul>
-
-      </div>
-
-
-      <div class="pdf-section">
-
-        <h2>
-          ⚠️ Colors to Use Carefully
-        </h2>
-
-        <ul
-          class="pdf-list"
-          id="pdfUnsuitable">
-        </ul>
-
-      </div>
-
-
-      <div class="pdf-footer">
-        Haneul Palette · Essential Color Insight
       </div>
 
     </div>
@@ -981,100 +1442,76 @@ button:disabled {
 
   <!-- PAGE 2 -->
 
-  <div class="pdf-page pdf-page-2" id="pdfPage2">
+  <div
+    id="pdfPage2"
+    class="pdf-page"
+  >
 
     <div class="pdf-overlay"></div>
 
     <div class="pdf-content">
 
-      <div class="pdf-title">
+      <div class="pdf-signature">
 
-        <h1>
-          Your Color Direction
-        </h1>
+        <img
+          src="logo.png"
+          alt="Haneul Palette"
+        >
+
+        <strong>
+          HANEUL PALETTE
+        </strong>
+
+        <span>
+          Korean-Inspired Personal Color Analysis
+        </span>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h3>
+          Colors to Use Carefully
+        </h3>
+
+        <ul id="pdfUnsuitable"></ul>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h3>
+          Style Direction
+        </h3>
+
+        <p id="pdfStyle"></p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h3>
+          Visual Harmony
+        </h3>
+
+        <p id="pdfHarmony"></p>
+
+      </div>
+
+
+      <div class="pdf-section">
+
+        <h3>
+          Note
+        </h3>
 
         <p>
-          A simple guide based on your uploaded image
+          This digital analysis provides estimated colour guidance based on the uploaded photograph. Results can vary depending on lighting, camera processing, makeup, filters and image quality.
         </p>
 
-      </div>
-
-
-      <div class="pdf-section">
-
-        <h2>
-          ✨ Basic Style Direction
-        </h2>
-
-        <p
-          class="pdf-text"
-          id="pdfStyle">
-        </p>
-
-      </div>
-
-
-      <div class="pdf-section">
-
-        <h2>
-          💬 Harmony Feedback
-        </h2>
-
-        <p
-          class="pdf-text"
-          id="pdfHarmony">
-        </p>
-
-      </div>
-
-
-      <div class="pdf-section">
-
-        <h2>
-          📷 About Your Result
-        </h2>
-
-        <p class="pdf-note">
-
-          Your Essential Color Insight is based on the visible
-          color characteristics in your uploaded image.
-
-          Different photos may produce different results because
-          lighting, exposure, camera settings, filters, makeup,
-          clothing, and background colors can affect the visible
-          appearance of colors.
-
-          <br><br>
-
-          This free analysis is intended as a basic introductory
-          color guide, not a definitive professional color diagnosis.
-
-        </p>
-
-      </div>
-
-
-      <div class="pdf-section">
-
-        <h2>
-          🌸 Explore Your Colors
-        </h2>
-
-        <p class="pdf-text">
-
-          Use these colors as a simple starting point when
-          exploring everyday clothing and personal style.
-
-          Your color identity can be explored further through
-          more detailed personal color analysis.
-
-        </p>
-
-      </div>
-
-
-      <div class="pdf-footer">
-        Haneul Palette · Essential Color Insight · Free Analysis
       </div>
 
     </div>
@@ -1082,1389 +1519,6 @@ button:disabled {
   </div>
 
 </div>
-
-
-<script>
-/* =========================================================
-   HANEUL PALETTE
-   MEN'S ESSENTIAL COLOR INSIGHT
-   Analysis + Result + PDF
-   ========================================================= */
-
-let report = null;
-
-/* ---------------------------------------------------------
-   SEASON DATA
-   --------------------------------------------------------- */
-
-const seasonData = {
-  Spring: {
-    colors: [
-      ["Warm Ivory", "#FFF1D6"],
-      ["Peach", "#F7B58B"],
-      ["Coral", "#E9826A"],
-      ["Warm Aqua", "#71C9C0"],
-      ["Fresh Green", "#8DBB63"],
-      ["Camel", "#C49A6C"],
-      ["Warm Sky", "#8FC7D8"],
-      ["Golden Beige", "#D8B37A"],
-      ["Apricot", "#F3A878"],
-      ["Light Teal", "#72BEB2"],
-      ["Honey", "#D6A85E"],
-      ["Soft Coral", "#E99A83"]
-    ],
-    suitable: [
-      "Warm Ivory",
-      "Peach",
-      "Coral",
-      "Fresh Green",
-      "Camel"
-    ],
-    unsuitable: [
-      "Very cool grey",
-      "Icy blue",
-      "Harsh black",
-      "Neon cool tones"
-    ],
-    style:
-      "Fresh, warm and naturally bright colours usually create an easy everyday harmony.",
-    harmony:
-      "Warm and lively colour combinations can complement a naturally warm appearance."
-  },
-
-  Summer: {
-    colors: [
-      ["Soft White", "#F4F1EA"],
-      ["Dusty Blue", "#829DB5"],
-      ["Soft Lavender", "#A99BC5"],
-      ["Rose", "#C98F9D"],
-      ["Cool Sage", "#91A99B"],
-      ["Mauve", "#9C7488"],
-      ["Blue Grey", "#7E92A5"],
-      ["Soft Navy", "#4F6178"],
-      ["Powder Blue", "#9EB7C8"],
-      ["Muted Rose", "#B98591"],
-      ["Cool Taupe", "#9A8D8A"],
-      ["Soft Periwinkle", "#9FA8C9"]
-    ],
-    suitable: [
-      "Dusty Blue",
-      "Soft Lavender",
-      "Rose",
-      "Cool Sage",
-      "Soft Navy"
-    ],
-    unsuitable: [
-      "Orange",
-      "Strong yellow",
-      "Neon green",
-      "Very warm brown"
-    ],
-    style:
-      "Soft, balanced and slightly muted colours can create a calm and refined appearance.",
-    harmony:
-      "Cooler and softer colour combinations may blend naturally with a softer visual appearance."
-  },
-
-  Autumn: {
-    colors: [
-      ["Cream", "#F1DFC0"],
-      ["Camel", "#B98A5A"],
-      ["Olive", "#78804D"],
-      ["Terracotta", "#B8664E"],
-      ["Rust", "#9C513E"],
-      ["Warm Brown", "#76533D"],
-      ["Mustard", "#C19A3A"],
-      ["Deep Teal", "#3E706A"],
-      ["Burnt Orange", "#B9683E"],
-      ["Warm Khaki", "#8B8252"],
-      ["Cinnamon", "#9B6248"],
-      ["Bronze", "#8A6844"]
-    ],
-    suitable: [
-      "Camel",
-      "Olive",
-      "Terracotta",
-      "Rust",
-      "Warm Brown"
-    ],
-    unsuitable: [
-      "Icy blue",
-      "Cool lavender",
-      "Neon pink",
-      "Pure white"
-    ],
-    style:
-      "Rich, earthy and warm colours can create a grounded and naturally coordinated appearance.",
-    harmony:
-      "Warm, deeper and earthy combinations may complement a richer overall appearance."
-  },
-
-  Winter: {
-    colors: [
-      ["Pure White", "#FFFFFF"],
-      ["Black", "#151515"],
-      ["Cobalt Blue", "#3159B7"],
-      ["Cool Red", "#B52D48"],
-      ["Emerald", "#16765C"],
-      ["Deep Navy", "#253A69"],
-      ["Berry", "#873D65"],
-      ["Cool Pink", "#D46C91"],
-      ["Royal Blue", "#405FC1"],
-      ["Deep Emerald", "#176B57"],
-      ["Cranberry", "#9E2947"],
-      ["Icy Pink", "#D98AA6"]
-    ],
-    suitable: [
-      "Cobalt Blue",
-      "Emerald",
-      "Deep Navy",
-      "Berry",
-      "Cool Red"
-    ],
-    unsuitable: [
-      "Dusty beige",
-      "Orange",
-      "Yellow-brown",
-      "Very muted olive"
-    ],
-    style:
-      "Clear, defined and higher-contrast colours can create a crisp and polished appearance.",
-    harmony:
-      "Cooler and clearer colour combinations may complement stronger visual contrast."
-  }
-};
-
-
-/* ---------------------------------------------------------
-   BASIC UTILITIES
-   --------------------------------------------------------- */
-
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
-}
-
-function rgbToHsl(r, g, b) {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-
-  let h = 0;
-  let s = 0;
-  const l = (max + min) / 2;
-
-  if (max !== min) {
-    const d = max - min;
-    s = l > 0.5
-      ? d / (2 - max - min)
-      : d / (max + min);
-
-    switch (max) {
-      case r:
-        h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
-        break;
-      case g:
-        h = ((b - r) / d + 2) / 6;
-        break;
-      case b:
-        h = ((r - g) / d + 4) / 6;
-        break;
-    }
-  }
-
-  return {
-    h: h * 360,
-    s: s * 100,
-    l: l * 100
-  };
-}
-
-
-/* ---------------------------------------------------------
-   MORE FLEXIBLE SKIN-TONE DETECTION
-   Designed to avoid relying only on "R > G > B".
-   --------------------------------------------------------- */
-
-function isSkinLike(r, g, b) {
-  const sum = r + g + b;
-
-  if (sum < 70 || sum > 735) return false;
-
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  const chroma = max - min;
-
-  if (chroma < 8) return false;
-
-  const nr = r / sum;
-  const ng = g / sum;
-  const nb = b / sum;
-
-  const hsl = rgbToHsl(r, g, b);
-
-  if (hsl.l < 10 || hsl.l > 92) return false;
-
-  /*
-    Broad chromaticity range for natural skin.
-    This intentionally allows warm, neutral and some
-    cooler-looking skin pixels rather than requiring
-    one exact RGB relationship.
-  */
-  const basicSkin =
-    nr > 0.28 &&
-    ng > 0.25 &&
-    nb < 0.36 &&
-    nr > nb * 0.92;
-
-  /*
-    Secondary test for lighter/cooler skin where the
-    blue channel may be comparatively stronger.
-  */
-  const lightSkin =
-    r > 95 &&
-    g > 65 &&
-    b > 55 &&
-    r >= g * 0.90 &&
-    g >= b * 0.90 &&
-    hsl.s >= 8 &&
-    hsl.s <= 75;
-
-  return basicSkin || lightSkin;
-}
-
-
-/* ---------------------------------------------------------
-   SAMPLE IMAGE
-   --------------------------------------------------------- */
-
-function collectPixels(ctx, width, height) {
-
-  const imageData = ctx.getImageData(0, 0, width, height);
-  const data = imageData.data;
-
-  const skinPixels = [];
-  const centerPixels = [];
-  const allPixels = [];
-
-  /*
-    We give more importance to the central portion of
-    the photograph because backgrounds can strongly
-    distort whole-image analysis.
-  */
-
-  const centerLeft = width * 0.22;
-  const centerRight = width * 0.78;
-  const centerTop = height * 0.18;
-  const centerBottom = height * 0.82;
-
-  const step = Math.max(
-    4,
-    Math.floor(Math.sqrt((width * height) / 18000))
-  );
-
-  for (let y = 0; y < height; y += step) {
-    for (let x = 0; x < width; x += step) {
-
-      const index = (y * width + x) * 4;
-
-      const r = data[index];
-      const g = data[index + 1];
-      const b = data[index + 2];
-      const a = data[index + 3];
-
-      if (a < 180) continue;
-
-      const pixel = { r, g, b };
-
-      allPixels.push(pixel);
-
-      const insideCenter =
-        x >= centerLeft &&
-        x <= centerRight &&
-        y >= centerTop &&
-        y <= centerBottom;
-
-      if (insideCenter) {
-        centerPixels.push(pixel);
-
-        if (isSkinLike(r, g, b)) {
-          skinPixels.push(pixel);
-        }
-      }
-    }
-  }
-
-  return {
-    skinPixels,
-    centerPixels,
-    allPixels
-  };
-}
-
-
-/* ---------------------------------------------------------
-   STATISTICS
-   --------------------------------------------------------- */
-
-function averagePixels(pixels) {
-
-  if (!pixels.length) {
-    return {
-      r: 128,
-      g: 128,
-      b: 128
-    };
-  }
-
-  let r = 0;
-  let g = 0;
-  let b = 0;
-
-  for (const p of pixels) {
-    r += p.r;
-    g += p.g;
-    b += p.b;
-  }
-
-  return {
-    r: r / pixels.length,
-    g: g / pixels.length,
-    b: b / pixels.length
-  };
-}
-
-
-function calculateMetrics(pixels) {
-
-  if (!pixels.length) {
-    return {
-      warmth: 0,
-      lightness: 50,
-      chroma: 0,
-      contrast: 0
-    };
-  }
-
-  let warmthTotal = 0;
-  let lightnessTotal = 0;
-  let chromaTotal = 0;
-
-  const luminances = [];
-
-  for (const p of pixels) {
-
-    const hsl = rgbToHsl(p.r, p.g, p.b);
-
-    /*
-      Warmth:
-      red/yellow relationship versus blue.
-    */
-    const warmth =
-      ((p.r - p.b) * 0.65) +
-      ((p.g - p.b) * 0.35);
-
-    warmthTotal += warmth;
-    lightnessTotal += hsl.l;
-
-    const max = Math.max(p.r, p.g, p.b);
-    const min = Math.min(p.r, p.g, p.b);
-
-    const chroma =
-      max === 0
-        ? 0
-        : (max - min) / max;
-
-    chromaTotal += chroma;
-
-    /*
-      Perceived brightness.
-    */
-    const lum =
-      (0.2126 * p.r) +
-      (0.7152 * p.g) +
-      (0.0722 * p.b);
-
-    luminances.push(lum);
-  }
-
-  const avgLum =
-    luminances.reduce((a, b) => a + b, 0) /
-    luminances.length;
-
-  const variance =
-    luminances.reduce(
-      (sum, value) =>
-        sum + Math.pow(value - avgLum, 2),
-      0
-    ) / luminances.length;
-
-  const contrast =
-    Math.sqrt(variance) / 255;
-
-  return {
-    warmth: warmthTotal / pixels.length,
-    lightness: lightnessTotal / pixels.length,
-    chroma: chromaTotal / pixels.length,
-    contrast
-  };
-}
-
-
-/* ---------------------------------------------------------
-   QUALITY CLASSIFICATION
-   --------------------------------------------------------- */
-
-function classifyQuality(metrics) {
-
-  /*
-    Skin chroma is naturally lower than clothing/background
-    chroma, so thresholds are deliberately conservative.
-  */
-
-  const effectiveChroma =
-    metrics.chroma + (metrics.contrast * 0.20);
-
-  if (effectiveChroma >= 0.245) {
-    return "Bright";
-  }
-
-  if (effectiveChroma <= 0.145) {
-    return "Soft";
-  }
-
-  return "Balanced";
-}
-
-
-/* ---------------------------------------------------------
-   DEPTH CLASSIFICATION
-   --------------------------------------------------------- */
-
-function classifyDepth(metrics) {
-
-  if (metrics.lightness >= 67) {
-    return "Light";
-  }
-
-  if (metrics.lightness <= 38) {
-    return "Deep";
-  }
-
-  return "Medium";
-}
-
-
-/* ---------------------------------------------------------
-   WARM / COOL / NEUTRAL DIRECTION
-   IMPORTANT:
-   This is calculated separately from season.
-   --------------------------------------------------------- */
-
-function classifyDirection(warmth) {
-
-  if (warmth >= 14) {
-    return "Warm";
-  }
-
-  if (warmth <= 4) {
-    return "Cool";
-  }
-
-  return "Neutral";
-}
-
-
-/* ---------------------------------------------------------
-   SEASON SELECTION
-   --------------------------------------------------------- */
-
-function classifySeason(metrics, quality, depth) {
-
-  const warmth = metrics.warmth;
-
-  /*
-    Warm families
-  */
-  if (warmth >= 14) {
-
-    if (
-      quality === "Bright" ||
-      (
-        quality === "Balanced" &&
-        depth !== "Deep"
-      )
-    ) {
-      return "Spring";
-    }
-
-    return "Autumn";
-  }
-
-  /*
-    Cool families
-  */
-  if (warmth <= 4) {
-
-    if (
-      quality === "Bright" ||
-      depth === "Deep"
-    ) {
-      return "Winter";
-    }
-
-    return "Summer";
-  }
-
-  /*
-    Neutral zone.
-    Use depth + quality to decide the closest seasonal family.
-  */
-
-  if (quality === "Bright") {
-    return depth === "Deep"
-      ? "Winter"
-      : "Spring";
-  }
-
-  if (quality === "Soft") {
-    return depth === "Deep"
-      ? "Autumn"
-      : "Summer";
-  }
-
-  if (depth === "Deep") {
-    return metrics.warmth >= 9
-      ? "Autumn"
-      : "Winter";
-  }
-
-  return metrics.warmth >= 9
-    ? "Spring"
-    : "Summer";
-}
-
-
-/* ---------------------------------------------------------
-   DETERMINISTIC IMAGE SIGNATURE
-   This allows different photos to receive slightly
-   different palette selections while the same photo
-   remains consistent.
-   --------------------------------------------------------- */
-
-function createImageSignature(pixels) {
-
-  let hash = 2166136261;
-
-  const sampleCount = Math.min(
-    pixels.length,
-    2500
-  );
-
-  const stride =
-    Math.max(
-      1,
-      Math.floor(pixels.length / sampleCount)
-    );
-
-  for (
-    let i = 0;
-    i < pixels.length;
-    i += stride
-  ) {
-
-    const p = pixels[i];
-
-    hash ^= p.r;
-    hash = Math.imul(hash, 16777619);
-
-    hash ^= p.g;
-    hash = Math.imul(hash, 16777619);
-
-    hash ^= p.b;
-    hash = Math.imul(hash, 16777619);
-  }
-
-  return hash >>> 0;
-}
-
-
-/* ---------------------------------------------------------
-   PERSONALIZED PALETTE
-   Same image = same selection.
-   Different image = potentially different selection.
-   --------------------------------------------------------- */
-
-function getPersonalizedPalette(season, pixels) {
-
-  const data = seasonData[season];
-
-  const signature =
-    createImageSignature(pixels);
-
-  const colors = data.colors;
-
-  /*
-    Select 8 colours from the 12-colour seasonal library.
-    We space the selections so the result remains balanced.
-  */
-
-  const selected = [];
-  const used = new Set();
-
-  let start =
-    signature % colors.length;
-
-  for (let i = 0; selected.length < 8; i++) {
-
-    const index =
-      (start + (i * 3)) % colors.length;
-
-    if (!used.has(index)) {
-
-      used.add(index);
-      selected.push(colors[index]);
-    }
-  }
-
-  return selected;
-}
-
-
-/* ---------------------------------------------------------
-   ANALYZE IMAGE
-   --------------------------------------------------------- */
-
-async function analyzeImage(file) {
-
-  return new Promise((resolve, reject) => {
-
-    const img = new Image();
-
-    const objectURL =
-      URL.createObjectURL(file);
-
-    img.onload = () => {
-
-      try {
-
-        const maxSize = 600;
-
-        let width = img.naturalWidth;
-        let height = img.naturalHeight;
-
-        if (width > maxSize || height > maxSize) {
-
-          const ratio =
-            Math.min(
-              maxSize / width,
-              maxSize / height
-            );
-
-          width =
-            Math.max(1, Math.round(width * ratio));
-
-          height =
-            Math.max(1, Math.round(height * ratio));
-        }
-
-        const canvas =
-          document.createElement("canvas");
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx =
-          canvas.getContext("2d", {
-            willReadFrequently: true
-          });
-
-        ctx.drawImage(
-          img,
-          0,
-          0,
-          width,
-          height
-        );
-
-        const samples =
-          collectPixels(
-            ctx,
-            width,
-            height
-          );
-
-        /*
-          Priority:
-          1. Skin-like pixels in central area
-          2. Central image
-          3. Whole image
-        */
-
-        let analysisPixels =
-          samples.skinPixels;
-
-        if (analysisPixels.length < 80) {
-          analysisPixels =
-            samples.centerPixels;
-        }
-
-        if (analysisPixels.length < 80) {
-          analysisPixels =
-            samples.allPixels;
-        }
-
-        const metrics =
-          calculateMetrics(
-            analysisPixels
-          );
-
-        const quality =
-          classifyQuality(metrics);
-
-        const depth =
-          classifyDepth(metrics);
-
-        const direction =
-          classifyDirection(
-            metrics.warmth
-          );
-
-        const season =
-          classifySeason(
-            metrics,
-            quality,
-            depth
-          );
-
-        const personalizedPalette =
-          getPersonalizedPalette(
-            season,
-            analysisPixels
-          );
-
-        const data =
-          seasonData[season];
-
-        report = {
-
-          season,
-
-          direction,
-
-          depth,
-
-          quality,
-
-          palette:
-            personalizedPalette,
-
-          suitable:
-            data.suitable,
-
-          unsuitable:
-            data.unsuitable,
-
-          style:
-            data.style,
-
-          harmony:
-            data.harmony,
-
-          metrics: {
-            warmth:
-              Number(metrics.warmth.toFixed(2)),
-
-            lightness:
-              Number(metrics.lightness.toFixed(2)),
-
-            chroma:
-              Number(metrics.chroma.toFixed(3)),
-
-            contrast:
-              Number(metrics.contrast.toFixed(3))
-          }
-
-        };
-
-        URL.revokeObjectURL(
-          objectURL
-        );
-
-        resolve(report);
-
-      } catch (error) {
-
-        URL.revokeObjectURL(
-          objectURL
-        );
-
-        reject(error);
-      }
-    };
-
-    img.onerror = () => {
-
-      URL.revokeObjectURL(
-        objectURL
-      );
-
-      reject(
-        new Error(
-          "Unable to read the selected image."
-        )
-      );
-    };
-
-    img.src = objectURL;
-  });
-}
-
-
-/* ---------------------------------------------------------
-   CREATE LIST
-   --------------------------------------------------------- */
-
-function createList(items) {
-
-  return items
-    .map(
-      item =>
-        `<li>${item}</li>`
-    )
-    .join("");
-}
-
-
-/* ---------------------------------------------------------
-   DISPLAY RESULT
-   --------------------------------------------------------- */
-
-function displayResult(data) {
-
-  document.getElementById(
-    "seasonResult"
-  ).textContent =
-    data.season;
-
-  document.getElementById(
-    "directionResult"
-  ).textContent =
-    data.direction;
-
-  document.getElementById(
-    "depthResult"
-  ).textContent =
-    data.depth;
-
-  document.getElementById(
-    "qualityResult"
-  ).textContent =
-    data.quality;
-
-  const paletteContainer =
-    document.getElementById(
-      "paletteResult"
-    );
-
-  paletteContainer.innerHTML =
-    data.palette
-      .map(
-        color => `
-          <div class="swatch">
-            <div
-              class="swatch-color"
-              style="background:${color[1]}"
-            ></div>
-            <span>${color[0]}</span>
-          </div>
-        `
-      )
-      .join("");
-
-  document.getElementById(
-    "suitableResult"
-  ).innerHTML =
-    createList(
-      data.suitable
-    );
-
-  document.getElementById(
-    "unsuitableResult"
-  ).innerHTML =
-    createList(
-      data.unsuitable
-    );
-
-  document.getElementById(
-    "styleResult"
-  ).textContent =
-    data.style;
-
-  document.getElementById(
-    "harmonyResult"
-  ).textContent =
-    data.harmony;
-
-  document.getElementById(
-    "resultWrapper"
-  ).style.display =
-    "block";
-
-  document.getElementById(
-    "resultWrapper"
-  ).scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-}
-
-
-/* ---------------------------------------------------------
-   PREPARE PDF
-   --------------------------------------------------------- */
-
-function preparePDF() {
-
-  if (!report) return;
-
-  document.getElementById(
-    "pdfSeason"
-  ).textContent =
-    report.season;
-
-  document.getElementById(
-    "pdfDirection"
-  ).textContent =
-    report.direction;
-
-  document.getElementById(
-    "pdfDepth"
-  ).textContent =
-    report.depth;
-
-  document.getElementById(
-    "pdfQuality"
-  ).textContent =
-    report.quality;
-
-  const pdfPalette =
-    document.getElementById(
-      "pdfPalette"
-    );
-
-  pdfPalette.innerHTML =
-    report.palette
-      .map(
-        color => `
-          <div class="swatch">
-            <div
-              class="swatch-color"
-              style="background:${color[1]}"
-            ></div>
-            <span>${color[0]}</span>
-          </div>
-        `
-      )
-      .join("");
-
-  document.getElementById(
-    "pdfSuitable"
-  ).innerHTML =
-    createList(
-      report.suitable
-    );
-
-  document.getElementById(
-    "pdfUnsuitable"
-  ).innerHTML =
-    createList(
-      report.unsuitable
-    );
-
-  document.getElementById(
-    "pdfStyle"
-  ).textContent =
-    report.style;
-
-  document.getElementById(
-    "pdfHarmony"
-  ).textContent =
-    report.harmony;
-}
-
-
-/* ---------------------------------------------------------
-   WAIT FOR PDF IMAGES
-   Ensures logo.png is loaded before html2canvas captures.
-   --------------------------------------------------------- */
-
-async function waitForPDFImages() {
-
-  const images =
-    document.querySelectorAll(
-      "#pdfContainer img"
-    );
-
-  const promises =
-    Array.from(images).map(
-      img => {
-
-        if (
-          img.complete &&
-          img.naturalWidth > 0
-        ) {
-          return Promise.resolve();
-        }
-
-        return new Promise(resolve => {
-
-          const finish = () => {
-            resolve();
-          };
-
-          img.addEventListener(
-            "load",
-            finish,
-            { once: true }
-          );
-
-          img.addEventListener(
-            "error",
-            finish,
-            { once: true }
-          );
-
-          /*
-            Safety timeout.
-          */
-
-          setTimeout(
-            finish,
-            3000
-          );
-        });
-      }
-    );
-
-  await Promise.all(promises);
-}
-
-
-/* ---------------------------------------------------------
-   GENERATE PDF
-   --------------------------------------------------------- */
-
-async function generatePDF() {
-
-  if (!report) return;
-
-  const status =
-    document.getElementById(
-      "pdfStatus"
-    );
-
-  const button =
-    document.getElementById(
-      "pdfBtn"
-    );
-
-  try {
-
-    button.disabled = true;
-
-    if (status) {
-      status.textContent =
-        "Preparing your report...";
-    }
-
-    preparePDF();
-
-    const pdfContainer =
-      document.getElementById(
-        "pdfContainer"
-      );
-
-    const page1 =
-      document.getElementById(
-        "pdfPage1"
-      );
-
-    const page2 =
-      document.getElementById(
-        "pdfPage2"
-      );
-
-    /*
-      Make PDF container available for capture.
-    */
-
-    pdfContainer.style.display =
-      "block";
-
-    /*
-      Allow browser to finish rendering.
-    */
-
-    await new Promise(
-      resolve =>
-        requestAnimationFrame(
-          () =>
-            requestAnimationFrame(
-              resolve
-            )
-        )
-    );
-
-    await waitForPDFImages();
-
-    const {
-      jsPDF
-    } = window.jspdf;
-
-    const pdf =
-      new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-        compress: true
-      });
-
-    const pages = [
-      page1,
-      page2
-    ];
-
-    for (
-      let i = 0;
-      i < pages.length;
-      i++
-    ) {
-
-      const canvas =
-        await html2canvas(
-          pages[i],
-          {
-            scale: 1.5,
-
-            useCORS: false,
-
-            allowTaint: false,
-
-            backgroundColor: null,
-
-            logging: false,
-
-            imageTimeout: 0
-          }
-        );
-
-      const imageData =
-        canvas.toDataURL(
-          "image/jpeg",
-          0.94
-        );
-
-      if (i > 0) {
-        pdf.addPage();
-      }
-
-      pdf.addImage(
-        imageData,
-        "JPEG",
-        0,
-        0,
-        210,
-        297,
-        undefined,
-        "FAST"
-      );
-    }
-
-    pdf.save(
-      "Haneul-Palette-Men-Essential-Color-Insight-Results.pdf"
-    );
-
-    if (status) {
-      status.textContent =
-        "Your PDF has been downloaded successfully.";
-    }
-
-  } catch (error) {
-
-    console.error(
-      "PDF generation error:",
-      error
-    );
-
-    if (status) {
-      status.textContent =
-        "There was a problem creating the PDF. Please try again.";
-    }
-
-  } finally {
-
-    document.getElementById(
-      "pdfContainer"
-    ).style.display =
-      "none";
-
-    button.disabled = false;
-  }
-}
-
-
-/* ---------------------------------------------------------
-   ANALYZE BUTTON
-   --------------------------------------------------------- */
-
-document
-  .getElementById("analyzeBtn")
-  .addEventListener(
-    "click",
-    async function () {
-
-      const input =
-        document.getElementById(
-          "imageInput"
-        );
-
-      const loading =
-        document.getElementById(
-          "loadingText"
-        );
-
-      if (
-        !input.files ||
-        !input.files.length
-      ) {
-
-        alert(
-          "Please upload a clear photo first."
-        );
-
-        return;
-      }
-
-      const file =
-        input.files[0];
-
-      /*
-        Basic image validation.
-      */
-
-      if (
-        !file.type.startsWith(
-          "image/"
-        )
-      ) {
-
-        alert(
-          "Please select an image file."
-        );
-
-        return;
-      }
-
-      try {
-
-        this.disabled = true;
-
-        loading.style.display =
-          "block";
-
-        loading.textContent =
-          "Analyzing your photo...";
-
-        document.getElementById(
-          "resultWrapper"
-        ).style.display =
-          "none";
-
-        report =
-          await analyzeImage(file);
-
-        displayResult(
-          report
-        );
-
-        loading.textContent =
-          "Analysis complete.";
-
-      } catch (error) {
-
-        console.error(
-          "Analysis error:",
-          error
-        );
-
-        alert(
-          "We couldn't analyze this image. Please try a clear, well-lit photo."
-        );
-
-      } finally {
-
-        this.disabled = false;
-
-        setTimeout(() => {
-
-          loading.style.display =
-            "none";
-
-        }, 800);
-      }
-    }
-  );
-
-
-/* ---------------------------------------------------------
-   PDF BUTTON
-   --------------------------------------------------------- */
-
-document
-  .getElementById("pdfBtn")
-  .addEventListener(
-    "click",
-    generatePDF
-  );
-
-
-/* ---------------------------------------------------------
-   IMAGE INPUT FEEDBACK
-   --------------------------------------------------------- */
-
-document
-  .getElementById("imageInput")
-  .addEventListener(
-    "change",
-    function () {
-
-      if (
-        this.files &&
-        this.files.length
-      ) {
-
-        const file =
-          this.files[0];
-
-        if (
-          file.type.startsWith(
-            "image/"
-          )
-        ) {
-
-          document.getElementById(
-            "loadingText"
-          ).style.display =
-            "none";
-        }
-      }
-    }
-  );
-
-</script>
 
 </body>
 </html>
