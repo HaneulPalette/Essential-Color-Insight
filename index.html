@@ -807,41 +807,57 @@ body {
   color: #8f5c67;
 }
 
-/* Palette */
+/* =========================
+   RECTANGULAR COLOR SWATCHES
+========================= */
 
 #paletteResult,
 #pdfPalette {
   display: flex;
-
   flex-wrap: wrap;
-
   gap: 12px;
-
   margin-top: 12px;
 }
 
 .swatch {
-  width: 75px;
-
+  width: 78px;
   text-align: center;
-
   font-size: 9px;
-
   color: #5d5054;
 }
 
 .swatch-color {
-  width: 55px;
-
-  height: 55px;
-
-  border-radius: 50%;
-
+  width: 68px;
+  height: 42px;
+  border-radius: 8px;
   margin: 0 auto 6px;
-
   border: 1px solid rgba(0,0,0,0.08);
-
   box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* PDF palette */
+
+#pdfPalette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+#pdfPalette .swatch {
+  width: 72px;
+  text-align: center;
+  font-size: 8px;
+  color: #514950;
+}
+
+#pdfPalette .swatch-color {
+  width: 68px !important;
+  height: 42px !important;
+  border-radius: 8px !important;
+  margin: 0 auto 5px !important;
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 .result-card ul {
@@ -1293,7 +1309,7 @@ body {
 <script>
 
 /* =========================================================
-   HANEUL PALETTE — ANALYSIS LOGIC
+   HANEUL PALETTE — PERSONALIZED IMAGE ANALYSIS
    ========================================================= */
 
 let report = null;
@@ -1307,6 +1323,7 @@ const seasonData = {
 
   Spring: {
     direction: "Warm",
+
     colors: [
       ["Warm Ivory", "#FFF1D6"],
       ["Peach", "#F7B58B"],
@@ -1315,8 +1332,17 @@ const seasonData = {
       ["Fresh Green", "#8DBB63"],
       ["Camel", "#C49A6C"],
       ["Warm Sky", "#8FC7D8"],
-      ["Golden Beige", "#D8B37A"]
+      ["Golden Beige", "#D8B37A"],
+      ["Apricot", "#F2A56F"],
+      ["Soft Coral", "#E88F7B"],
+      ["Honey", "#D6A34A"],
+      ["Mint Aqua", "#82C8B6"],
+      ["Warm Rose", "#D98582"],
+      ["Light Camel", "#D0A978"],
+      ["Fresh Teal", "#5FB7AA"],
+      ["Butter Cream", "#F4D99B"]
     ],
+
     suitable: [
       "Warm Ivory",
       "Peach",
@@ -1324,20 +1350,25 @@ const seasonData = {
       "Fresh Green",
       "Camel"
     ],
+
     unsuitable: [
       "Very cool grey",
       "Icy blue",
       "Harsh black",
       "Neon cool tones"
     ],
+
     style:
       "Fresh, warm and naturally bright colours can create an easy everyday harmony.",
+
     harmony:
       "Warm and lively colour combinations can complement a naturally warm appearance."
   },
 
+
   Summer: {
     direction: "Cool",
+
     colors: [
       ["Soft White", "#F4F1EA"],
       ["Dusty Blue", "#829DB5"],
@@ -1346,8 +1377,17 @@ const seasonData = {
       ["Cool Sage", "#91A99B"],
       ["Mauve", "#9C7488"],
       ["Blue Grey", "#7E92A5"],
-      ["Soft Navy", "#4F6178"]
+      ["Soft Navy", "#4F6178"],
+      ["Cool Rose", "#C58D9C"],
+      ["Periwinkle", "#929CC8"],
+      ["Soft Lilac", "#B3A4C9"],
+      ["Muted Berry", "#A66D82"],
+      ["Cloud Blue", "#9BAFC0"],
+      ["Cool Taupe", "#9C8F91"],
+      ["Soft Plum", "#806477"],
+      ["Pale Blue", "#B4C9D7"]
     ],
+
     suitable: [
       "Dusty Blue",
       "Soft Lavender",
@@ -1355,20 +1395,25 @@ const seasonData = {
       "Cool Sage",
       "Soft Navy"
     ],
+
     unsuitable: [
       "Orange",
       "Strong yellow",
       "Neon green",
       "Very warm brown"
     ],
+
     style:
       "Soft, cool and refined colours can create a gentle everyday harmony.",
+
     harmony:
       "Cool and softly blended combinations can complement a naturally cool appearance."
   },
 
+
   Autumn: {
     direction: "Warm",
+
     colors: [
       ["Cream", "#F1DFC0"],
       ["Camel", "#B98A5A"],
@@ -1377,8 +1422,17 @@ const seasonData = {
       ["Rust", "#9C513E"],
       ["Warm Brown", "#76533D"],
       ["Mustard", "#C19A3A"],
-      ["Deep Teal", "#3E706A"]
+      ["Deep Teal", "#3E706A"],
+      ["Copper", "#B66A48"],
+      ["Warm Khaki", "#85805A"],
+      ["Burnt Orange", "#B85E38"],
+      ["Cinnamon", "#9A654A"],
+      ["Deep Olive", "#60663D"],
+      ["Warm Taupe", "#866D59"],
+      ["Bronze", "#9D7947"],
+      ["Brick", "#9F5145"]
     ],
+
     suitable: [
       "Camel",
       "Olive",
@@ -1386,20 +1440,25 @@ const seasonData = {
       "Rust",
       "Warm Brown"
     ],
+
     unsuitable: [
       "Icy blue",
       "Cool lavender",
       "Neon pink",
       "Pure white"
     ],
+
     style:
       "Rich, warm and naturally grounded colours can create an easy everyday harmony.",
+
     harmony:
       "Warm and earthy colour combinations can complement a naturally warm appearance."
   },
 
+
   Winter: {
     direction: "Cool",
+
     colors: [
       ["Pure White", "#FFFFFF"],
       ["Black", "#151515"],
@@ -1408,8 +1467,17 @@ const seasonData = {
       ["Emerald", "#16765C"],
       ["Deep Navy", "#253A69"],
       ["Berry", "#873D65"],
-      ["Cool Pink", "#D46C91"]
+      ["Cool Pink", "#D46C91"],
+      ["Royal Blue", "#405CC4"],
+      ["Deep Berry", "#703957"],
+      ["Jewel Green", "#16816A"],
+      ["Cranberry", "#A82F50"],
+      ["Cool Magenta", "#A33E78"],
+      ["Icy Pink", "#DFA0B7"],
+      ["Sapphire", "#315F9F"],
+      ["Deep Teal", "#216B70"]
     ],
+
     suitable: [
       "Cobalt Blue",
       "Emerald",
@@ -1417,14 +1485,17 @@ const seasonData = {
       "Berry",
       "Cool Red"
     ],
+
     unsuitable: [
       "Dusty beige",
       "Orange",
       "Yellow-brown",
       "Very muted olive"
     ],
+
     style:
       "Clear, cool and defined colours can create a polished everyday harmony.",
+
     harmony:
       "Cool and clearer colour combinations can complement a naturally cool appearance."
   }
@@ -1433,7 +1504,7 @@ const seasonData = {
 
 
 /* =========================================================
-   IMAGE UTILITIES
+   RGB → HSL
    ========================================================= */
 
 function rgbToHsl(r, g, b) {
@@ -1471,7 +1542,6 @@ function rgbToHsl(r, g, b) {
       case b:
         h = ((r - g) / d + 4);
         break;
-
     }
 
     h /= 6;
@@ -1485,12 +1555,16 @@ function rgbToHsl(r, g, b) {
 }
 
 
+/* =========================================================
+   IMPROVED SKIN DETECTION
+   ========================================================= */
+
 function isSkinLike(r, g, b) {
 
   if (
-    r < 35 ||
-    g < 25 ||
-    b < 20
+    r < 25 ||
+    g < 20 ||
+    b < 15
   ) {
     return false;
   }
@@ -1502,42 +1576,227 @@ function isSkinLike(r, g, b) {
 
   const chroma = max - min;
 
-  const warmRatio =
-    (r - b) +
-    ((r - g) * 0.35);
+  /*
+     Broad skin detection designed to work
+     across lighter, medium and deeper skin tones.
 
-  return (
-    r >= g * 0.88 &&
-    g >= b * 0.78 &&
-    warmRatio > 3 &&
-    chroma > 8 &&
-    hsl.l >= 12 &&
-    hsl.l <= 92 &&
+     It intentionally does not require
+     r > g > b in every case.
+  */
+
+  const cb =
+    128 -
+    (0.168736 * r) -
+    (0.331264 * g) +
+    (0.5 * b);
+
+  const cr =
+    128 +
+    (0.5 * r) -
+    (0.418688 * g) -
+    (0.081312 * b);
+
+  const warmBalance =
+    (r - b) * 0.65 +
+    (r - g) * 0.35;
+
+  const skinRange =
+    cb >= 75 &&
+    cb <= 145 &&
+    cr >= 125 &&
+    cr <= 190;
+
+  const broadSkinRange =
+    warmBalance > 2 &&
+    chroma >= 5 &&
+    hsl.l >= 10 &&
+    hsl.l <= 93 &&
     hsl.s >= 5 &&
-    hsl.s <= 90
-  );
+    hsl.s <= 95;
+
+  return skinRange || broadSkinRange;
+}
+
+
+/* =========================================================
+   CLAMP
+   ========================================================= */
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+
+/* =========================================================
+   SIMPLE DETERMINISTIC IMAGE SIGNATURE
+   ========================================================= */
+
+function createImageSignature(samples) {
+
+  let hash = 2166136261;
+
+  for (let i = 0; i < samples.length; i++) {
+
+    hash ^= samples[i];
+
+    hash +=
+      (hash << 1) +
+      (hash << 4) +
+      (hash << 7) +
+      (hash << 8) +
+      (hash << 24);
+
+    hash >>>= 0;
+  }
+
+  return hash >>> 0;
+}
+
+
+/* =========================================================
+   PERSONALIZED PALETTE SELECTION
+   ========================================================= */
+
+function createPersonalizedPalette(
+  season,
+  warmth,
+  skinLightness,
+  chroma,
+  signature
+) {
+
+  const source =
+    seasonData[season].colors;
+
+  /*
+     Different photos can therefore receive
+     different colour selections even when
+     they belong to the same seasonal family.
+  */
+
+  const normalizedWarmth =
+    clamp(
+      (warmth + 20) / 45,
+      0,
+      1
+    );
+
+  const normalizedDepth =
+    clamp(
+      skinLightness / 100,
+      0,
+      1
+    );
+
+  const normalizedChroma =
+    clamp(
+      chroma / 60,
+      0,
+      1
+    );
+
+  const baseIndex =
+    Math.floor(
+      (
+        signature +
+        Math.round(normalizedWarmth * 1000) +
+        Math.round(normalizedDepth * 700) +
+        Math.round(normalizedChroma * 500)
+      ) % source.length
+    );
+
+
+  const selected = [];
+
+  /*
+     Use a changing step so different images
+     don't always pick the same eight colours.
+  */
+
+  let step =
+    3 +
+    (
+      Math.floor(
+        normalizedChroma * 4
+      ) % 4
+    );
+
+  if (step >= source.length) {
+    step = 3;
+  }
+
+
+  for (
+    let i = 0;
+    i < source.length &&
+    selected.length < 8;
+    i++
+  ) {
+
+    const index =
+      (
+        baseIndex +
+        i * step
+      ) % source.length;
+
+    const color =
+      source[index];
+
+    if (
+      !selected.some(
+        item => item[0] === color[0]
+      )
+    ) {
+      selected.push(color);
+    }
+  }
+
+
+  /*
+     Safety fallback.
+  */
+
+  if (selected.length < 8) {
+
+    source.forEach(color => {
+
+      if (
+        selected.length < 8 &&
+        !selected.some(
+          item => item[0] === color[0]
+        )
+      ) {
+        selected.push(color);
+      }
+    });
+  }
+
+
+  return selected;
 }
 
 
 /* =========================================================
    IMAGE ANALYSIS
-========================================================= */
+   ========================================================= */
 
 function analyzeImage(file) {
 
   return new Promise((resolve, reject) => {
 
-    const reader = new FileReader();
+    const reader =
+      new FileReader();
 
     reader.onload = function(event) {
 
-      const img = new Image();
+      const img =
+        new Image();
 
       img.onload = function() {
 
         try {
 
-          const maxSize = 500;
+          const maxSize = 700;
 
           let width = img.width;
           let height = img.height;
@@ -1545,26 +1804,44 @@ function analyzeImage(file) {
           if (width > height) {
 
             if (width > maxSize) {
-              height = Math.round(height * maxSize / width);
+
+              height =
+                Math.round(
+                  height * maxSize / width
+                );
+
               width = maxSize;
             }
 
           } else {
 
             if (height > maxSize) {
-              width = Math.round(width * maxSize / height);
+
+              width =
+                Math.round(
+                  width * maxSize / height
+                );
+
               height = maxSize;
             }
           }
 
-          const canvas = document.createElement("canvas");
+
+          const canvas =
+            document.createElement("canvas");
 
           canvas.width = width;
           canvas.height = height;
 
-          const ctx = canvas.getContext("2d", {
-            willReadFrequently: true
-          });
+
+          const ctx =
+            canvas.getContext(
+              "2d",
+              {
+                willReadFrequently: true
+              }
+            );
+
 
           ctx.drawImage(
             img,
@@ -1574,6 +1851,7 @@ function analyzeImage(file) {
             height
           );
 
+
           const imageData =
             ctx.getImageData(
               0,
@@ -1582,66 +1860,176 @@ function analyzeImage(file) {
               height
             ).data;
 
-          let skinR = 0;
-          let skinG = 0;
-          let skinB = 0;
-          let skinCount = 0;
 
           let totalR = 0;
           let totalG = 0;
           let totalB = 0;
           let totalCount = 0;
 
-          let saturationTotal = 0;
-          let lightnessTotal = 0;
+
+          let skinR = 0;
+          let skinG = 0;
+          let skinB = 0;
+          let skinCount = 0;
+
+
+          let skinLightnessTotal = 0;
+          let skinSaturationTotal = 0;
+          let skinChromaTotal = 0;
+
+
+          const signatureSamples = [];
+
 
           /*
-             Sample the image consistently.
-             Same image = same result.
+             Analyze primarily the central image area.
+             This reduces the influence of clothing
+             and background.
+          */
+
+          const centerX = width * 0.5;
+          const centerY = height * 0.47;
+
+          const regionWidth = width * 0.62;
+          const regionHeight = height * 0.68;
+
+
+          const left =
+            Math.max(
+              0,
+              centerX - regionWidth / 2
+            );
+
+          const right =
+            Math.min(
+              width,
+              centerX + regionWidth / 2
+            );
+
+          const top =
+            Math.max(
+              0,
+              centerY - regionHeight / 2
+            );
+
+          const bottom =
+            Math.min(
+              height,
+              centerY + regionHeight / 2
+            );
+
+
+          /*
+             Consistent sampling.
+             Same photo = same result.
           */
 
           for (
-            let i = 0;
-            i < imageData.length;
-            i += 16
+            let y = 0;
+            y < height;
+            y += 7
           ) {
 
-            const r = imageData[i];
-            const g = imageData[i + 1];
-            const b = imageData[i + 2];
-
-            if (
-              r === undefined ||
-              g === undefined ||
-              b === undefined
+            for (
+              let x = 0;
+              x < width;
+              x += 7
             ) {
-              continue;
-            }
 
-            totalR += r;
-            totalG += g;
-            totalB += b;
+              const index =
+                (y * width + x) * 4;
 
-            totalCount++;
 
-            const hsl = rgbToHsl(r, g, b);
+              const r =
+                imageData[index];
 
-            saturationTotal += hsl.s;
-            lightnessTotal += hsl.l;
+              const g =
+                imageData[index + 1];
 
-            if (isSkinLike(r, g, b)) {
+              const b =
+                imageData[index + 2];
 
-              skinR += r;
-              skinG += g;
-              skinB += b;
 
-              skinCount++;
+              if (
+                r === undefined ||
+                g === undefined ||
+                b === undefined
+              ) {
+                continue;
+              }
+
+
+              totalR += r;
+              totalG += g;
+              totalB += b;
+
+              totalCount++;
+
+
+              /*
+                 Signature samples are taken
+                 at fixed intervals.
+              */
+
+              if (
+                signatureSamples.length < 500
+              ) {
+
+                signatureSamples.push(
+                  r,
+                  g,
+                  b
+                );
+              }
+
+
+              /*
+                 Only use the central region
+                 for primary skin analysis.
+              */
+
+              if (
+                x >= left &&
+                x <= right &&
+                y >= top &&
+                y <= bottom &&
+                isSkinLike(r, g, b)
+              ) {
+
+                const hsl =
+                  rgbToHsl(r, g, b);
+
+                const chroma =
+                  (
+                    Math.max(r, g, b) -
+                    Math.min(r, g, b)
+                  ) / 255 * 100;
+
+
+                skinR += r;
+                skinG += g;
+                skinB += b;
+
+                skinCount++;
+
+                skinLightnessTotal += hsl.l;
+
+                skinSaturationTotal += hsl.s;
+
+                skinChromaTotal += chroma;
+              }
             }
           }
 
 
           if (totalCount === 0) {
-            reject(new Error("Could not read image."));
+
+            reject(
+              new Error(
+                "Could not read image."
+              )
+            );
+
             return;
           }
 
@@ -1650,49 +2038,197 @@ function analyzeImage(file) {
           let avgG;
           let avgB;
 
+
           /*
-             Prefer skin-like pixels.
-             Fall back to full image if needed.
+             Prefer central skin pixels.
+
+             If not enough skin pixels are
+             available, use a central-region
+             average rather than the whole image.
           */
 
-          if (skinCount >= 20) {
+          if (skinCount >= 30) {
 
-            avgR = skinR / skinCount;
-            avgG = skinG / skinCount;
-            avgB = skinB / skinCount;
+            avgR =
+              skinR / skinCount;
+
+            avgG =
+              skinG / skinCount;
+
+            avgB =
+              skinB / skinCount;
 
           } else {
 
-            avgR = totalR / totalCount;
-            avgG = totalG / totalCount;
-            avgB = totalB / totalCount;
+            let centerR = 0;
+            let centerG = 0;
+            let centerB = 0;
+            let centerCount = 0;
+
+
+            for (
+              let y = Math.floor(top);
+              y < Math.floor(bottom);
+              y += 10
+            ) {
+
+              for (
+                let x = Math.floor(left);
+                x < Math.floor(right);
+                x += 10
+              ) {
+
+                const index =
+                  (y * width + x) * 4;
+
+
+                const r =
+                  imageData[index];
+
+                const g =
+                  imageData[index + 1];
+
+                const b =
+                  imageData[index + 2];
+
+
+                if (
+                  r === undefined ||
+                  g === undefined ||
+                  b === undefined
+                ) {
+                  continue;
+                }
+
+
+                centerR += r;
+                centerG += g;
+                centerB += b;
+
+                centerCount++;
+              }
+            }
+
+
+            if (centerCount > 0) {
+
+              avgR =
+                centerR / centerCount;
+
+              avgG =
+                centerG / centerCount;
+
+              avgB =
+                centerB / centerCount;
+
+            } else {
+
+              avgR =
+                totalR / totalCount;
+
+              avgG =
+                totalG / totalCount;
+
+              avgB =
+                totalB / totalCount;
+            }
           }
 
 
+          /* =================================================
+             WARMTH
+          ================================================= */
+
           const warmth =
-            ((avgR - avgB) * 0.7) +
-            ((avgG - avgB) * 0.3);
+            (
+              (avgR - avgB) * 0.7
+            ) +
+            (
+              (avgG - avgB) * 0.3
+            );
 
 
-          const averageSaturation =
-            saturationTotal / totalCount;
+          /* =================================================
+             SKIN CHARACTERISTICS
+          ================================================= */
+
+          let skinLightness;
+          let skinSaturation;
+          let skinChroma;
 
 
-          const averageLightness =
-            lightnessTotal / totalCount;
+          if (skinCount >= 30) {
+
+            skinLightness =
+              skinLightnessTotal /
+              skinCount;
+
+            skinSaturation =
+              skinSaturationTotal /
+              skinCount;
+
+            skinChroma =
+              skinChromaTotal /
+              skinCount;
+
+          } else {
+
+            const fallbackHsl =
+              rgbToHsl(
+                avgR,
+                avgG,
+                avgB
+              );
 
 
-          /* =========================
+            skinLightness =
+              fallbackHsl.l;
+
+            skinSaturation =
+              fallbackHsl.s;
+
+            skinChroma =
+              (
+                Math.max(
+                  avgR,
+                  avgG,
+                  avgB
+                ) -
+                Math.min(
+                  avgR,
+                  avgG,
+                  avgB
+                )
+              ) / 255 * 100;
+          }
+
+
+          /* =================================================
              COLOR QUALITY
-          ========================= */
+          ================================================= */
 
           let quality;
 
-          if (averageSaturation >= 34) {
+          /*
+             Use both chroma and saturation
+             so quality is less affected by
+             background colours.
+          */
+
+          const qualityScore =
+            (
+              skinChroma * 0.65
+            ) +
+            (
+              skinSaturation * 0.35
+            );
+
+
+          if (qualityScore >= 27) {
 
             quality = "Bright";
 
-          } else if (averageSaturation <= 22) {
+          } else if (qualityScore <= 17) {
 
             quality = "Soft";
 
@@ -1702,17 +2238,17 @@ function analyzeImage(file) {
           }
 
 
-          /* =========================
+          /* =================================================
              DEPTH
-          ========================= */
+          ================================================= */
 
           let depth;
 
-          if (averageLightness >= 67) {
+          if (skinLightness >= 68) {
 
             depth = "Light";
 
-          } else if (averageLightness <= 38) {
+          } else if (skinLightness <= 37) {
 
             depth = "Deep";
 
@@ -1722,97 +2258,13 @@ function analyzeImage(file) {
           }
 
 
-          /* =========================
-             SEASON
-          ========================= */
-
-          let season;
-
-
-          if (warmth >= 18) {
-
-            if (
-              quality === "Bright" ||
-              depth === "Light"
-            ) {
-
-              season = "Spring";
-
-            } else {
-
-              season = "Autumn";
-            }
-
-          } else if (warmth <= 5) {
-
-            if (
-              quality === "Soft" ||
-              depth === "Light"
-            ) {
-
-              season = "Summer";
-
-            } else {
-
-              season = "Winter";
-            }
-
-          } else {
-
-            /*
-               Neutral zone.
-               Use depth + quality to choose the
-               closest seasonal family.
-            */
-
-            if (depth === "Light") {
-
-              season =
-                quality === "Bright"
-                  ? "Spring"
-                  : "Summer";
-
-            } else if (depth === "Deep") {
-
-              season =
-                quality === "Bright"
-                  ? "Winter"
-                  : "Autumn";
-
-            } else {
-
-              if (quality === "Bright") {
-
-                season =
-                  warmth >= 11
-                    ? "Spring"
-                    : "Winter";
-
-              } else if (quality === "Soft") {
-
-                season =
-                  warmth >= 11
-                    ? "Autumn"
-                    : "Summer";
-
-              } else {
-
-                season =
-                  warmth >= 11
-                    ? "Autumn"
-                    : "Summer";
-              }
-            }
-          }
-
-
-          /* =========================
+          /* =================================================
              COLOR DIRECTION
-          ========================= */
+          ================================================= */
 
           let direction;
 
-          if (warmth >= 12) {
+          if (warmth >= 13) {
 
             direction = "Warm";
 
@@ -1826,7 +2278,117 @@ function analyzeImage(file) {
           }
 
 
-          const data = seasonData[season];
+          /* =================================================
+             SEASON
+          ================================================= */
+
+          let season;
+
+
+          if (warmth >= 16) {
+
+            if (
+              quality === "Bright" ||
+              (
+                quality === "Balanced" &&
+                skinLightness >= 56
+              )
+            ) {
+
+              season = "Spring";
+
+            } else {
+
+              season = "Autumn";
+            }
+
+          } else if (warmth <= 4) {
+
+            if (
+              quality === "Soft" ||
+              skinLightness >= 58
+            ) {
+
+              season = "Summer";
+
+            } else {
+
+              season = "Winter";
+            }
+
+          } else {
+
+            /*
+               Neutral/warm-cool transition.
+
+               Depth and quality determine
+               the closest seasonal family.
+            */
+
+            if (skinLightness >= 67) {
+
+              season =
+                quality === "Bright"
+                  ? "Spring"
+                  : "Summer";
+
+            } else if (skinLightness <= 38) {
+
+              season =
+                quality === "Bright"
+                  ? "Winter"
+                  : "Autumn";
+
+            } else if (quality === "Bright") {
+
+              season =
+                warmth >= 9
+                  ? "Spring"
+                  : "Winter";
+
+            } else if (quality === "Soft") {
+
+              season =
+                warmth >= 9
+                  ? "Autumn"
+                  : "Summer";
+
+            } else {
+
+              season =
+                warmth >= 9
+                  ? "Autumn"
+                  : "Summer";
+            }
+          }
+
+
+          /* =================================================
+             IMAGE SIGNATURE
+          ================================================= */
+
+          const signature =
+            createImageSignature(
+              signatureSamples
+            );
+
+
+          /* =================================================
+             PERSONALIZED PALETTE
+          ================================================= */
+
+          const personalizedColors =
+            createPersonalizedPalette(
+              season,
+              warmth,
+              skinLightness,
+              skinChroma,
+              signature
+            );
+
+
+          const data =
+            seasonData[season];
 
 
           report = {
@@ -1839,7 +2401,7 @@ function analyzeImage(file) {
 
             quality: quality,
 
-            colors: data.colors,
+            colors: personalizedColors,
 
             suitable: data.suitable,
 
@@ -1847,11 +2409,31 @@ function analyzeImage(file) {
 
             style: data.style,
 
-            harmony: data.harmony
+            harmony: data.harmony,
+
+            /*
+               Stored internally so the same
+               uploaded photo stays deterministic.
+            */
+
+            signature: signature,
+
+            warmthScore: Math.round(warmth * 10) / 10,
+
+            skinToneScore:
+              Math.round(
+                skinLightness * 10
+              ) / 10,
+
+            chromaScore:
+              Math.round(
+                skinChroma * 10
+              ) / 10
           };
 
 
           resolve(report);
+
 
         } catch (error) {
 
@@ -1863,19 +2445,24 @@ function analyzeImage(file) {
       img.onerror = function() {
 
         reject(
-          new Error("Unable to load the image.")
+          new Error(
+            "Unable to load the image."
+          )
         );
       };
 
 
-      img.src = event.target.result;
+      img.src =
+        event.target.result;
     };
 
 
     reader.onerror = function() {
 
       reject(
-        new Error("Unable to read the selected file.")
+        new Error(
+          "Unable to read the selected file."
+        )
       );
     };
 
@@ -1887,25 +2474,39 @@ function analyzeImage(file) {
 
 /* =========================================================
    DISPLAY RESULTS
-========================================================= */
+   ========================================================= */
 
 function displayResult(data) {
 
-  document.getElementById("seasonResult").textContent =
+  document.getElementById(
+    "seasonResult"
+  ).textContent =
     data.season;
 
-  document.getElementById("directionResult").textContent =
+
+  document.getElementById(
+    "directionResult"
+  ).textContent =
     data.direction;
 
-  document.getElementById("depthResult").textContent =
+
+  document.getElementById(
+    "depthResult"
+  ).textContent =
     data.depth;
 
-  document.getElementById("qualityResult").textContent =
+
+  document.getElementById(
+    "qualityResult"
+  ).textContent =
     data.quality;
 
 
   const palette =
-    document.getElementById("paletteResult");
+    document.getElementById(
+      "paletteResult"
+    );
+
 
   palette.innerHTML = "";
 
@@ -1915,17 +2516,29 @@ function displayResult(data) {
     const swatch =
       document.createElement("div");
 
-    swatch.className = "swatch";
+
+    swatch.className =
+      "swatch";
+
 
     swatch.innerHTML = `
       <div
         class="swatch-color"
-        style="background:${color[1]}"
+        style="
+          background:${color[1]};
+          border-radius:8px;
+        "
       ></div>
-      <div>${color[0]}</div>
+
+      <div>
+        ${color[0]}
+      </div>
     `;
 
-    palette.appendChild(swatch);
+
+    palette.appendChild(
+      swatch
+    );
   });
 
 
@@ -1941,43 +2554,55 @@ function displayResult(data) {
   );
 
 
-  document.getElementById("styleResult").textContent =
+  document.getElementById(
+    "styleResult"
+  ).textContent =
     data.style;
 
 
-  document.getElementById("harmonyResult").textContent =
+  document.getElementById(
+    "harmonyResult"
+  ).textContent =
     data.harmony;
 
 
-  document.getElementById("resultWrapper").style.display =
+  document.getElementById(
+    "resultWrapper"
+  ).style.display =
     "block";
 
 
-  document.getElementById("resultWrapper")
-    .scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+  document.getElementById(
+    "resultWrapper"
+  ).scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 
 /* =========================================================
    LIST CREATOR
-========================================================= */
+   ========================================================= */
 
 function createList(id, items) {
 
   const element =
     document.getElementById(id);
 
+
   element.innerHTML = "";
+
 
   items.forEach(item => {
 
     const li =
       document.createElement("li");
 
-    li.textContent = item;
+
+    li.textContent =
+      item;
+
 
     element.appendChild(li);
   });
@@ -1986,7 +2611,7 @@ function createList(id, items) {
 
 /* =========================================================
    PDF PREPARATION
-========================================================= */
+   ========================================================= */
 
 function preparePDF() {
 
@@ -1995,21 +2620,35 @@ function preparePDF() {
   }
 
 
-  document.getElementById("pdfSeason").textContent =
+  document.getElementById(
+    "pdfSeason"
+  ).textContent =
     report.season;
 
-  document.getElementById("pdfDirection").textContent =
+
+  document.getElementById(
+    "pdfDirection"
+  ).textContent =
     report.direction;
 
-  document.getElementById("pdfDepth").textContent =
+
+  document.getElementById(
+    "pdfDepth"
+  ).textContent =
     report.depth;
 
-  document.getElementById("pdfQuality").textContent =
+
+  document.getElementById(
+    "pdfQuality"
+  ).textContent =
     report.quality;
 
 
   const pdfPalette =
-    document.getElementById("pdfPalette");
+    document.getElementById(
+      "pdfPalette"
+    );
+
 
   pdfPalette.innerHTML = "";
 
@@ -2019,23 +2658,32 @@ function preparePDF() {
     const swatch =
       document.createElement("div");
 
-    swatch.className = "swatch";
 
-    swatch.style.width = "68px";
+    swatch.className =
+      "swatch";
+
+
+    swatch.style.width =
+      "72px";
+
 
     swatch.innerHTML = `
       <div
         class="swatch-color"
         style="
           background:${color[1]};
-          width:50px;
-          height:50px;
+          width:68px;
+          height:42px;
+          border-radius:8px;
           margin:0 auto 5px;
+          border:1px solid rgba(0,0,0,0.08);
+          box-shadow:0 2px 6px rgba(0,0,0,0.08);
         "
       ></div>
 
       <div style="
         font-size:8px;
+        line-height:1.2;
         text-align:center;
         color:#514950;
         font-weight:500;
@@ -2044,7 +2692,10 @@ function preparePDF() {
       </div>
     `;
 
-    pdfPalette.appendChild(swatch);
+
+    pdfPalette.appendChild(
+      swatch
+    );
   });
 
 
@@ -2060,17 +2711,22 @@ function preparePDF() {
   );
 
 
-  document.getElementById("pdfStyle").textContent =
+  document.getElementById(
+    "pdfStyle"
+  ).textContent =
     report.style;
 
-  document.getElementById("pdfHarmony").textContent =
+
+  document.getElementById(
+    "pdfHarmony"
+  ).textContent =
     report.harmony;
 }
 
 
 /* =========================================================
    WAIT FOR PDF LOGOS
-========================================================= */
+   ========================================================= */
 
 function waitForPDFImages() {
 
@@ -2079,19 +2735,32 @@ function waitForPDFImages() {
       "#pdfContainer img"
     );
 
+
   return Promise.all(
     Array.from(images).map(img => {
 
-      if (img.complete && img.naturalWidth > 0) {
+      if (
+        img.complete &&
+        img.naturalWidth > 0
+      ) {
+
         return Promise.resolve();
       }
 
+
       return new Promise(resolve => {
 
-        img.onload = resolve;
-        img.onerror = resolve;
+        img.onload =
+          resolve;
 
-        setTimeout(resolve, 5000);
+        img.onerror =
+          resolve;
+
+
+        setTimeout(
+          resolve,
+          5000
+        );
       });
     })
   );
@@ -2099,8 +2768,8 @@ function waitForPDFImages() {
 
 
 /* =========================================================
-   HIGH-RESOLUTION PDF GENERATION
-========================================================= */
+   HIGH-RESOLUTION PDF
+   ========================================================= */
 
 async function generatePDF() {
 
@@ -2110,13 +2779,20 @@ async function generatePDF() {
 
 
   const pdfStatus =
-    document.getElementById("pdfStatus");
+    document.getElementById(
+      "pdfStatus"
+    );
+
 
   const pdfBtn =
-    document.getElementById("pdfBtn");
+    document.getElementById(
+      "pdfBtn"
+    );
 
 
-  pdfBtn.disabled = true;
+  pdfBtn.disabled =
+    true;
+
 
   pdfStatus.textContent =
     "Preparing your high-quality PDF...";
@@ -2126,15 +2802,13 @@ async function generatePDF() {
 
 
   const container =
-    document.getElementById("pdfContainer");
+    document.getElementById(
+      "pdfContainer"
+    );
 
 
-  /*
-     Temporarily make PDF container renderable.
-     It remains far outside the visible screen.
-  */
-
-  container.style.display = "block";
+  container.style.display =
+    "block";
 
 
   try {
@@ -2142,15 +2816,10 @@ async function generatePDF() {
     await waitForPDFImages();
 
 
-    const { jsPDF } = window.jspdf;
+    const {
+      jsPDF
+    } = window.jspdf;
 
-
-    /*
-       IMPORTANT:
-       3× rendering gives much sharper text.
-       PNG prevents JPEG compression from
-       softening the letters.
-    */
 
     const pdf =
       new jsPDF({
@@ -2162,12 +2831,21 @@ async function generatePDF() {
 
 
     const pages = [
-      document.getElementById("pdfPage1"),
-      document.getElementById("pdfPage2")
+      document.getElementById(
+        "pdfPage1"
+      ),
+
+      document.getElementById(
+        "pdfPage2"
+      )
     ];
 
 
-    for (let i = 0; i < pages.length; i++) {
+    for (
+      let i = 0;
+      i < pages.length;
+      i++
+    ) {
 
       pdfStatus.textContent =
         `Creating page ${i + 1} of ${pages.length}...`;
@@ -2177,6 +2855,11 @@ async function generatePDF() {
         await html2canvas(
           pages[i],
           {
+            /*
+               Higher rendering scale
+               keeps text sharper.
+            */
+
             scale: 3,
 
             useCORS: true,
@@ -2193,12 +2876,6 @@ async function generatePDF() {
           }
         );
 
-
-      /*
-         PNG instead of JPEG.
-         This is the main fix for the
-         low-resolution/compressed appearance.
-      */
 
       const imageData =
         canvas.toDataURL(
@@ -2253,31 +2930,44 @@ async function generatePDF() {
 
   finally {
 
-    container.style.display = "none";
+    container.style.display =
+      "none";
 
-    pdfBtn.disabled = false;
+
+    pdfBtn.disabled =
+      false;
   }
 }
 
 
 /* =========================================================
-   BUTTON EVENTS
-========================================================= */
+   ANALYZE BUTTON
+   ========================================================= */
 
 document
-  .getElementById("analyzeBtn")
+  .getElementById(
+    "analyzeBtn"
+  )
   .addEventListener(
     "click",
     async function() {
 
       const input =
-        document.getElementById("imageInput");
+        document.getElementById(
+          "imageInput"
+        );
+
 
       const loading =
-        document.getElementById("loadingText");
+        document.getElementById(
+          "loadingText"
+        );
+
 
       const button =
-        document.getElementById("analyzeBtn");
+        document.getElementById(
+          "analyzeBtn"
+        );
 
 
       if (
@@ -2293,13 +2983,18 @@ document
       }
 
 
-      button.disabled = true;
+      button.disabled =
+        true;
 
-      loading.style.display = "block";
+
+      loading.style.display =
+        "block";
+
 
       document.getElementById(
         "resultWrapper"
-      ).style.display = "none";
+      ).style.display =
+        "none";
 
 
       try {
@@ -2310,7 +3005,9 @@ document
           );
 
 
-        displayResult(result);
+        displayResult(
+          result
+        );
 
 
       } catch (error) {
@@ -2327,22 +3024,31 @@ document
 
       } finally {
 
-        button.disabled = false;
+        button.disabled =
+          false;
 
-        loading.style.display = "none";
+
+        loading.style.display =
+          "none";
       }
     }
   );
 
 
+/* =========================================================
+   PDF BUTTON
+   ========================================================= */
+
 document
-  .getElementById("pdfBtn")
+  .getElementById(
+    "pdfBtn"
+  )
   .addEventListener(
     "click",
     generatePDF
   );
 
 </script>
-
+   
 </body>
 </html>
