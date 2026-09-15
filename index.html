@@ -1303,8 +1303,16 @@ const seasonData = {
 };
 
 
+<script>
+
 /* =========================================================
-   IMAGE UTILITIES
+   HANEUL PALETTE — IMPROVED IMAGE ANALYSIS
+   Everything else on the page remains unchanged.
+========================================================= */
+
+
+/* =========================================================
+   RGB → HSL
 ========================================================= */
 
 function rgbToHsl(r, g, b) {
@@ -1325,27 +1333,22 @@ function rgbToHsl(r, g, b) {
 
     const d = max - min;
 
-    s =
-      l > 0.5
-        ? d / (2 - max - min)
-        : d / (max + min);
+    s = l > 0.5
+      ? d / (2 - max - min)
+      : d / (max + min);
 
     switch (max) {
 
       case r:
-        h =
-          ((g - b) / d +
-            (g < b ? 6 : 0));
+        h = ((g - b) / d + (g < b ? 6 : 0));
         break;
 
       case g:
-        h =
-          ((b - r) / d + 2);
+        h = ((b - r) / d + 2);
         break;
 
       case b:
-        h =
-          ((r - g) / d + 4);
+        h = ((r - g) / d + 4);
         break;
     }
 
@@ -1362,96 +1365,131 @@ function rgbToHsl(r, g, b) {
 
 /* =========================================================
    IMPROVED SKIN DETECTION
+
+   Designed to include a wider range of natural skin tones
+   while reducing obvious background/clothing pixels.
 ========================================================= */
 
 function isSkinLike(r, g, b) {
-
-  if (
-    r < 25 ||
-    g < 20 ||
-    b < 15
-  ) {
-    return false;
-  }
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
 
   const hsl = rgbToHsl(r, g, b);
 
-  const chroma = max - min;
+  const luminance =
+    (0.299 * r) +
+    (0.587 * g) +
+    (0.114 * b);
 
-  const warmth =
-    (r - b) * 0.65 +
-    (g - b) * 0.35;
+  const chroma =
+    max - min;
+
+  if (luminance < 18 || luminance > 245) {
+    return false;
+  }
+
+  if (chroma < 7 || chroma > 125) {
+    return false;
+  }
 
   /*
-     Broad skin range.
-     This intentionally allows a wider variety
-     of natural skin tones.
+     Normalized colour relationships.
+     These are intentionally broad so that
+     deeper and lighter skin tones are included.
   */
 
-  const ratioRG =
+  const redGreenRatio =
     r / Math.max(g, 1);
 
-  const ratioGB =
+  const greenBlueRatio =
     g / Math.max(b, 1);
 
+  const redBlueDifference =
+    r - b;
+
+  /*
+     Approximate skin hue range.
+     We allow a broad range because lighting
+     and camera processing can shift skin colour.
+  */
+
+  const hueOK =
+    (
+      hsl.h >= 0 &&
+      hsl.h <= 55
+    ) ||
+    (
+      hsl.h >= 340 &&
+      hsl.h <= 360
+    );
+
+  const ratioOK =
+    redGreenRatio >= 0.90 &&
+    greenBlueRatio >= 0.82 &&
+    redBlueDifference >= 6;
+
+  /*
+     Additional protection against obvious
+     grey/white/black background pixels.
+  */
+
+  const warmStructure =
+    (r - g) +
+    ((g - b) * 0.55);
+
   return (
-
-    ratioRG >= 0.90 &&
-
-    ratioRG <= 2.10 &&
-
-    ratioGB >= 0.88 &&
-
-    ratioGB <= 2.20 &&
-
-    warmth > 1 &&
-
-    chroma >= 6 &&
-
-    hsl.l >= 10 &&
-
-    hsl.l <= 94 &&
-
-    hsl.s >= 4 &&
-
-    hsl.s <= 92
+    hueOK &&
+    ratioOK &&
+    warmStructure >= 5 &&
+    hsl.s >= 5 &&
+    hsl.s <= 92 &&
+    hsl.l >= 7 &&
+    hsl.l <= 96
   );
 }
 
 
 /* =========================================================
-   IMAGE SIGNATURE
-   Makes palette selection photo-specific
+   WEIGHTED MEDIAN
 ========================================================= */
 
-function createImageSignature(values) {
+function weightedMedian(values, weights) {
 
-  let hash = 2166136261;
-
-  for (
-    let i = 0;
-    i < values.length;
-    i += 3
-  ) {
-
-    hash ^= values[i] || 0;
-
-    hash =
-      Math.imul(
-        hash,
-        16777619
-      );
+  if (!values.length) {
+    return 0;
   }
 
-  return hash >>> 0;
+  const items = values.map((value, index) => ({
+    value: value,
+    weight: weights[index]
+  }));
+
+  items.sort((a, b) => a.value - b.value);
+
+  const totalWeight =
+    items.reduce(
+      (sum, item) => sum + item.weight,
+      0
+    );
+
+  let accumulated = 0;
+
+  for (const item of items) {
+
+    accumulated += item.weight;
+
+    if (accumulated >= totalWeight / 2) {
+      return item.value;
+    }
+  }
+
+  return items[items.length - 1].value;
 }
 
 
 /* =========================================================
-   PHOTO ANALYSIS
+   IMAGE ANALYSIS
 ========================================================= */
 
 function analyzeImage(file) {
@@ -1479,9 +1517,7 @@ function analyzeImage(file) {
 
               height =
                 Math.round(
-                  height *
-                  maxSize /
-                  width
+                  height * maxSize / width
                 );
 
               width = maxSize;
@@ -1493,9 +1529,7 @@ function analyzeImage(file) {
 
               width =
                 Math.round(
-                  width *
-                  maxSize /
-                  height
+                  width * maxSize / height
                 );
 
               height = maxSize;
@@ -1537,102 +1571,65 @@ function analyzeImage(file) {
             ).data;
 
 
+          /* =================================================
+             SKIN PIXEL COLLECTION
+          ================================================= */
+
+          const skinSamples = [];
+
+          const centralSamples = [];
+
+
           /*
-             Analyse the central/face-oriented
-             area first so background colour has
-             less influence.
+             We examine the entire image,
+             but give considerably more importance
+             to the central facial region.
+
+             This reduces influence from:
+             - clothing
+             - walls
+             - backgrounds
+             - furniture
+             - hair
+             - objects around the face
           */
 
-          const centerX =
-            width * 0.5;
+          const centerLeft =
+            width * 0.20;
 
-          const centerY =
-            height * 0.46;
+          const centerRight =
+            width * 0.80;
 
-          const regionWidth =
-            width * 0.62;
+          const centerTop =
+            height * 0.08;
 
-          const regionHeight =
-            height * 0.65;
-
-
-          const left =
-            Math.max(
-              0,
-              Math.floor(
-                centerX -
-                regionWidth / 2
-              )
-            );
-
-          const right =
-            Math.min(
-              width,
-              Math.ceil(
-                centerX +
-                regionWidth / 2
-              )
-            );
-
-          const top =
-            Math.max(
-              0,
-              Math.floor(
-                centerY -
-                regionHeight / 2
-              )
-            );
-
-          const bottom =
-            Math.min(
-              height,
-              Math.ceil(
-                centerY +
-                regionHeight / 2
-              )
-            );
-
-
-          let skinR = 0;
-          let skinG = 0;
-          let skinB = 0;
-
-          let skinCount = 0;
-
-          let selectedSaturation = 0;
-          let selectedLightness = 0;
-
-          let selectedChroma = 0;
-
-
-          let fallbackR = 0;
-          let fallbackG = 0;
-          let fallbackB = 0;
-
-          let fallbackCount = 0;
-
-
-          const signatureValues = [];
+          const centerBottom =
+            height * 0.78;
 
 
           /*
              Consistent sampling.
+             Same photo = same analysis.
           */
 
+          const step = 4;
+
+
           for (
-            let y = top;
-            y < bottom;
-            y += 5
+            let y = 0;
+            y < height;
+            y += step
           ) {
 
             for (
-              let x = left;
-              x < right;
-              x += 5
+              let x = 0;
+              x < width;
+              x += step
             ) {
 
               const index =
-                (y * width + x) * 4;
+                ((y * width) + x) * 4;
+
 
               const r =
                 imageData[index];
@@ -1653,23 +1650,19 @@ function analyzeImage(file) {
               }
 
 
-              fallbackR += r;
-              fallbackG += g;
-              fallbackB += b;
+              const hsl =
+                rgbToHsl(
+                  r,
+                  g,
+                  b
+                );
 
-              fallbackCount++;
 
-
-              /*
-                 Signature captures actual
-                 image differences.
-              */
-
-              signatureValues.push(
-                r,
-                g,
-                b
-              );
+              const insideCentralArea =
+                x >= centerLeft &&
+                x <= centerRight &&
+                y >= centerTop &&
+                y <= centerBottom;
 
 
               if (
@@ -1680,11 +1673,124 @@ function analyzeImage(file) {
                 )
               ) {
 
-                skinR += r;
-                skinG += g;
-                skinB += b;
+                /*
+                   Central skin pixels receive
+                   stronger weight.
+                */
 
-                skinCount++;
+                const weight =
+                  insideCentralArea
+                    ? 3
+                    : 1;
+
+
+                skinSamples.push({
+
+                  r: r,
+                  g: g,
+                  b: b,
+
+                  h: hsl.h,
+                  s: hsl.s,
+                  l: hsl.l,
+
+                  weight: weight
+                });
+
+
+                if (
+                  insideCentralArea
+                ) {
+
+                  centralSamples.push({
+
+                    r: r,
+                    g: g,
+                    b: b,
+
+                    h: hsl.h,
+                    s: hsl.s,
+                    l: hsl.l,
+
+                    weight: 3
+                  });
+                }
+              }
+            }
+          }
+
+
+          /* =================================================
+             CHOOSE BEST SKIN DATA
+          ================================================= */
+
+          let selectedSamples;
+
+
+          /*
+             If enough central skin pixels exist,
+             use them as the primary source.
+
+             Otherwise use the broader skin sample.
+          */
+
+          if (
+            centralSamples.length >= 25
+          ) {
+
+            selectedSamples =
+              centralSamples;
+
+          } else if (
+            skinSamples.length >= 30
+          ) {
+
+            selectedSamples =
+              skinSamples;
+
+          } else {
+
+            /*
+               Very difficult photograph:
+               use central region as fallback.
+            */
+
+            selectedSamples = [];
+
+
+            for (
+              let y = Math.floor(height * 0.10);
+              y < Math.floor(height * 0.80);
+              y += step
+            ) {
+
+              for (
+                let x = Math.floor(width * 0.15);
+                x < Math.floor(width * 0.85);
+                x += step
+              ) {
+
+                const index =
+                  ((y * width) + x) * 4;
+
+
+                const r =
+                  imageData[index];
+
+                const g =
+                  imageData[index + 1];
+
+                const b =
+                  imageData[index + 2];
+
+
+                if (
+                  r === undefined ||
+                  g === undefined ||
+                  b === undefined
+                ) {
+                  continue;
+                }
 
 
                 const hsl =
@@ -1694,35 +1800,31 @@ function analyzeImage(file) {
                     b
                   );
 
-                selectedSaturation +=
-                  hsl.s;
 
-                selectedLightness +=
-                  hsl.l;
+                selectedSamples.push({
 
-                selectedChroma +=
-                  Math.max(
-                    r,
-                    g,
-                    b
-                  ) -
-                  Math.min(
-                    r,
-                    g,
-                    b
-                  );
+                  r: r,
+                  g: g,
+                  b: b,
+
+                  h: hsl.h,
+                  s: hsl.s,
+                  l: hsl.l,
+
+                  weight: 1
+                });
               }
             }
           }
 
 
           if (
-            fallbackCount === 0
+            !selectedSamples.length
           ) {
 
             reject(
               new Error(
-                "Could not read image."
+                "Could not detect enough usable image information."
               )
             );
 
@@ -1730,270 +1832,168 @@ function analyzeImage(file) {
           }
 
 
-          let avgR;
-          let avgG;
-          let avgB;
+          /* =================================================
+             EXTRACT ROBUST SKIN VALUES
+          ================================================= */
 
-          let averageSaturation;
-          let averageLightness;
-          let averageChroma;
-
-
-          /*
-             Skin pixels are preferred.
-             If insufficient, use the central
-             photo region.
-          */
-
-          if (skinCount >= 25) {
-
-            avgR =
-              skinR /
-              skinCount;
-
-            avgG =
-              skinG /
-              skinCount;
-
-            avgB =
-              skinB /
-              skinCount;
-
-            averageSaturation =
-              selectedSaturation /
-              skinCount;
-
-            averageLightness =
-              selectedLightness /
-              skinCount;
-
-            averageChroma =
-              selectedChroma /
-              skinCount;
-
-          } else {
-
-            avgR =
-              fallbackR /
-              fallbackCount;
-
-            avgG =
-              fallbackG /
-              fallbackCount;
-
-            avgB =
-              fallbackB /
-              fallbackCount;
+          const weights =
+            selectedSamples.map(
+              sample => sample.weight
+            );
 
 
-            const fallbackHsl =
-              rgbToHsl(
-                avgR,
-                avgG,
-                avgB
-              );
+          const lightnessValues =
+            selectedSamples.map(
+              sample => sample.l
+            );
 
 
-            averageSaturation =
-              fallbackHsl.s;
-
-            averageLightness =
-              fallbackHsl.l;
-
-            averageChroma =
-              Math.max(
-                avgR,
-                avgG,
-                avgB
-              ) -
-              Math.min(
-                avgR,
-                avgG,
-                avgB
-              );
-          }
+          const saturationValues =
+            selectedSamples.map(
+              sample => sample.s
+            );
 
 
-          /*
-             Warmth.
-             Uses both red-blue and
-             green-blue relationships.
-          */
+          const redValues =
+            selectedSamples.map(
+              sample => sample.r
+            );
 
-          const warmth =
-            ((avgR - avgB) * 0.70) +
-            ((avgG - avgB) * 0.30);
 
+          const greenValues =
+            selectedSamples.map(
+              sample => sample.g
+            );
+
+
+          const blueValues =
+            selectedSamples.map(
+              sample => sample.b
+            );
+
+
+          const hueValues =
+            selectedSamples.map(
+              sample => sample.h
+            );
+
+
+          const avgR =
+            weightedMedian(
+              redValues,
+              weights
+            );
+
+
+          const avgG =
+            weightedMedian(
+              greenValues,
+              weights
+            );
+
+
+          const avgB =
+            weightedMedian(
+              blueValues,
+              weights
+            );
+
+
+          const medianLightness =
+            weightedMedian(
+              lightnessValues,
+              weights
+            );
+
+
+          const medianSaturation =
+            weightedMedian(
+              saturationValues,
+              weights
+            );
+
+
+          const medianHue =
+            weightedMedian(
+              hueValues,
+              weights
+            );
+
+
+          /* =================================================
+             WARMTH / COLOR DIRECTION
+          ================================================= */
 
           /*
-             Photo-specific contrast/chroma.
+             Instead of simply using R-B,
+             warmth is normalized against brightness.
+
+             This makes the result less dependent on
+             photograph exposure.
           */
 
-          const contrast =
-            Math.abs(
-              avgR - avgB
-            ) +
-            Math.abs(
-              avgG - avgB
+          const luminance =
+            (
+              0.299 * avgR +
+              0.587 * avgG +
+              0.114 * avgB
+            );
+
+
+          const normalizedWarmth =
+            (
+              ((avgR - avgB) / Math.max(luminance, 30)) * 100
             );
 
 
           /*
-             COLOR QUALITY
+             Hue provides a secondary signal.
+
+             RGB warmth remains the primary signal.
           */
 
-          let quality;
+          let warmthScore =
+            normalizedWarmth;
 
 
           if (
-            averageSaturation >= 38 ||
-            averageChroma >= 62 ||
-            contrast >= 75
+            medianHue >= 8 &&
+            medianHue <= 38
           ) {
 
-            quality = "Bright";
+            warmthScore += 2;
 
           } else if (
-            averageSaturation <= 20 ||
-            averageChroma <= 30
+            medianHue >= 38 &&
+            medianHue <= 55
           ) {
 
-            quality = "Soft";
+            warmthScore += 3;
 
-          } else {
+          } else if (
+            medianHue >= 340 ||
+            medianHue <= 8
+          ) {
 
-            quality = "Balanced";
+            warmthScore -= 2;
           }
 
 
-          /*
-             DEPTH
-          */
-
-          let depth;
-
-
-          if (
-            averageLightness >= 68
-          ) {
-
-            depth = "Light";
-
-          } else if (
-            averageLightness <= 37
-          ) {
-
-            depth = "Deep";
-
-          } else {
-
-            depth = "Medium";
-          }
-
-
-          /*
-             SEASON
-          */
-
-          let season;
-
-
-          if (warmth >= 18) {
-
-            if (
-              quality === "Bright" ||
-              depth === "Light"
-            ) {
-
-              season = "Spring";
-
-            } else {
-
-              season = "Autumn";
-            }
-
-          } else if (
-            warmth <= 5
-          ) {
-
-            if (
-              quality === "Soft" ||
-              depth === "Light"
-            ) {
-
-              season = "Summer";
-
-            } else {
-
-              season = "Winter";
-            }
-
-          } else {
-
-            if (
-              depth === "Light"
-            ) {
-
-              season =
-                quality === "Bright"
-                  ? "Spring"
-                  : "Summer";
-
-            } else if (
-              depth === "Deep"
-            ) {
-
-              season =
-                quality === "Bright"
-                  ? "Winter"
-                  : "Autumn";
-
-            } else {
-
-              if (
-                quality === "Bright"
-              ) {
-
-                season =
-                  warmth >= 11
-                    ? "Spring"
-                    : "Winter";
-
-              } else if (
-                quality === "Soft"
-              ) {
-
-                season =
-                  warmth >= 11
-                    ? "Autumn"
-                    : "Summer";
-
-              } else {
-
-                season =
-                  warmth >= 11
-                    ? "Autumn"
-                    : "Summer";
-              }
-            }
-          }
-
-
-          /*
+          /* =================================================
              COLOR DIRECTION
-          */
+          ================================================= */
 
           let direction;
 
 
           if (
-            warmth >= 12
+            warmthScore >= 12
           ) {
 
             direction = "Warm";
 
           } else if (
-            warmth <= 5
+            warmthScore <= 5
           ) {
 
             direction = "Cool";
@@ -2004,86 +2004,249 @@ function analyzeImage(file) {
           }
 
 
+          /* =================================================
+             DEPTH
+          ================================================= */
+
           /*
-             Photo signature.
-             Used to create a deterministic
-             image-specific palette order.
+             IMPORTANT:
+
+             Depth now comes from the detected skin,
+             NOT from the entire photograph.
+
+             This is the main change that should help
+             different skin tones receive different results.
           */
 
-          const imageSignature =
-            createImageSignature(
-              signatureValues
-            );
+          let depth;
 
 
-          const baseData =
+          if (
+            medianLightness >= 68
+          ) {
+
+            depth = "Light";
+
+          } else if (
+            medianLightness <= 40
+          ) {
+
+            depth = "Deep";
+
+          } else {
+
+            depth = "Medium";
+          }
+
+
+          /* =================================================
+             COLOR QUALITY
+          ================================================= */
+
+          /*
+             Skin saturation is used instead of
+             saturation from the entire photograph.
+
+             This prevents colourful clothing/backgrounds
+             from making the person's result "Bright".
+          */
+
+          let quality;
+
+
+          if (
+            medianSaturation >= 39
+          ) {
+
+            quality = "Bright";
+
+          } else if (
+            medianSaturation <= 24
+          ) {
+
+            quality = "Soft";
+
+          } else {
+
+            quality = "Balanced";
+          }
+
+
+          /* =================================================
+             SEASONAL DIRECTION
+          ================================================= */
+
+          let season;
+
+
+          /*
+             STRONGLY WARM
+          */
+
+          if (
+            direction === "Warm"
+          ) {
+
+            if (
+              depth === "Light"
+            ) {
+
+              season = "Spring";
+
+            } else if (
+              depth === "Deep"
+            ) {
+
+              season = "Autumn";
+
+            } else {
+
+              /*
+                 Medium warm tones:
+                 quality helps separate
+                 clearer Spring from richer Autumn.
+              */
+
+              if (
+                quality === "Bright"
+              ) {
+
+                season = "Spring";
+
+              } else {
+
+                season = "Autumn";
+              }
+            }
+          }
+
+
+          /*
+             STRONGLY COOL
+          */
+
+          else if (
+            direction === "Cool"
+          ) {
+
+            if (
+              depth === "Light"
+            ) {
+
+              season = "Summer";
+
+            } else if (
+              depth === "Deep"
+            ) {
+
+              season = "Winter";
+
+            } else {
+
+              if (
+                quality === "Soft"
+              ) {
+
+                season = "Summer";
+
+              } else {
+
+                season = "Winter";
+              }
+            }
+          }
+
+
+          /*
+             NEUTRAL
+          */
+
+          else {
+
+            if (
+              depth === "Light"
+            ) {
+
+              if (
+                quality === "Bright"
+              ) {
+
+                season = "Spring";
+
+              } else {
+
+                season = "Summer";
+              }
+
+            } else if (
+              depth === "Deep"
+            ) {
+
+              /*
+                 Slight warmth → Autumn
+                 Slight coolness → Winter
+              */
+
+              season =
+                warmthScore >= 8
+                  ? "Autumn"
+                  : "Winter";
+
+            } else {
+
+              /*
+                 Medium + neutral:
+                 quality becomes the deciding factor.
+              */
+
+              if (
+                quality === "Bright"
+              ) {
+
+                season =
+                  warmthScore >= 8
+                    ? "Spring"
+                    : "Winter";
+
+              } else if (
+                quality === "Soft"
+              ) {
+
+                season =
+                  warmthScore >= 8
+                    ? "Autumn"
+                    : "Summer";
+
+              } else {
+
+                season =
+                  warmthScore >= 8
+                    ? "Autumn"
+                    : "Summer";
+              }
+            }
+          }
+
+
+          /* =================================================
+             SAFETY FALLBACK
+          ================================================= */
+
+          if (
+            !seasonData[season]
+          ) {
+
+            season = "Summer";
+          }
+
+
+          const data =
             seasonData[season];
 
 
-          /*
-             Rotate the palette according to
-             the actual uploaded image.
-
-             Same image = same palette.
-             Different image = potentially
-             different palette ordering.
-          */
-
-          const rotation =
-            imageSignature %
-            baseData.colors.length;
-
-
-          const personalizedColors =
-            baseData.colors.map(
-              function(color, index) {
-
-                return {
-                  item: color,
-
-                  score:
-                    (
-                      imageSignature +
-                      index * 2654435761
-                    ) >>> 0
-                };
-              }
-            )
-            .sort(
-              function(a, b) {
-
-                return a.score - b.score;
-              }
-            )
-            .slice(0, 8)
-            .map(
-              function(entry) {
-                return entry.item;
-              }
-            );
-
-
-          /*
-             Ensure rotation influences
-             ordering as well.
-          */
-
-          const finalColors = [];
-
-          for (
-            let i = 0;
-            i < personalizedColors.length;
-            i++
-          ) {
-
-            finalColors.push(
-              personalizedColors[
-                (i + rotation) %
-                personalizedColors.length
-              ]
-            );
-          }
-
+          /* =================================================
+             FINAL REPORT
+          ================================================= */
 
           report = {
 
@@ -2095,22 +2258,20 @@ function analyzeImage(file) {
 
             quality: quality,
 
-            colors: finalColors,
+            colors: data.colors,
 
-            suitable: baseData.suitable,
+            suitable: data.suitable,
 
-            unsuitable: baseData.unsuitable,
+            unsuitable: data.unsuitable,
 
-            style: baseData.style,
+            style: data.style,
 
-            harmony: baseData.harmony,
-
-            imageSignature:
-              imageSignature
+            harmony: data.harmony
           };
 
 
           resolve(report);
+
 
         } catch (error) {
 
@@ -2147,6 +2308,8 @@ function analyzeImage(file) {
     reader.readAsDataURL(file);
   });
 }
+
+</script>
 
 
 /* =========================================================
