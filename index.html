@@ -1,182 +1,666 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Haneul Palette | Essential Color Insight</title>
 
-<!-- PDF LIBRARIES -->
+<!-- PDF Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 
 <style>
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+/* =========================
+   MAIN PAGE
+========================= */
 
 * {
   box-sizing: border-box;
 }
 
 body {
-
   margin: 0;
-
-  min-height: 100vh;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #fff7fa 0%,
+    #f8f3ff 50%,
+    #eef8ff 100%
+  );
   color: #403b40;
+  text-align: center;
+  padding: 30px 15px 50px;
+}
+
+.container {
+  max-width: 720px;
+  margin: auto;
+  background: rgba(255,255,255,0.94);
+  padding: 35px 25px;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(90,70,90,0.10);
+}
+
+/* Logo */
+
+.logo {
+  width: 95px;
+  height: 95px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: 50%;
+}
+
+/* Headings */
+
+h1 {
+  margin: 5px 0 8px;
+  color: #40383f;
+  font-size: 30px;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: #756b73;
+  margin-bottom: 12px;
+}
+
+.intro {
+  max-width: 600px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
+  color: #665e65;
+}
+
+/* Sections */
+
+.section {
+  text-align: left;
+  margin: 30px 0;
+  padding: 24px;
+  background: #fffafd;
+  border: 1px solid #f0e4ec;
+  border-radius: 18px;
+}
+
+.section h2 {
+  margin-top: 0;
+  color: #4b4149;
+  font-size: 21px;
+}
+
+.section p {
+  line-height: 1.65;
+}
+
+.feature {
+  margin: 15px 0;
+}
+
+.feature strong {
+  display: block;
+  color: #4b4149;
+  margin-bottom: 4px;
+}
+
+.feature span {
+  color: #70666d;
+  line-height: 1.55;
+}
+
+/* Lists */
+
+ul {
+  padding-left: 22px;
+}
+
+li {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* Pricing */
+
+.price-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.price {
+  min-width: 180px;
+  padding: 18px;
+  border-radius: 15px;
+  background: #fff;
+  border: 1px solid #eee0e8;
+}
+
+.price strong {
+  display: block;
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+/* Upload */
+
+.upload-area {
+  margin-top: 30px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px dashed #d9c6d2;
+}
+
+input[type="file"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd0d8;
+  background: #fff;
+}
+
+/* Buttons */
+
+button {
+  border: none;
+  padding: 13px 25px;
+  border-radius: 30px;
+  background: #40383f;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: #665866;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Result */
+
+.result-wrapper {
+  display: none;
+  margin-top: 35px;
+}
+
+.result-card {
+  text-align: left;
+  background: #fff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 8px 28px rgba(80,60,80,0.08);
+  border: 1px solid #eee3ea;
+}
+
+.result-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.result-title h2 {
+  margin: 0;
+  color: #453b43;
+}
+
+.result-title p {
+  color: #776c74;
+}
+
+.identity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.identity-box {
+  background: #fbf7fa;
+  border-radius: 14px;
+  padding: 15px;
+  text-align: center;
+}
+
+.identity-box span {
+  display: block;
+  font-size: 12px;
+  color: #82767f;
+  margin-bottom: 5px;
+}
+
+.identity-box strong {
+  color: #453b43;
+  font-size: 16px;
+}
+
+.result-section {
+  margin-top: 25px;
+}
+
+.result-section h3 {
+  color: #4c424a;
+  margin-bottom: 10px;
+}
+
+.result-section p {
+  line-height: 1.65;
+  color: #665e65;
+}
+
+/* Color swatches */
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.swatch {
+  width: 78px;
+  height: 58px;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 5px;
+  font-size: 10px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Disclaimer */
+
+.disclaimer {
+  margin-top: 25px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #faf7f9;
+  color: #756b73;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* PDF button */
+
+.pdf-area {
+  text-align: center;
+  margin-top: 28px;
+}
+
+#pdfStatus {
+  margin-top: 10px;
+  color: #756b73;
+  font-size: 14px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 15px 10px 35px;
+  }
+
+  .container {
+    padding: 25px 16px;
+    border-radius: 18px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .identity-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .swatch {
+    width: 68px;
+  }
+}
+
+
+/* =========================
+   HIDDEN PDF PAGES
+========================= */
+
+#pdfContainer {
+  display: none;
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 794px;
+  background: white;
+}
+
+.pdf-page {
+  width: 794px;
+  height: 1123px;
+  padding: 55px;
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #fff4f8 0%,
+    #f8f1ff 48%,
+    #eef8ff 100%
+  );
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: #40383f;
+}
+
+.pdf-overlay {
+  position: absolute;
+  inset: 25px;
+  border: 1px solid rgba(255,255,255,0.75);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.10);
+  pointer-events: none;
+}
+
+.pdf-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+/* PDF SIGNATURE */
+
+.pdf-signature {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.pdf-signature img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.pdf-brand {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #4a4048;
+}
+
+.pdf-small {
+  font-size: 10px;
+  color: #776d75;
+  margin-top: 3px;
+}
+
+.pdf-title {
+  text-align: center;
+  margin: 10px 0 22px;
+}
+
+.pdf-title h1 {
+  font-size: 27px;
+  margin: 0 0 7px;
+  color: #40383f;
+}
+
+.pdf-title p {
+  font-size: 12px;
+  color: #716770;
+}
+
+/* PDF SECTIONS */
+
+.pdf-section {
+  background: rgba(255,255,255,0.58);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pdf-section h2 {
+  font-size: 16px;
+  color: #473e45;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+
+.pdf-section h3 {
+  font-size: 16px;
+  color: #473e45;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+
+/* PDF BODY TEXT */
+
+.pdf-text {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #514950;
+  font-weight: 500;
+}
+
+/* IMPORTANT:
+   Keep bullet marker and text aligned together.
+*/
+
+.pdf-section ul,
+#pdfSuitable,
+#pdfUnsuitable {
+  margin: 6px 0 0;
+  padding-left: 22px;
+  text-align: left;
+  list-style-position: outside;
+}
+
+.pdf-section li,
+#pdfSuitable li,
+#pdfUnsuitable li {
+  margin: 5px 0;
+  padding-left: 2px;
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: left;
+  color: #514950;
+  font-weight: 500;
+}
+
+/* PDF paragraphs */
+
+.pdf-section p {
+  font-size: 11px;
+  line-height: 1.55;
+  color: #514950;
+  font-weight: 500;
+  margin: 7px 0;
+}
+
+/* PDF identity */
+
+.pdf-identity {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.pdf-identity-box {
+  background: rgba(255,255,255,0.65);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.pdf-identity-box span {
+  display: block;
+  font-size: 9px;
+  color: #7c7179;
+  margin-bottom: 4px;
+}
+
+.pdf-identity-box strong {
+  font-size: 13px;
+  color: #453c43;
+}
+
+/* PDF SWATCHES */
+
+.pdf-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.pdf-swatch {
+  width: 68px;
+  height: 50px;
+  border-radius: 9px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  font-size: 8px;
+  color: #333;
+}
+
+/* PDF NOTE */
+
+.pdf-note {
+  font-size: 9px;
+  line-height: 1.55;
+  color: #756a72;
+  font-weight: 500;
+}
+
+/* =========================
+   MINIMAL ANALYSIS PAGE
+========================= */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", Arial, sans-serif;
 
   background:
     linear-gradient(
-      135deg,
-      #fff7fa 0%,
-      #f8f3ff 50%,
-      #eef8ff 100%
-    );
+      rgba(20, 20, 20, 0.58),
+      rgba(20, 20, 20, 0.58)
+    ),
+    url("background.jpg") center center / cover fixed no-repeat;
 
-  text-align: center;
-
-  padding:
-    35px
-    15px
-    50px;
+  color: #4d4145;
 }
 
-
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
-
-.container {
-
+.analysis-page {
   width: 100%;
+  min-height: 100vh;
 
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 90px 20px 60px;
+  box-sizing: border-box;
+}
+
+.analysis-card {
+  width: 100%;
   max-width: 570px;
 
-  margin: 20px auto 0;
-
-  background:
-    rgba(255,255,255,0.94);
-
-  padding:
-    30px
-    28px
-    40px;
+  background: #fff8f8;
 
   border-radius: 0;
 
+  padding: 30px 35px 45px;
+
+  box-sizing: border-box;
+
   box-shadow:
-    0 12px 35px
-    rgba(90,70,90,0.12);
+    0 12px 35px rgba(0, 0, 0, 0.18);
 }
 
-
-/* =========================================================
-   LOGO
-========================================================= */
+/* Logo */
 
 .logo {
-
-  width: 105px;
-
-  height: 105px;
-
-  object-fit: cover;
-
-  border-radius: 50%;
-
   display: block;
 
-  margin:
-    0 auto 10px;
+  width: 150px;
+  max-width: 70%;
+
+  height: auto;
+
+  margin: 0 auto 8px;
 }
 
-
-/* =========================================================
-   BRAND
-========================================================= */
+/* Brand */
 
 .brand-name {
+  text-align: center;
 
-  font-size: 25px;
-
+  font-size: 24px;
   font-weight: 700;
 
   color: #a45e68;
 
-  margin-bottom: 5px;
+  margin: 0 0 5px;
 }
 
-
 .brand-subtitle {
+  text-align: center;
 
   font-size: 11px;
 
-  color: #92777d;
+  color: #9b7b82;
 
-  margin-bottom: 27px;
+  margin-bottom: 25px;
 }
 
-
-/* =========================================================
-   ANALYSIS BOX
-========================================================= */
+/* Inner section */
 
 .analysis-box {
-
   background: #ffffff;
 
   border-radius: 18px;
 
-  padding:
-    27px
-    20px
-    30px;
+  padding: 28px 22px 30px;
+
+  box-sizing: border-box;
 
   box-shadow:
-    0 8px 25px
-    rgba(190,145,155,0.10);
-
-  text-align: left;
+    0 8px 25px rgba(190, 145, 155, 0.10);
 }
 
-
-/* =========================================================
-   TITLE
-========================================================= */
+/* Heading */
 
 .analysis-title {
-
-  margin:
-    0 0 18px;
+  margin: 0 0 18px;
 
   font-size: 20px;
+  font-weight: 700;
 
   color: #925865;
-
-  font-weight: 700;
 }
 
-
-/* =========================================================
-   SHORT DESCRIPTION
-========================================================= */
+/* Description */
 
 .analysis-description {
-
-  margin:
-    0 0 27px;
+  margin: 0 0 28px;
 
   font-size: 13px;
 
@@ -185,90 +669,58 @@ body {
   color: #5d5054;
 }
 
-
-/* =========================================================
-   UPLOAD AREA
-========================================================= */
+/* Upload */
 
 .upload-area {
-
-  border:
-    1px dashed
-    #dfaab5;
+  border: 1px dashed #dfaab5;
 
   border-radius: 15px;
 
-  background:
-    #fffafb;
+  background: #fffafb;
 
-  padding:
-    28px
-    16px
-    30px;
+  padding: 28px 18px 30px;
 
   text-align: center;
+
+  box-sizing: border-box;
 }
 
-
-/* =========================================================
-   UPLOAD TEXT
-========================================================= */
-
 .upload-title {
-
-  margin:
-    0 0 7px;
+  margin: 0 0 7px;
 
   font-size: 13px;
 
   font-weight: 700;
 
-  color: #403b40;
+  color: #4d4145;
 }
 
-
 .upload-subtitle {
-
-  margin:
-    0 0 15px;
+  margin: 0 0 15px;
 
   font-size: 10px;
 
   color: #92777d;
 }
 
-
-/* =========================================================
-   FILE INPUT
-========================================================= */
-
 #imageInput {
-
   display: block;
 
   width: 100%;
 
   max-width: 280px;
 
-  margin:
-    0 auto 16px;
+  margin: 0 auto 16px;
 
   font-size: 11px;
 
   color: #555;
 }
 
-
-/* =========================================================
-   ANALYZE BUTTON
-========================================================= */
-
 #analyzeBtn {
-
   border: none;
 
-  background:
-    #d8adb7;
+  background: #d8adb7;
 
   color: white;
 
@@ -278,1021 +730,394 @@ body {
 
   font-weight: 700;
 
-  padding:
-    11px
-    25px;
+  padding: 11px 25px;
 
   border-radius: 25px;
 
   cursor: pointer;
 
   transition:
-    0.2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
-
 
 #analyzeBtn:hover {
+  background: #c994a1;
 
-  background:
-    #c994a1;
-
-  transform:
-    translateY(-1px);
+  transform: translateY(-1px);
 }
 
-
 #analyzeBtn:disabled {
-
-  opacity: 0.6;
+  opacity: 0.65;
 
   cursor: not-allowed;
 
   transform: none;
 }
 
-
-/* =========================================================
-   LOADING
-========================================================= */
-
 #loadingText {
-
   display: none;
 
-  margin-top: 14px;
-
-  text-align: center;
+  margin-top: 15px;
 
   font-size: 11px;
 
   color: #a45e68;
 }
 
-
-/* =========================================================
-   RESULTS
-========================================================= */
+/* RESULTS */
 
 #resultWrapper {
-
   display: none;
-
   margin-top: 25px;
-
-  text-align: left;
 }
-
 
 .result-card {
+  background: #ffffff;
 
-  background:
-    #ffffff;
+  border-radius: 16px;
 
-  border-radius:
-    16px;
+  padding: 20px;
 
-  padding:
-    20px;
-
-  margin-bottom:
-    14px;
-
-  border:
-    1px solid
-    #eee3ea;
+  margin-bottom: 15px;
 
   box-shadow:
-    0 6px 20px
-    rgba(190,145,155,0.08);
+    0 6px 20px rgba(190, 145, 155, 0.10);
 }
-
 
 .result-card h3 {
+  margin: 0 0 12px;
 
-  margin:
-    0 0 12px;
+  color: #925865;
 
-  font-size:
-    16px;
-
-  color:
-    #925865;
+  font-size: 16px;
 }
-
 
 .result-card p {
+  margin: 5px 0;
 
-  margin:
-    6px 0;
+  font-size: 12px;
 
-  font-size:
-    12px;
-
-  line-height:
-    1.6;
+  line-height: 1.6;
 }
-
 
 .result-label {
+  font-weight: 700;
 
-  font-weight:
-    700;
-
-  color:
-    #8f5c67;
+  color: #8f5c67;
 }
 
+/* Palette */
 
-/* =========================================================
-   RESULT IDENTITY
-========================================================= */
+#paletteResult,
+#pdfPalette {
+  display: flex;
 
-.identity-grid {
+  flex-wrap: wrap;
 
-  display:
-    grid;
+  gap: 12px;
 
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap:
-    10px;
-
-  margin-top:
-    5px;
+  margin-top: 12px;
 }
-
-
-.identity-box {
-
-  background:
-    #fbf7fa;
-
-  border-radius:
-    12px;
-
-  padding:
-    13px;
-
-  text-align:
-    center;
-}
-
-
-.identity-box span {
-
-  display:
-    block;
-
-  font-size:
-    10px;
-
-  color:
-    #82767f;
-
-  margin-bottom:
-    5px;
-}
-
-
-.identity-box strong {
-
-  font-size:
-    14px;
-
-  color:
-    #453b43;
-}
-
-
-/* =========================================================
-   PALETTE
-========================================================= */
-
-#paletteResult {
-
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    12px;
-
-  margin-top:
-    12px;
-}
-
 
 .swatch {
+  width: 75px;
 
-  width:
-    72px;
+  text-align: center;
 
-  text-align:
-    center;
+  font-size: 9px;
 
-  font-size:
-    9px;
-
-  color:
-    #5d5054;
+  color: #5d5054;
 }
-
 
 .swatch-color {
+  width: 55px;
 
-  width:
-    54px;
+  height: 55px;
 
-  height:
-    54px;
+  border-radius: 50%;
 
-  border-radius:
-    50%;
+  margin: 0 auto 6px;
 
-  margin:
-    0 auto 6px;
+  border: 1px solid rgba(0,0,0,0.08);
 
-  border:
-    1px solid
-    rgba(0,0,0,0.08);
+  box-sizing: border-box;
 }
-
-
-/* =========================================================
-   LISTS
-========================================================= */
 
 .result-card ul {
+  margin: 8px 0 0;
 
-  margin:
-    8px 0 0;
-
-  padding-left:
-    18px;
+  padding-left: 18px;
 }
-
 
 .result-card li {
+  font-size: 11px;
 
-  font-size:
-    11px;
-
-  margin-bottom:
-    5px;
-
-  line-height:
-    1.45;
+  margin-bottom: 5px;
 }
-
-
-/* =========================================================
-   PDF BUTTON
-========================================================= */
-
-.pdf-area {
-
-  text-align:
-    center;
-
-  margin-top:
-    20px;
-}
-
 
 #pdfBtn {
+  border: none;
 
-  border:
-    none;
+  background: #a45e68;
 
-  background:
-    #a45e68;
+  color: white;
 
-  color:
-    white;
+  font-family: inherit;
 
-  font-family:
-    inherit;
+  font-size: 12px;
 
-  font-size:
-    12px;
+  font-weight: 700;
 
-  font-weight:
-    700;
+  padding: 12px 24px;
 
-  padding:
-    12px
-    24px;
+  border-radius: 25px;
 
-  border-radius:
-    25px;
+  cursor: pointer;
 
-  cursor:
-    pointer;
+  margin-top: 5px;
 }
-
 
 #pdfBtn:hover {
-
-  background:
-    #8e4e59;
+  background: #8e4e59;
 }
-
 
 #pdfBtn:disabled {
+  opacity: 0.65;
 
-  opacity:
-    0.6;
-
-  cursor:
-    not-allowed;
+  cursor: not-allowed;
 }
-
 
 #pdfStatus {
+  margin-top: 10px;
 
-  margin-top:
-    10px;
+  font-size: 10px;
 
-  font-size:
-    10px;
-
-  color:
-    #92777d;
+  color: #92777d;
 }
 
+/* Mobile */
 
-/* =========================================================
-   MOBILE
-========================================================= */
+@media (max-width: 600px) {
 
-@media (max-width:600px) {
-
-  body {
-
+  .analysis-page {
     padding:
+      35px
+      12px
+      40px;
+  }
+
+  .analysis-card {
+    padding:
+      25px
       15px
-      10px
       35px;
   }
 
-
-  .container {
-
-    margin-top:
-      5px;
-
-    padding:
-      25px
-      14px
-      30px;
-  }
-
-
-  .logo {
-
-    width:
-      90px;
-
-    height:
-      90px;
-  }
-
-
-  .brand-name {
-
-    font-size:
-      23px;
-  }
-
-
   .analysis-box {
-
     padding:
       23px
-      14px
+      15px
       25px;
   }
 
-
   .analysis-title {
-
-    font-size:
-      18px;
+    font-size: 18px;
   }
-
 
   .analysis-description {
-
-    font-size:
-      12px;
+    font-size: 12px;
   }
-
 
   .upload-area {
-
     padding:
       25px
-      10px
+      12px
       27px;
   }
-
-
-  .identity-grid {
-
-    grid-template-columns:
-      1fr 1fr;
-  }
-
 }
-
-
-/* =========================================================
-   HIDDEN PDF
-========================================================= */
-
-#pdfContainer {
-
-  position:
-    absolute;
-
-  left:
-    -10000px;
-
-  top:
-    0;
-
-  width:
-    794px;
-}
-
-
-/* =========================================================
-   PDF PAGE
-========================================================= */
-
-.pdf-page {
-
-  width:
-    794px;
-
-  height:
-    1123px;
-
-  padding:
-    55px;
-
-  position:
-    relative;
-
-  overflow:
-    hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff4f8 0%,
-      #f8f1ff 48%,
-      #eef8ff 100%
-    );
-}
-
-
-.pdf-overlay {
-
-  position:
-    absolute;
-
-  inset:
-    25px;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.75);
-
-  border-radius:
-    24px;
-
-  background:
-    rgba(255,255,255,0.10);
-
-  pointer-events:
-    none;
-}
-
-
-.pdf-content {
-
-  position:
-    relative;
-
-  z-index:
-    2;
-}
-
-
-/* =========================================================
-   PDF SIGNATURE
-========================================================= */
-
-.pdf-signature {
-
-  text-align:
-    center;
-
-  margin-bottom:
-    22px;
-}
-
-
-.pdf-signature img {
-
-  width:
-    72px;
-
-  height:
-    72px;
-
-  object-fit:
-    cover;
-
-  border-radius:
-    50%;
-
-  display:
-    block;
-
-  margin:
-    0 auto 8px;
-}
-
-
-.pdf-brand {
-
-  font-size:
-    16px;
-
-  font-weight:
-    bold;
-
-  letter-spacing:
-    2px;
-
-  color:
-    #4a4048;
-}
-
-
-.pdf-small {
-
-  font-size:
-    10px;
-
-  color:
-    #776d75;
-
-  margin-top:
-    3px;
-}
-
-
-/* =========================================================
-   PDF TITLE
-========================================================= */
-
-.pdf-title {
-
-  text-align:
-    center;
-
-  margin:
-    10px 0 22px;
-}
-
-
-.pdf-title h1 {
-
-  font-size:
-    27px;
-
-  margin:
-    0 0 7px;
-
-  color:
-    #40383f;
-}
-
-
-.pdf-title p {
-
-  font-size:
-    12px;
-
-  color:
-    #716770;
-}
-
-
-/* =========================================================
-   PDF SECTION
-========================================================= */
-
-.pdf-section {
-
-  background:
-    rgba(255,255,255,0.62);
-
-  border-radius:
-    16px;
-
-  padding:
-    18px;
-
-  margin-bottom:
-    16px;
-}
-
-
-.pdf-section h2 {
-
-  font-size:
-    16px;
-
-  color:
-    #473e45;
-
-  margin:
-    0 0 12px;
-}
-
-
-.pdf-section p {
-
-  font-size:
-    11px;
-
-  line-height:
-    1.55;
-
-  color:
-    #5f565d;
-}
-
-
-.pdf-list {
-
-  font-size:
-    11px;
-
-  line-height:
-    1.55;
-
-  margin:
-    0;
-
-  padding-left:
-    17px;
-}
-
-
-.pdf-list li {
-
-  margin:
-    4px 0;
-}
-
-
-/* =========================================================
-   PDF PALETTE
-========================================================= */
-
-#pdfPalette {
-
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    9px;
-}
-
-
-.pdf-swatch {
-
-  width:
-    68px;
-
-  height:
-    50px;
-
-  border-radius:
-    9px;
-
-  display:
-    flex;
-
-  align-items:
-    flex-end;
-
-  justify-content:
-    center;
-
-  padding-bottom:
-    4px;
-
-  font-size:
-    8px;
-
-  color:
-    #333;
-}
-
-
-/* =========================================================
-   PDF FOOTER
-========================================================= */
-
-.pdf-footer {
-
-  position:
-    absolute;
-
-  bottom:
-    38px;
-
-  left:
-    55px;
-
-  right:
-    55px;
-
-  text-align:
-    center;
-
-  font-size:
-    9px;
-
-  color:
-    #81767e;
-}
-
 
 </style>
-
 </head>
-
 
 <body>
 
+<div class="analysis-page">
 
-<!-- =====================================================
-     MAIN PAGE
-===================================================== -->
+  <main class="analysis-card">
 
-<div class="container">
+    <!-- BRAND -->
 
+    <img
+      src="logo.png"
+      class="logo"
+      alt="Haneul Palette Logo"
+    >
 
-  <!-- LOGO -->
-
-  <img
-    src="logo.png"
-    class="logo"
-    alt="Haneul Palette Logo"
-  >
-
-
-  <!-- BRAND -->
-
-  <div class="brand-name">
-    Haneul Palette
-  </div>
-
-
-  <div class="brand-subtitle">
-    Korean-Inspired Personal Color Analysis
-  </div>
-
-
-  <!-- ===================================================
-       ANALYSIS BOX
-  ==================================================== -->
-
-  <div class="analysis-box">
-
-
-    <h1 class="analysis-title">
-      Free Analysis
-    </h1>
-
-
-    <p class="analysis-description">
-      Discover your natural color direction through an image-based personal color analysis.
-    </p>
-
-
-    <!-- UPLOAD -->
-
-    <div class="upload-area">
-
-
-      <div class="upload-title">
-        Upload a clear photo
-      </div>
-
-
-      <div class="upload-subtitle">
-        For best results, use a front-facing photo in natural light.
-      </div>
-
-
-      <input
-        type="file"
-        id="imageInput"
-        accept="image/*"
-      >
-
-
-      <button
-        id="analyzeBtn"
-        type="button"
-      >
-        Analyze My Colors
-      </button>
-
-
-      <div id="loadingText">
-        Analyzing your photo...
-      </div>
-
-
+    <div class="brand-name">
+      Haneul Palette
     </div>
 
+    <div class="brand-subtitle">
+      Korean-Inspired Personal Color Analysis
+    </div>
 
-  </div>
+    <!-- ANALYSIS BOX -->
 
+    <section class="analysis-box">
 
-  <!-- ===================================================
-       RESULTS
-       HIDDEN UNTIL ANALYSIS
-  ==================================================== -->
+      <h1 class="analysis-title">
+        Free Analysis
+      </h1>
 
-  <div
-    id="resultWrapper"
-  >
+      <p class="analysis-description">
+        Discover your natural color direction through an image-based personal color analysis.
+      </p>
 
+      <div class="upload-area">
 
-    <!-- COLOR IDENTITY -->
+        <h2 class="upload-title">
+          Upload a clear photo
+        </h2>
 
-    <div class="result-card">
+        <p class="upload-subtitle">
+          For best results, use a front-facing photo in natural light.
+        </p>
 
-      <h3>
-        Your Color Direction
-      </h3>
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+        >
 
+        <button
+          id="analyzeBtn"
+          type="button"
+        >
+          Analyze My Colors
+        </button>
 
-      <div class="identity-grid">
-
-
-        <div class="identity-box">
-
-          <span>
-            Seasonal Direction
-          </span>
-
-          <strong id="seasonResult">
-          </strong>
-
+        <div id="loadingText">
+          Analyzing your photo...
         </div>
-
-
-        <div class="identity-box">
-
-          <span>
-            Color Direction
-          </span>
-
-          <strong id="directionResult">
-          </strong>
-
-        </div>
-
-
-        <div class="identity-box">
-
-          <span>
-            Depth
-          </span>
-
-          <strong id="depthResult">
-          </strong>
-
-        </div>
-
-
-        <div class="identity-box">
-
-          <span>
-            Color Quality
-          </span>
-
-          <strong id="qualityResult">
-          </strong>
-
-        </div>
-
 
       </div>
 
-    </div>
+    </section>
 
+    <!-- RESULTS -->
 
-    <!-- PALETTE -->
+    <section
+      id="resultWrapper"
+      style="display:none;"
+    >
 
-    <div class="result-card">
+      <div class="result-card">
 
-      <h3>
-        Your Starter Palette
-      </h3>
+        <h3>
+          Your Color Direction
+        </h3>
 
-      <div id="paletteResult"></div>
+        <p>
+          <span class="result-label">
+            Seasonal Direction:
+          </span>
 
-    </div>
+          <span id="seasonResult"></span>
+        </p>
 
+        <p>
+          <span class="result-label">
+            Color Direction:
+          </span>
 
-    <!-- SUITABLE -->
+          <span id="directionResult"></span>
+        </p>
 
-    <div class="result-card">
+        <p>
+          <span class="result-label">
+            Depth:
+          </span>
 
-      <h3>
-        Suitable Colors
-      </h3>
+          <span id="depthResult"></span>
+        </p>
 
-      <ul id="suitableResult"></ul>
+        <p>
+          <span class="result-label">
+            Color Quality:
+          </span>
 
-    </div>
+          <span id="qualityResult"></span>
+        </p>
 
+      </div>
 
-    <!-- UNSUITABLE -->
+      <div class="result-card">
 
-    <div class="result-card">
+        <h3>
+          Your Starter Palette
+        </h3>
 
-      <h3>
-        Colors to Use Carefully
-      </h3>
+        <div id="paletteResult"></div>
 
-      <ul id="unsuitableResult"></ul>
+      </div>
 
-    </div>
+      <div class="result-card">
 
+        <h3>
+          Suitable Colors
+        </h3>
 
-    <!-- STYLE -->
+        <ul id="suitableResult"></ul>
 
-    <div class="result-card">
+      </div>
 
-      <h3>
-        Style Direction
-      </h3>
+      <div class="result-card">
 
-      <p id="styleResult"></p>
+        <h3>
+          Colors to Use Carefully
+        </h3>
 
-    </div>
+        <ul id="unsuitableResult"></ul>
 
+      </div>
 
-    <!-- HARMONY -->
+      <div class="result-card">
 
-    <div class="result-card">
+        <h3>
+          Style Direction
+        </h3>
 
-      <h3>
-        Visual Harmony
-      </h3>
+        <p id="styleResult"></p>
 
-      <p id="harmonyResult"></p>
+      </div>
 
-    </div>
+      <div class="result-card">
 
+        <h3>
+          Visual Harmony
+        </h3>
 
-    <!-- PDF -->
+        <p id="harmonyResult"></p>
 
-    <div class="pdf-area">
+      </div>
 
-      <button
-        id="pdfBtn"
-        type="button"
-      >
-        Download Your PDF
-      </button>
+      <div style="text-align:center;">
 
-      <div id="pdfStatus"></div>
+        <button
+          id="pdfBtn"
+          type="button"
+        >
+          Download Your PDF
+        </button>
 
-    </div>
+        <div id="pdfStatus"></div>
 
+      </div>
 
-  </div>
+    </section>
 
+  </main>
 
 </div>
 
@@ -1303,292 +1128,186 @@ body {
 
 <div id="pdfContainer">
 
-
-  <!-- ===================================================
-       PDF PAGE 1
-  ==================================================== -->
+  <!-- PAGE 1 -->
 
   <div
     id="pdfPage1"
     class="pdf-page"
   >
 
-
     <div class="pdf-overlay"></div>
-
 
     <div class="pdf-content">
 
-
       <div class="pdf-signature">
-
 
         <img
           src="logo.png"
           alt="Haneul Palette"
         >
 
-
-        <div class="pdf-brand">
+        <strong class="pdf-brand">
           HANEUL PALETTE
-        </div>
+        </strong>
 
-
-        <div class="pdf-small">
+        <span class="pdf-small">
           Korean-Inspired Personal Color Analysis
-        </div>
-
-
-      </div>
-
-
-      <div class="pdf-title">
-
-        <h1>
-          Your Essential Color Insight
-        </h1>
-
-        <p>
-          Personalized colour guidance based on your uploaded photograph.
-        </p>
+        </span>
 
       </div>
 
-
-      <!-- COLOR IDENTITY -->
+      <h1 class="pdf-title">
+        Your Essential Color Insight
+      </h1>
 
       <div class="pdf-section">
 
-        <h2>
-          Your Color Direction
-        </h2>
-
-
-        <p>
-          <strong>
-            Seasonal Direction:
-          </strong>
-
-          <span id="pdfSeason"></span>
-        </p>
-
+        <h3>
+          Color Direction
+        </h3>
 
         <p>
-          <strong>
-            Color Direction:
-          </strong>
-
-          <span id="pdfDirection"></span>
+          Seasonal Direction:
+          <strong id="pdfSeason"></strong>
         </p>
-
 
         <p>
-          <strong>
-            Depth:
-          </strong>
-
-          <span id="pdfDepth"></span>
+          Color Direction:
+          <strong id="pdfDirection"></strong>
         </p>
-
 
         <p>
-          <strong>
-            Color Quality:
-          </strong>
-
-          <span id="pdfQuality"></span>
+          Depth:
+          <strong id="pdfDepth"></strong>
         </p>
 
+        <p>
+          Color Quality:
+          <strong id="pdfQuality"></strong>
+        </p>
 
       </div>
 
-
-      <!-- PALETTE -->
-
       <div class="pdf-section">
 
-        <h2>
+        <h3>
           Your Starter Palette
-        </h2>
-
+        </h3>
 
         <div id="pdfPalette"></div>
 
-
       </div>
-
-
-      <!-- SUITABLE -->
 
       <div class="pdf-section">
 
-        <h2>
+        <h3>
           Suitable Colors
-        </h2>
+        </h3>
 
-
-        <ul
-          id="pdfSuitable"
-          class="pdf-list"
-        ></ul>
-
+        <ul id="pdfSuitable"></ul>
 
       </div>
 
-
     </div>
-
-
-    <div class="pdf-footer">
-      Haneul Palette · Essential Color Insight
-    </div>
-
 
   </div>
 
 
-  <!-- ===================================================
-       PDF PAGE 2
-  ==================================================== -->
+  <!-- PAGE 2 -->
 
   <div
     id="pdfPage2"
     class="pdf-page"
   >
 
-
     <div class="pdf-overlay"></div>
-
 
     <div class="pdf-content">
 
-
       <div class="pdf-signature">
-
 
         <img
           src="logo.png"
           alt="Haneul Palette"
         >
 
-
-        <div class="pdf-brand">
+        <strong class="pdf-brand">
           HANEUL PALETTE
-        </div>
+        </strong>
 
-
-        <div class="pdf-small">
+        <span class="pdf-small">
           Korean-Inspired Personal Color Analysis
-        </div>
-
+        </span>
 
       </div>
 
-
-      <!-- UNSUITABLE -->
-
       <div class="pdf-section">
 
-        <h2>
+        <h3>
           Colors to Use Carefully
-        </h2>
+        </h3>
 
-
-        <ul
-          id="pdfUnsuitable"
-          class="pdf-list"
-        ></ul>
-
+        <ul id="pdfUnsuitable"></ul>
 
       </div>
 
-
-      <!-- STYLE -->
-
       <div class="pdf-section">
 
-        <h2>
+        <h3>
           Style Direction
-        </h2>
-
+        </h3>
 
         <p id="pdfStyle"></p>
 
-
       </div>
-
-
-      <!-- HARMONY -->
 
       <div class="pdf-section">
 
-        <h2>
+        <h3>
           Visual Harmony
-        </h2>
-
+        </h3>
 
         <p id="pdfHarmony"></p>
 
-
       </div>
-
-
-      <!-- NOTE -->
 
       <div class="pdf-section">
 
-        <h2>
+        <h3>
           Note
-        </h2>
-
+        </h3>
 
         <p>
-          This digital analysis provides estimated colour guidance based on the uploaded photograph. Results may vary depending on lighting, camera processing, makeup, filters and image quality.
+          This digital analysis provides estimated colour guidance based on the uploaded photograph. Results can vary depending on lighting, camera processing, makeup, filters and image quality.
         </p>
-
 
       </div>
 
-
     </div>
-
-
-    <div class="pdf-footer">
-      Haneul Palette · Korean-Inspired Personal Color Analysis
-    </div>
-
 
   </div>
-
 
 </div>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
-
 /* =========================================================
-   REPORT
-========================================================= */
+   HANEUL PALETTE — ANALYSIS LOGIC
+   ========================================================= */
 
 let report = null;
 
 
 /* =========================================================
    SEASON DATA
-========================================================= */
+   ========================================================= */
 
 const seasonData = {
 
-
   Spring: {
-
+    direction: "Warm",
     colors: [
-
       ["Warm Ivory", "#FFF1D6"],
       ["Peach", "#F7B58B"],
       ["Coral", "#E9826A"],
@@ -1596,46 +1315,30 @@ const seasonData = {
       ["Fresh Green", "#8DBB63"],
       ["Camel", "#C49A6C"],
       ["Warm Sky", "#8FC7D8"],
-      ["Golden Beige", "#D8B37A"],
-      ["Apricot", "#F3A878"],
-      ["Light Teal", "#72BEB2"],
-      ["Honey", "#D6A85E"],
-      ["Soft Coral", "#E99A83"]
-
+      ["Golden Beige", "#D8B37A"]
     ],
-
     suitable: [
-
       "Warm Ivory",
       "Peach",
       "Coral",
       "Fresh Green",
       "Camel"
-
     ],
-
     unsuitable: [
-
       "Very cool grey",
       "Icy blue",
       "Harsh black",
       "Neon cool tones"
-
     ],
-
     style:
       "Fresh, warm and naturally bright colours can create an easy everyday harmony.",
-
     harmony:
       "Warm and lively colour combinations can complement a naturally warm appearance."
-
   },
 
-
   Summer: {
-
+    direction: "Cool",
     colors: [
-
       ["Soft White", "#F4F1EA"],
       ["Dusty Blue", "#829DB5"],
       ["Soft Lavender", "#A99BC5"],
@@ -1643,46 +1346,30 @@ const seasonData = {
       ["Cool Sage", "#91A99B"],
       ["Mauve", "#9C7488"],
       ["Blue Grey", "#7E92A5"],
-      ["Soft Navy", "#4F6178"],
-      ["Powder Blue", "#9EB7C8"],
-      ["Muted Rose", "#B98591"],
-      ["Cool Taupe", "#9A8D8A"],
-      ["Soft Periwinkle", "#9FA8C9"]
-
+      ["Soft Navy", "#4F6178"]
     ],
-
     suitable: [
-
       "Dusty Blue",
       "Soft Lavender",
       "Rose",
       "Cool Sage",
       "Soft Navy"
-
     ],
-
     unsuitable: [
-
       "Orange",
       "Strong yellow",
       "Neon green",
       "Very warm brown"
-
     ],
-
     style:
-      "Soft, balanced and slightly muted colours can create a calm and refined appearance.",
-
+      "Soft, cool and refined colours can create a gentle everyday harmony.",
     harmony:
-      "Cooler and softer colour combinations may blend naturally with a softer visual appearance."
-
+      "Cool and softly blended combinations can complement a naturally cool appearance."
   },
 
-
   Autumn: {
-
+    direction: "Warm",
     colors: [
-
       ["Cream", "#F1DFC0"],
       ["Camel", "#B98A5A"],
       ["Olive", "#78804D"],
@@ -1690,46 +1377,30 @@ const seasonData = {
       ["Rust", "#9C513E"],
       ["Warm Brown", "#76533D"],
       ["Mustard", "#C19A3A"],
-      ["Deep Teal", "#3E706A"],
-      ["Burnt Orange", "#B9683E"],
-      ["Warm Khaki", "#8B8252"],
-      ["Cinnamon", "#9B6248"],
-      ["Bronze", "#8A6844"]
-
+      ["Deep Teal", "#3E706A"]
     ],
-
     suitable: [
-
       "Camel",
       "Olive",
       "Terracotta",
       "Rust",
       "Warm Brown"
-
     ],
-
     unsuitable: [
-
       "Icy blue",
       "Cool lavender",
       "Neon pink",
       "Pure white"
-
     ],
-
     style:
-      "Rich, earthy and warm colours can create a grounded and naturally coordinated appearance.",
-
+      "Rich, warm and naturally grounded colours can create an easy everyday harmony.",
     harmony:
-      "Warm, deeper and earthy combinations may complement a richer overall appearance."
-
+      "Warm and earthy colour combinations can complement a naturally warm appearance."
   },
 
-
   Winter: {
-
+    direction: "Cool",
     colors: [
-
       ["Pure White", "#FFFFFF"],
       ["Black", "#151515"],
       ["Cobalt Blue", "#3159B7"],
@@ -1737,47 +1408,33 @@ const seasonData = {
       ["Emerald", "#16765C"],
       ["Deep Navy", "#253A69"],
       ["Berry", "#873D65"],
-      ["Cool Pink", "#D46C91"],
-      ["Royal Blue", "#405FC1"],
-      ["Deep Emerald", "#176B57"],
-      ["Cranberry", "#9E2947"],
-      ["Icy Pink", "#D98AA6"]
-
+      ["Cool Pink", "#D46C91"]
     ],
-
     suitable: [
-
       "Cobalt Blue",
       "Emerald",
       "Deep Navy",
       "Berry",
       "Cool Red"
-
     ],
-
     unsuitable: [
-
       "Dusty beige",
       "Orange",
       "Yellow-brown",
       "Very muted olive"
-
     ],
-
     style:
-      "Clear, defined and higher-contrast colours can create a crisp and polished appearance.",
-
+      "Clear, cool and defined colours can create a polished everyday harmony.",
     harmony:
-      "Cooler and clearer colour combinations may complement stronger visual contrast."
-
+      "Cool and clearer colour combinations can complement a naturally cool appearance."
   }
 
 };
 
 
 /* =========================================================
-   RGB → HSL
-========================================================= */
+   IMAGE UTILITIES
+   ========================================================= */
 
 function rgbToHsl(r, g, b) {
 
@@ -1785,1166 +1442,522 @@ function rgbToHsl(r, g, b) {
   g /= 255;
   b /= 255;
 
-  const max =
-    Math.max(r, g, b);
-
-  const min =
-    Math.min(r, g, b);
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
 
   let h = 0;
-
   let s = 0;
 
-  const l =
-    (max + min) / 2;
-
+  const l = (max + min) / 2;
 
   if (max !== min) {
 
-    const d =
-      max - min;
+    const d = max - min;
 
+    s = l > 0.5
+      ? d / (2 - max - min)
+      : d / (max + min);
 
-    s =
-      l > 0.5
-        ? d / (2 - max - min)
-        : d / (max + min);
+    switch (max) {
 
+      case r:
+        h = ((g - b) / d + (g < b ? 6 : 0));
+        break;
 
-    if (max === r) {
+      case g:
+        h = ((b - r) / d + 2);
+        break;
 
-      h =
-        (g - b) /
-        d +
-        (g < b ? 6 : 0);
+      case b:
+        h = ((r - g) / d + 4);
+        break;
 
-    } else if (max === g) {
-
-      h =
-        (b - r) /
-        d +
-        2;
-
-    } else {
-
-      h =
-        (r - g) /
-        d +
-        4;
     }
-
 
     h /= 6;
   }
 
-
   return {
-
     h: h * 360,
-
     s: s * 100,
-
     l: l * 100
-
   };
 }
 
-
-/* =========================================================
-   SKIN PIXEL DETECTION
-========================================================= */
 
 function isSkinLike(r, g, b) {
 
-  const sum =
-    r + g + b;
-
-
   if (
-    sum < 75 ||
-    sum > 735
+    r < 35 ||
+    g < 25 ||
+    b < 20
   ) {
-
     return false;
   }
 
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
 
-  const hsl =
-    rgbToHsl(
-      r,
-      g,
-      b
-    );
+  const hsl = rgbToHsl(r, g, b);
 
+  const chroma = max - min;
 
-  if (
-    hsl.l < 8 ||
-    hsl.l > 94
-  ) {
+  const warmRatio =
+    (r - b) +
+    ((r - g) * 0.35);
 
-    return false;
-  }
-
-
-  const max =
-    Math.max(
-      r,
-      g,
-      b
-    );
-
-
-  const min =
-    Math.min(
-      r,
-      g,
-      b
-    );
-
-
-  if (
-    max - min < 8
-  ) {
-
-    return false;
-  }
-
-
-  const nr =
-    r / sum;
-
-  const ng =
-    g / sum;
-
-  const nb =
-    b / sum;
-
-
-  const test1 =
-
-    nr > 0.28 &&
-
-    ng > 0.25 &&
-
-    nb < 0.37 &&
-
-    nr >= nb * 0.90;
-
-
-  const test2 =
-
-    r > 90 &&
-
-    g > 60 &&
-
-    b > 50 &&
-
+  return (
     r >= g * 0.88 &&
-
-    g >= b * 0.88 &&
-
-    hsl.s >= 7 &&
-
-    hsl.s <= 80;
-
-
-  return (
-    test1 ||
-    test2
+    g >= b * 0.78 &&
+    warmRatio > 3 &&
+    chroma > 8 &&
+    hsl.l >= 12 &&
+    hsl.l <= 92 &&
+    hsl.s >= 5 &&
+    hsl.s <= 90
   );
 }
 
 
 /* =========================================================
-   COLLECT PIXELS
+   IMAGE ANALYSIS
 ========================================================= */
 
-function collectPixels(
-  ctx,
-  width,
-  height
-) {
+function analyzeImage(file) {
 
-  const imageData =
-    ctx.getImageData(
-      0,
-      0,
-      width,
-      height
-    );
+  return new Promise((resolve, reject) => {
 
+    const reader = new FileReader();
 
-  const data =
-    imageData.data;
+    reader.onload = function(event) {
 
+      const img = new Image();
 
-  const skinPixels = [];
+      img.onload = function() {
 
-  const centerPixels = [];
+        try {
 
-  const allPixels = [];
+          const maxSize = 500;
 
+          let width = img.width;
+          let height = img.height;
 
-  /*
-     Central region.
-     This reduces background influence.
-  */
+          if (width > height) {
 
-  const left =
-    width * 0.20;
-
-  const right =
-    width * 0.80;
-
-  const top =
-    height * 0.15;
-
-  const bottom =
-    height * 0.85;
-
-
-  const step =
-    Math.max(
-      3,
-      Math.floor(
-        Math.sqrt(
-          (width * height) /
-          20000
-        )
-      )
-    );
-
-
-  for (
-    let y = 0;
-    y < height;
-    y += step
-  ) {
-
-    for (
-      let x = 0;
-      x < width;
-      x += step
-    ) {
-
-
-      const index =
-        (y * width + x) * 4;
-
-
-      const r =
-        data[index];
-
-      const g =
-        data[index + 1];
-
-      const b =
-        data[index + 2];
-
-      const a =
-        data[index + 3];
-
-
-      if (
-        a < 150
-      ) {
-
-        continue;
-      }
-
-
-      const pixel = {
-
-        r: r,
-
-        g: g,
-
-        b: b
-
-      };
-
-
-      allPixels.push(
-        pixel
-      );
-
-
-      const central =
-
-        x >= left &&
-
-        x <= right &&
-
-        y >= top &&
-
-        y <= bottom;
-
-
-      if (central) {
-
-        centerPixels.push(
-          pixel
-        );
-
-
-        if (
-          isSkinLike(
-            r,
-            g,
-            b
-          )
-        ) {
-
-          skinPixels.push(
-            pixel
-          );
-        }
-
-      }
-
-    }
-
-  }
-
-
-  return {
-
-    skinPixels,
-
-    centerPixels,
-
-    allPixels
-
-  };
-}
-
-
-/* =========================================================
-   METRICS
-========================================================= */
-
-function calculateMetrics(
-  pixels
-) {
-
-  if (
-    !pixels.length
-  ) {
-
-    return {
-
-      warmth: 0,
-
-      lightness: 50,
-
-      chroma: 0.18,
-
-      contrast: 0
-
-    };
-  }
-
-
-  let warmth = 0;
-
-  let lightness = 0;
-
-  let chroma = 0;
-
-  const luminances = [];
-
-
-  for (
-    const p of pixels
-  ) {
-
-
-    const hsl =
-      rgbToHsl(
-        p.r,
-        p.g,
-        p.b
-      );
-
-
-    /*
-       Warmth.
-    */
-
-    warmth +=
-
-      ((p.r - p.b) * 0.65) +
-
-      ((p.g - p.b) * 0.35);
-
-
-    lightness +=
-      hsl.l;
-
-
-    const max =
-      Math.max(
-        p.r,
-        p.g,
-        p.b
-      );
-
-
-    const min =
-      Math.min(
-        p.r,
-        p.g,
-        p.b
-      );
-
-
-    chroma +=
-
-      max === 0
-
-        ? 0
-
-        : (max - min) / max;
-
-
-    const luminance =
-
-      (0.2126 * p.r) +
-
-      (0.7152 * p.g) +
-
-      (0.0722 * p.b);
-
-
-    luminances.push(
-      luminance
-    );
-
-  }
-
-
-  warmth /=
-    pixels.length;
-
-
-  lightness /=
-    pixels.length;
-
-
-  chroma /=
-    pixels.length;
-
-
-  const averageLum =
-
-    luminances.reduce(
-      (a,b) => a + b,
-      0
-    ) /
-    luminances.length;
-
-
-  const variance =
-
-    luminances.reduce(
-
-      (sum,value) =>
-
-        sum +
-        Math.pow(
-          value -
-          averageLum,
-          2
-        ),
-
-      0
-
-    ) /
-    luminances.length;
-
-
-  const contrast =
-    Math.sqrt(
-      variance
-    ) / 255;
-
-
-  return {
-
-    warmth,
-
-    lightness,
-
-    chroma,
-
-    contrast
-
-  };
-}
-
-
-/* =========================================================
-   QUALITY
-========================================================= */
-
-function classifyQuality(
-  metrics
-) {
-
-  const effective =
-
-    metrics.chroma +
-
-    (
-      metrics.contrast *
-      0.20
-    );
-
-
-  if (
-    effective >= 0.245
-  ) {
-
-    return "Bright";
-  }
-
-
-  if (
-    effective <= 0.145
-  ) {
-
-    return "Soft";
-  }
-
-
-  return "Balanced";
-}
-
-
-/* =========================================================
-   DEPTH
-========================================================= */
-
-function classifyDepth(
-  metrics
-) {
-
-  if (
-    metrics.lightness >= 67
-  ) {
-
-    return "Light";
-  }
-
-
-  if (
-    metrics.lightness <= 38
-  ) {
-
-    return "Deep";
-  }
-
-
-  return "Medium";
-}
-
-
-/* =========================================================
-   WARM / COOL / NEUTRAL
-========================================================= */
-
-function classifyDirection(
-  warmth
-) {
-
-  if (
-    warmth >= 14
-  ) {
-
-    return "Warm";
-  }
-
-
-  if (
-    warmth <= 4
-  ) {
-
-    return "Cool";
-  }
-
-
-  return "Neutral";
-}
-
-
-/* =========================================================
-   SEASON
-========================================================= */
-
-function classifySeason(
-  metrics,
-  quality,
-  depth
-) {
-
-  const warmth =
-    metrics.warmth;
-
-
-  /*
-     WARM
-  */
-
-  if (
-    warmth >= 14
-  ) {
-
-    if (
-
-      quality === "Bright" ||
-
-      (
-        quality === "Balanced" &&
-        depth !== "Deep"
-      )
-
-    ) {
-
-      return "Spring";
-    }
-
-
-    return "Autumn";
-  }
-
-
-  /*
-     COOL
-  */
-
-  if (
-    warmth <= 4
-  ) {
-
-    if (
-
-      quality === "Bright" ||
-
-      depth === "Deep"
-
-    ) {
-
-      return "Winter";
-    }
-
-
-    return "Summer";
-  }
-
-
-  /*
-     NEUTRAL
-  */
-
-  if (
-    quality === "Bright"
-  ) {
-
-    return (
-
-      depth === "Deep"
-
-        ? "Winter"
-
-        : "Spring"
-
-    );
-  }
-
-
-  if (
-    quality === "Soft"
-  ) {
-
-    return (
-
-      depth === "Deep"
-
-        ? "Autumn"
-
-        : "Summer"
-
-    );
-  }
-
-
-  if (
-    depth === "Deep"
-  ) {
-
-    return (
-
-      warmth >= 9
-
-        ? "Autumn"
-
-        : "Winter"
-
-    );
-  }
-
-
-  return (
-
-    warmth >= 9
-
-      ? "Spring"
-
-      : "Summer"
-
-  );
-}
-
-
-/* =========================================================
-   IMAGE SIGNATURE
-========================================================= */
-
-function createImageSignature(
-  pixels
-) {
-
-  let hash =
-    2166136261;
-
-
-  const count =
-    Math.min(
-      pixels.length,
-      2500
-    );
-
-
-  const stride =
-    Math.max(
-      1,
-      Math.floor(
-        pixels.length /
-        count
-      )
-    );
-
-
-  for (
-    let i = 0;
-    i < pixels.length;
-    i += stride
-  ) {
-
-    const p =
-      pixels[i];
-
-
-    hash ^= p.r;
-
-    hash =
-      Math.imul(
-        hash,
-        16777619
-      );
-
-
-    hash ^= p.g;
-
-    hash =
-      Math.imul(
-        hash,
-        16777619
-      );
-
-
-    hash ^= p.b;
-
-    hash =
-      Math.imul(
-        hash,
-        16777619
-      );
-  }
-
-
-  return hash >>> 0;
-}
-
-
-/* =========================================================
-   PERSONALIZED PALETTE
-========================================================= */
-
-function getPersonalizedPalette(
-  season,
-  pixels
-) {
-
-  const colors =
-    seasonData[
-      season
-    ].colors;
-
-
-  const signature =
-    createImageSignature(
-      pixels
-    );
-
-
-  const selected = [];
-
-  const used =
-    new Set();
-
-
-  const start =
-    signature %
-    colors.length;
-
-
-  let i = 0;
-
-
-  while (
-
-    selected.length < 8 &&
-
-    i < 100
-
-  ) {
-
-
-    const index =
-
-      (
-        start +
-        i * 3
-      ) %
-      colors.length;
-
-
-    if (
-      !used.has(index)
-    ) {
-
-      used.add(
-        index
-      );
-
-
-      selected.push(
-        colors[index]
-      );
-    }
-
-
-    i++;
-  }
-
-
-  return selected;
-}
-
-
-/* =========================================================
-   MAIN IMAGE ANALYSIS
-========================================================= */
-
-async function analyzeImage(
-  file
-) {
-
-  return new Promise(
-    (resolve,reject) => {
-
-
-      const image =
-        new Image();
-
-
-      const objectURL =
-        URL.createObjectURL(
-          file
-        );
-
-
-      image.onload =
-        function() {
-
-
-          try {
-
-
-            let width =
-              image.naturalWidth;
-
-
-            let height =
-              image.naturalHeight;
-
-
-            /*
-               Resize large images.
-            */
-
-            const maxSize =
-              600;
-
-
-            if (
-
-              width > maxSize ||
-
-              height > maxSize
-
-            ) {
-
-
-              const ratio =
-
-                Math.min(
-
-                  maxSize / width,
-
-                  maxSize / height
-
-                );
-
-
-              width =
-                Math.round(
-                  width * ratio
-                );
-
-
-              height =
-                Math.round(
-                  height * ratio
-                );
+            if (width > maxSize) {
+              height = Math.round(height * maxSize / width);
+              width = maxSize;
             }
 
+          } else {
 
-            /*
-               Canvas.
-            */
+            if (height > maxSize) {
+              width = Math.round(width * maxSize / height);
+              height = maxSize;
+            }
+          }
 
-            const canvas =
-              document.createElement(
-                "canvas"
-              );
+          const canvas = document.createElement("canvas");
 
+          canvas.width = width;
+          canvas.height = height;
 
-            canvas.width =
-              width;
+          const ctx = canvas.getContext("2d", {
+            willReadFrequently: true
+          });
 
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
 
-            canvas.height =
-              height;
-
-
-            const ctx =
-              canvas.getContext(
-                "2d",
-                {
-                  willReadFrequently:
-                    true
-                }
-              );
-
-
-            ctx.drawImage(
-              image,
+          const imageData =
+            ctx.getImageData(
               0,
               0,
               width,
               height
-            );
+            ).data;
 
+          let skinR = 0;
+          let skinG = 0;
+          let skinB = 0;
+          let skinCount = 0;
 
-            /*
-               Collect image information.
-            */
+          let totalR = 0;
+          let totalG = 0;
+          let totalB = 0;
+          let totalCount = 0;
 
-            const samples =
-              collectPixels(
-                ctx,
-                width,
-                height
-              );
+          let saturationTotal = 0;
+          let lightnessTotal = 0;
 
+          /*
+             Sample the image consistently.
+             Same image = same result.
+          */
 
-            /*
-               Priority:
+          for (
+            let i = 0;
+            i < imageData.length;
+            i += 16
+          ) {
 
-               1. Skin pixels
-               2. Central area
-               3. Whole image
-            */
-
-            let pixels =
-              samples.skinPixels;
-
-
-            if (
-              pixels.length < 80
-            ) {
-
-              pixels =
-                samples.centerPixels;
-            }
-
+            const r = imageData[i];
+            const g = imageData[i + 1];
+            const b = imageData[i + 2];
 
             if (
-              pixels.length < 80
+              r === undefined ||
+              g === undefined ||
+              b === undefined
             ) {
-
-              pixels =
-                samples.allPixels;
+              continue;
             }
 
+            totalR += r;
+            totalG += g;
+            totalB += b;
 
-            /*
-               Calculate characteristics.
-            */
+            totalCount++;
 
-            const metrics =
-              calculateMetrics(
-                pixels
-              );
+            const hsl = rgbToHsl(r, g, b);
 
+            saturationTotal += hsl.s;
+            lightnessTotal += hsl.l;
 
-            const quality =
-              classifyQuality(
-                metrics
-              );
+            if (isSkinLike(r, g, b)) {
 
+              skinR += r;
+              skinG += g;
+              skinB += b;
 
-            const depth =
-              classifyDepth(
-                metrics
-              );
-
-
-            const direction =
-              classifyDirection(
-                metrics.warmth
-              );
-
-
-            const season =
-              classifySeason(
-                metrics,
-                quality,
-                depth
-              );
-
-
-            const palette =
-              getPersonalizedPalette(
-                season,
-                pixels
-              );
-
-
-            const data =
-              seasonData[
-                season
-              ];
-
-
-            /*
-               Build report.
-            */
-
-            report = {
-
-              season:
-                season,
-
-              direction:
-                direction,
-
-              depth:
-                depth,
-
-              quality:
-                quality,
-
-              palette:
-                palette,
-
-              suitable:
-                data.suitable,
-
-              unsuitable:
-                data.unsuitable,
-
-              style:
-                data.style,
-
-              harmony:
-                data.harmony
-
-            };
-
-
-            URL.revokeObjectURL(
-              objectURL
-            );
-
-
-            resolve(
-              report
-            );
-
-
-          } catch(error) {
-
-
-            URL.revokeObjectURL(
-              objectURL
-            );
-
-
-            reject(
-              error
-            );
-
+              skinCount++;
+            }
           }
 
-        };
+
+          if (totalCount === 0) {
+            reject(new Error("Could not read image."));
+            return;
+          }
 
 
-      image.onerror =
-        function() {
+          let avgR;
+          let avgG;
+          let avgB;
+
+          /*
+             Prefer skin-like pixels.
+             Fall back to full image if needed.
+          */
+
+          if (skinCount >= 20) {
+
+            avgR = skinR / skinCount;
+            avgG = skinG / skinCount;
+            avgB = skinB / skinCount;
+
+          } else {
+
+            avgR = totalR / totalCount;
+            avgG = totalG / totalCount;
+            avgB = totalB / totalCount;
+          }
 
 
-          URL.revokeObjectURL(
-            objectURL
-          );
+          const warmth =
+            ((avgR - avgB) * 0.7) +
+            ((avgG - avgB) * 0.3);
 
 
-          reject(
-            new Error(
-              "Unable to load image."
-            )
-          );
-
-        };
+          const averageSaturation =
+            saturationTotal / totalCount;
 
 
-      image.src =
-        objectURL;
+          const averageLightness =
+            lightnessTotal / totalCount;
 
-    }
+
+          /* =========================
+             COLOR QUALITY
+          ========================= */
+
+          let quality;
+
+          if (averageSaturation >= 34) {
+
+            quality = "Bright";
+
+          } else if (averageSaturation <= 22) {
+
+            quality = "Soft";
+
+          } else {
+
+            quality = "Balanced";
+          }
+
+
+          /* =========================
+             DEPTH
+          ========================= */
+
+          let depth;
+
+          if (averageLightness >= 67) {
+
+            depth = "Light";
+
+          } else if (averageLightness <= 38) {
+
+            depth = "Deep";
+
+          } else {
+
+            depth = "Medium";
+          }
+
+
+          /* =========================
+             SEASON
+          ========================= */
+
+          let season;
+
+
+          if (warmth >= 18) {
+
+            if (
+              quality === "Bright" ||
+              depth === "Light"
+            ) {
+
+              season = "Spring";
+
+            } else {
+
+              season = "Autumn";
+            }
+
+          } else if (warmth <= 5) {
+
+            if (
+              quality === "Soft" ||
+              depth === "Light"
+            ) {
+
+              season = "Summer";
+
+            } else {
+
+              season = "Winter";
+            }
+
+          } else {
+
+            /*
+               Neutral zone.
+               Use depth + quality to choose the
+               closest seasonal family.
+            */
+
+            if (depth === "Light") {
+
+              season =
+                quality === "Bright"
+                  ? "Spring"
+                  : "Summer";
+
+            } else if (depth === "Deep") {
+
+              season =
+                quality === "Bright"
+                  ? "Winter"
+                  : "Autumn";
+
+            } else {
+
+              if (quality === "Bright") {
+
+                season =
+                  warmth >= 11
+                    ? "Spring"
+                    : "Winter";
+
+              } else if (quality === "Soft") {
+
+                season =
+                  warmth >= 11
+                    ? "Autumn"
+                    : "Summer";
+
+              } else {
+
+                season =
+                  warmth >= 11
+                    ? "Autumn"
+                    : "Summer";
+              }
+            }
+          }
+
+
+          /* =========================
+             COLOR DIRECTION
+          ========================= */
+
+          let direction;
+
+          if (warmth >= 12) {
+
+            direction = "Warm";
+
+          } else if (warmth <= 5) {
+
+            direction = "Cool";
+
+          } else {
+
+            direction = "Neutral";
+          }
+
+
+          const data = seasonData[season];
+
+
+          report = {
+
+            season: season,
+
+            direction: direction,
+
+            depth: depth,
+
+            quality: quality,
+
+            colors: data.colors,
+
+            suitable: data.suitable,
+
+            unsuitable: data.unsuitable,
+
+            style: data.style,
+
+            harmony: data.harmony
+          };
+
+
+          resolve(report);
+
+        } catch (error) {
+
+          reject(error);
+        }
+      };
+
+
+      img.onerror = function() {
+
+        reject(
+          new Error("Unable to load the image.")
+        );
+      };
+
+
+      img.src = event.target.result;
+    };
+
+
+    reader.onerror = function() {
+
+      reject(
+        new Error("Unable to read the selected file.")
+      );
+    };
+
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
+/* =========================================================
+   DISPLAY RESULTS
+========================================================= */
+
+function displayResult(data) {
+
+  document.getElementById("seasonResult").textContent =
+    data.season;
+
+  document.getElementById("directionResult").textContent =
+    data.direction;
+
+  document.getElementById("depthResult").textContent =
+    data.depth;
+
+  document.getElementById("qualityResult").textContent =
+    data.quality;
+
+
+  const palette =
+    document.getElementById("paletteResult");
+
+  palette.innerHTML = "";
+
+
+  data.colors.forEach(color => {
+
+    const swatch =
+      document.createElement("div");
+
+    swatch.className = "swatch";
+
+    swatch.innerHTML = `
+      <div
+        class="swatch-color"
+        style="background:${color[1]}"
+      ></div>
+      <div>${color[0]}</div>
+    `;
+
+    palette.appendChild(swatch);
+  });
+
+
+  createList(
+    "suitableResult",
+    data.suitable
   );
+
+
+  createList(
+    "unsuitableResult",
+    data.unsuitable
+  );
+
+
+  document.getElementById("styleResult").textContent =
+    data.style;
+
+
+  document.getElementById("harmonyResult").textContent =
+    data.harmony;
+
+
+  document.getElementById("resultWrapper").style.display =
+    "block";
+
+
+  document.getElementById("resultWrapper")
+    .scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
 }
 
 
@@ -2952,561 +1965,280 @@ async function analyzeImage(
    LIST CREATOR
 ========================================================= */
 
-function createList(
-  items
-) {
+function createList(id, items) {
 
-  return items
-    .map(
-      item =>
-        `<li>${item}</li>`
-    )
-    .join("");
-}
+  const element =
+    document.getElementById(id);
 
+  element.innerHTML = "";
 
-/* =========================================================
-   DISPLAY RESULT
-========================================================= */
+  items.forEach(item => {
 
-function displayResult(
-  data
-) {
+    const li =
+      document.createElement("li");
 
+    li.textContent = item;
 
-  document.getElementById(
-    "seasonResult"
-  ).textContent =
-    data.season;
-
-
-  document.getElementById(
-    "directionResult"
-  ).textContent =
-    data.direction;
-
-
-  document.getElementById(
-    "depthResult"
-  ).textContent =
-    data.depth;
-
-
-  document.getElementById(
-    "qualityResult"
-  ).textContent =
-    data.quality;
-
-
-  /*
-     Palette.
-  */
-
-  document.getElementById(
-    "paletteResult"
-  ).innerHTML =
-
-    data.palette
-
-      .map(
-
-        color => `
-
-          <div class="swatch">
-
-            <div
-              class="swatch-color"
-              style="
-                background:${color[1]};
-              "
-            ></div>
-
-            <span>
-              ${color[0]}
-            </span>
-
-          </div>
-
-        `
-
-      )
-
-      .join("");
-
-
-  /*
-     Suitable colours.
-  */
-
-  document.getElementById(
-    "suitableResult"
-  ).innerHTML =
-
-    createList(
-      data.suitable
-    );
-
-
-  /*
-     Unsuitable colours.
-  */
-
-  document.getElementById(
-    "unsuitableResult"
-  ).innerHTML =
-
-    createList(
-      data.unsuitable
-    );
-
-
-  /*
-     Style.
-  */
-
-  document.getElementById(
-    "styleResult"
-  ).textContent =
-    data.style;
-
-
-  /*
-     Harmony.
-  */
-
-  document.getElementById(
-    "harmonyResult"
-  ).textContent =
-    data.harmony;
-
-
-  /*
-     Show results.
-  */
-
-  document.getElementById(
-    "resultWrapper"
-  ).style.display =
-    "block";
-
-
-  /*
-     Scroll to results.
-  */
-
-  document.getElementById(
-    "resultWrapper"
-  ).scrollIntoView({
-
-    behavior:
-      "smooth",
-
-    block:
-      "start"
-
+    element.appendChild(li);
   });
 }
 
 
 /* =========================================================
-   PREPARE PDF
+   PDF PREPARATION
 ========================================================= */
 
 function preparePDF() {
-
 
   if (!report) {
     return;
   }
 
 
-  document.getElementById(
-    "pdfSeason"
-  ).textContent =
+  document.getElementById("pdfSeason").textContent =
     report.season;
 
-
-  document.getElementById(
-    "pdfDirection"
-  ).textContent =
+  document.getElementById("pdfDirection").textContent =
     report.direction;
 
-
-  document.getElementById(
-    "pdfDepth"
-  ).textContent =
+  document.getElementById("pdfDepth").textContent =
     report.depth;
 
-
-  document.getElementById(
-    "pdfQuality"
-  ).textContent =
+  document.getElementById("pdfQuality").textContent =
     report.quality;
 
 
-  /*
-     PDF palette.
-  */
+  const pdfPalette =
+    document.getElementById("pdfPalette");
 
-  document.getElementById(
-    "pdfPalette"
-  ).innerHTML =
-
-    report.palette
-
-      .map(
-
-        color => `
-
-          <div
-            class="pdf-swatch"
-            style="
-              background:${color[1]};
-            "
-          >
-            ${color[0]}
-          </div>
-
-        `
-
-      )
-
-      .join("");
+  pdfPalette.innerHTML = "";
 
 
-  /*
-     PDF suitable.
-  */
+  report.colors.forEach(color => {
 
-  document.getElementById(
-    "pdfSuitable"
-  ).innerHTML =
+    const swatch =
+      document.createElement("div");
 
-    createList(
-      report.suitable
-    );
+    swatch.className = "swatch";
+
+    swatch.style.width = "68px";
+
+    swatch.innerHTML = `
+      <div
+        class="swatch-color"
+        style="
+          background:${color[1]};
+          width:50px;
+          height:50px;
+          margin:0 auto 5px;
+        "
+      ></div>
+
+      <div style="
+        font-size:8px;
+        text-align:center;
+        color:#514950;
+        font-weight:500;
+      ">
+        ${color[0]}
+      </div>
+    `;
+
+    pdfPalette.appendChild(swatch);
+  });
 
 
-  /*
-     PDF unsuitable.
-  */
-
-  document.getElementById(
-    "pdfUnsuitable"
-  ).innerHTML =
-
-    createList(
-      report.unsuitable
-    );
+  createList(
+    "pdfSuitable",
+    report.suitable
+  );
 
 
-  /*
-     PDF style.
-  */
+  createList(
+    "pdfUnsuitable",
+    report.unsuitable
+  );
 
-  document.getElementById(
-    "pdfStyle"
-  ).textContent =
+
+  document.getElementById("pdfStyle").textContent =
     report.style;
 
-
-  /*
-     PDF harmony.
-  */
-
-  document.getElementById(
-    "pdfHarmony"
-  ).textContent =
+  document.getElementById("pdfHarmony").textContent =
     report.harmony;
 }
 
 
 /* =========================================================
-   WAIT FOR PDF LOGO
+   WAIT FOR PDF LOGOS
 ========================================================= */
 
-async function waitForPDFImages() {
-
+function waitForPDFImages() {
 
   const images =
     document.querySelectorAll(
       "#pdfContainer img"
     );
 
+  return Promise.all(
+    Array.from(images).map(img => {
 
-  const promises =
-    Array.from(
-      images
-    ).map(
-
-      img => {
-
-
-        if (
-
-          img.complete &&
-
-          img.naturalWidth > 0
-
-        ) {
-
-          return Promise.resolve();
-        }
-
-
-        return new Promise(
-          resolve => {
-
-
-            const finish =
-              () => resolve();
-
-
-            img.addEventListener(
-              "load",
-              finish,
-              {
-                once:
-                  true
-              }
-            );
-
-
-            img.addEventListener(
-              "error",
-              finish,
-              {
-                once:
-                  true
-              }
-            );
-
-
-            setTimeout(
-              finish,
-              3000
-            );
-
-          }
-        );
-
+      if (img.complete && img.naturalWidth > 0) {
+        return Promise.resolve();
       }
 
-    );
+      return new Promise(resolve => {
 
+        img.onload = resolve;
+        img.onerror = resolve;
 
-  await Promise.all(
-    promises
+        setTimeout(resolve, 5000);
+      });
+    })
   );
 }
 
 
 /* =========================================================
-   GENERATE PDF
+   HIGH-RESOLUTION PDF GENERATION
 ========================================================= */
 
 async function generatePDF() {
-
 
   if (!report) {
     return;
   }
 
 
-  const button =
-    document.getElementById(
-      "pdfBtn"
-    );
+  const pdfStatus =
+    document.getElementById("pdfStatus");
+
+  const pdfBtn =
+    document.getElementById("pdfBtn");
 
 
-  const status =
-    document.getElementById(
-      "pdfStatus"
-    );
+  pdfBtn.disabled = true;
+
+  pdfStatus.textContent =
+    "Preparing your high-quality PDF...";
+
+
+  preparePDF();
+
+
+  const container =
+    document.getElementById("pdfContainer");
+
+
+  /*
+     Temporarily make PDF container renderable.
+     It remains far outside the visible screen.
+  */
+
+  container.style.display = "block";
 
 
   try {
 
-
-    button.disabled =
-      true;
-
-
-    status.textContent =
-      "Preparing your PDF...";
-
-
-    preparePDF();
-
-
-    const container =
-      document.getElementById(
-        "pdfContainer"
-      );
-
-
-    const page1 =
-      document.getElementById(
-        "pdfPage1"
-      );
-
-
-    const page2 =
-      document.getElementById(
-        "pdfPage2"
-      );
-
-
-    /*
-       Keep PDF off-screen,
-       but NOT display:none.
-    */
-
-    container.style.display =
-      "block";
-
-
-    await new Promise(
-      resolve =>
-
-        requestAnimationFrame(
-          () =>
-
-            requestAnimationFrame(
-              resolve
-            )
-
-        )
-
-    );
-
-
     await waitForPDFImages();
 
 
-    const {
-      jsPDF
-    } =
-      window.jspdf;
+    const { jsPDF } = window.jspdf;
 
+
+    /*
+       IMPORTANT:
+       3× rendering gives much sharper text.
+       PNG prevents JPEG compression from
+       softening the letters.
+    */
 
     const pdf =
       new jsPDF({
-
-        orientation:
-          "portrait",
-
-        unit:
-          "mm",
-
-        format:
-          "a4",
-
-        compress:
-          true
-
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+        compress: false
       });
 
 
     const pages = [
-
-      page1,
-
-      page2
-
+      document.getElementById("pdfPage1"),
+      document.getElementById("pdfPage2")
     ];
 
 
-    for (
-      let i = 0;
-      i < pages.length;
-      i++
-    ) {
+    for (let i = 0; i < pages.length; i++) {
+
+      pdfStatus.textContent =
+        `Creating page ${i + 1} of ${pages.length}...`;
 
 
       const canvas =
         await html2canvas(
-
           pages[i],
-
           {
+            scale: 3,
 
-            scale:
-              1.5,
+            useCORS: true,
 
-            useCORS:
-              false,
+            allowTaint: false,
 
-            allowTaint:
-              false,
+            backgroundColor: null,
 
-            backgroundColor:
-              null,
+            logging: false,
 
-            logging:
-              false,
+            imageTimeout: 15000,
 
-            imageTimeout:
-              0
-
+            removeContainer: true
           }
-
         );
 
+
+      /*
+         PNG instead of JPEG.
+         This is the main fix for the
+         low-resolution/compressed appearance.
+      */
 
       const imageData =
         canvas.toDataURL(
-          "image/jpeg",
-          0.94
+          "image/png"
         );
 
 
-      if (
-        i > 0
-      ) {
+      if (i > 0) {
 
         pdf.addPage();
       }
 
 
       pdf.addImage(
-
         imageData,
-
-        "JPEG",
-
+        "PNG",
         0,
-
         0,
-
         210,
-
         297,
-
         undefined,
-
-        "FAST"
-
+        "NONE"
       );
-
     }
 
 
-    /*
-       Download.
-    */
+    pdfStatus.textContent =
+      "Saving your PDF...";
+
 
     pdf.save(
       "Haneul-Palette-Men-Essential-Color-Insight-Results.pdf"
     );
 
 
-    status.textContent =
-      "Your PDF has been downloaded successfully.";
+    pdfStatus.textContent =
+      "Your PDF is ready.";
 
 
-  } catch(error) {
-
+  } catch (error) {
 
     console.error(
       "PDF generation error:",
@@ -3514,262 +2246,101 @@ async function generatePDF() {
     );
 
 
-    status.textContent =
+    pdfStatus.textContent =
       "There was a problem creating the PDF. Please try again.";
+  }
 
 
-  } finally {
+  finally {
 
+    container.style.display = "none";
 
-    /*
-       Keep hidden off-screen.
-    */
-
-    const container =
-      document.getElementById(
-        "pdfContainer"
-      );
-
-
-    container.style.display =
-      "block";
-
-
-    container.style.left =
-      "-10000px";
-
-
-    button.disabled =
-      false;
-
+    pdfBtn.disabled = false;
   }
 }
 
 
 /* =========================================================
-   ANALYZE BUTTON
+   BUTTON EVENTS
 ========================================================= */
 
 document
-  .getElementById(
-    "analyzeBtn"
-  )
+  .getElementById("analyzeBtn")
   .addEventListener(
-
     "click",
-
     async function() {
 
-
       const input =
-        document.getElementById(
-          "imageInput"
-        );
-
+        document.getElementById("imageInput");
 
       const loading =
-        document.getElementById(
-          "loadingText"
-        );
+        document.getElementById("loadingText");
 
+      const button =
+        document.getElementById("analyzeBtn");
 
-      /*
-         No image.
-      */
 
       if (
-
         !input.files ||
-
         !input.files.length
-
       ) {
 
-
         alert(
-          "Please upload a clear photo first."
+          "Please select a photo first."
         );
 
-
         return;
-
       }
 
 
-      const file =
-        input.files[0];
+      button.disabled = true;
 
+      loading.style.display = "block";
 
-      /*
-         Check file.
-      */
-
-      if (
-        !file.type.startsWith(
-          "image/"
-        )
-      ) {
-
-
-        alert(
-          "Please select an image file."
-        );
-
-
-        return;
-
-      }
+      document.getElementById(
+        "resultWrapper"
+      ).style.display = "none";
 
 
       try {
 
-
-        /*
-           Disable button.
-        */
-
-        this.disabled =
-          true;
-
-
-        /*
-           Show loading.
-        */
-
-        loading.style.display =
-          "block";
-
-
-        loading.textContent =
-          "Analyzing your photo...";
-
-
-        /*
-           Hide previous result.
-        */
-
-        document.getElementById(
-          "resultWrapper"
-        ).style.display =
-          "none";
-
-
-        /*
-           Perform analysis.
-        */
-
-        report =
+        const result =
           await analyzeImage(
-            file
+            input.files[0]
           );
 
 
-        /*
-           Display.
-        */
-
-        displayResult(
-          report
-        );
+        displayResult(result);
 
 
-        loading.textContent =
-          "Analysis complete.";
-
-
-      } catch(error) {
-
+      } catch (error) {
 
         console.error(
-          "Image analysis error:",
+          "Analysis error:",
           error
         );
 
 
         alert(
-          "We couldn't analyze this photo. Please try a clear, front-facing photo in natural light."
+          "Unable to analyze this photo. Please try another clear image."
         );
-
 
       } finally {
 
+        button.disabled = false;
 
-        this.disabled =
-          false;
-
-
-        setTimeout(
-
-          () => {
-
-            loading.style.display =
-              "none";
-
-          },
-
-          800
-
-        );
-
+        loading.style.display = "none";
       }
-
     }
-
   );
 
 
-/* =========================================================
-   PDF BUTTON
-========================================================= */
-
 document
-  .getElementById(
-    "pdfBtn"
-  )
+  .getElementById("pdfBtn")
   .addEventListener(
-
     "click",
-
     generatePDF
-
   );
-
-
-/* =========================================================
-   FILE SELECTION
-========================================================= */
-
-document
-  .getElementById(
-    "imageInput"
-  )
-  .addEventListener(
-
-    "change",
-
-    function() {
-
-
-      if (
-
-        this.files &&
-
-        this.files.length
-
-      ) {
-
-
-        document.getElementById(
-          "loadingText"
-        ).style.display =
-          "none";
-
-      }
-
-    }
-
-  );
-
 
 </script>
 
